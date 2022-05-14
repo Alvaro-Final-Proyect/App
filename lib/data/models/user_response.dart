@@ -20,5 +20,5 @@ class UserModel {
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   @override
-  String toString() => 'UserResponse{id: $id, username: $username, email: $email, level: $level}';
+  String toString() => 'UserResponse{id: $id, username: $username, email: $email, level: $level, friends: $friends}';
 }

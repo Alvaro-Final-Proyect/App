@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -22,6 +24,7 @@ class FriendRequestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('reload req');
     return ExpansionTile(
       title: Text('${_user.name} ${_user.surname}'),
       leading: const CircleAvatar(

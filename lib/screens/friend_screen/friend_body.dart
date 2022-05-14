@@ -32,6 +32,8 @@ class FriendBody extends StatelessWidget {
           .where((p0) => _friendController.user!.friends!.contains(p0.id))
           .toList();
 
+      log('reload');
+
       return _friendController.isLoading()
           ? const CircularProgressIndicator()
           : TabBarView(children: [
