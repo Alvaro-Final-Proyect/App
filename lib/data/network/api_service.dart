@@ -45,7 +45,7 @@ class ApiService {
   }
 
   Future<void> saveUser(UserModel userModel) async{
-    await RetrofitHelper.getApiClient().saveUser(userModel);
+    await RetrofitHelper.getApiClient().saveUser(userModel, userModel.id!);
   }
 
   Future<UserModel> acceptFriendRequest(String acceptedId) async {

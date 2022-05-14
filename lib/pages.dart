@@ -33,7 +33,7 @@ List<GetPage<dynamic>> pages = [
   ),
   GetPage(
       name: '/home/profile',
-      page: () => const ProfilePage(),
+      page: () => ProfilePage(),
       transition: Transition.leftToRightWithFade
   ),
   GetPage(

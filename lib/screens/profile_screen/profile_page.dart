@@ -1,27 +1,69 @@
-import 'package:padel/screens/profile_screen/profile_body.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/screens/profile_screen/profile_body.dart';
+import 'package:padel/screens/profile_screen/profile_controller.dart';
 
-class ProfilePage extends StatelessWidget{
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  ProfilePage({Key? key}) : super(key: key);
 
-  void _save(){
+  final profileController = Get.put(ProfileController());
 
+  void _save(
+    String username,
+    String email,
+    String name,
+    String surname,
+    String position,
+  ) async {
+    profileController.save(username, email, name, surname, position);
   }
 
   @override
   Widget build(BuildContext context) {
+    final body = ProfileBody();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('titleProfile'.tr),
         leading: IconButton(
-          onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back)
-        ),
+            onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back)),
         centerTitle: true,
       ),
-      body: ProfileBody(),
+      body: body,
       floatingActionButton: FloatingActionButton(
-        onPressed: _save,
+        onPressed: () {
+          bool usernameValidation = body.username.validator(
+              body.username.customTextFieldController,
+              body.username.textEditingController);
+          bool emailValidation = body.email.validator(
+              body.email.customTextFieldController,
+              body.email.textEditingController);
+          bool nameValidation = body.name.validator(
+              body.name.customTextFieldController,
+              body.name.textEditingController);
+          bool surnameValidation = body.surname.validator(
+              body.surname.customTextFieldController,
+              body.surname.textEditingController);
+          bool positionValidation =
+              body.position.validator(body.position.dropDownMenuController);
+
+          log(body.position.dropDownMenuController.selectedValue);
+
+          if (usernameValidation &&
+              emailValidation &&
+              nameValidation &&
+              surnameValidation &&
+              positionValidation) {
+            _save(
+                body.username.textEditingController.text,
+                body.email.textEditingController.text,
+                body.name.textEditingController.text,
+                body.surname.textEditingController.text,
+                body.position.dropDownMenuController.selectedValue);
+          }
+        },
         child: const Icon(Icons.check),
       ),
     );

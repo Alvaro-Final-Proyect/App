@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/profile_screen/profile_controller.dart';
@@ -6,6 +8,8 @@ import '../../widgets/drop_down_menu.dart';
 
 class ProfileBody extends StatelessWidget{
   ProfileBody({Key? key}) : super(key: key);
+
+  final profileController = Get.find<ProfileController>();
 
   final username = CustomTextField(
       margin: const EdgeInsets.all(10),
@@ -62,21 +66,17 @@ class ProfileBody extends StatelessWidget{
       return result;
     },
   );
-  final profileController = Get.put(ProfileController());
 
-  String camelToSentence(String text) {
-    var result = text.replaceAll(RegExp(r'(?<!^)(?=[A-Z])'), r" ");
-    var finalResult = result[0].toUpperCase() + result.substring(1);
-    return finalResult;
-  }
-  
   @override
   Widget build(BuildContext context) {
+    log(profileController.currentUser.toString());
     username.textEditingController.text = profileController.currentUser?.username ?? '';
     email.textEditingController.text = profileController.currentUser?.email ?? '';
     surname.textEditingController.text = profileController.currentUser?.surname ?? '';
     name.textEditingController.text = profileController.currentUser?.name ?? '';
+    log('text${profileController.currentUser?.position?.capitalize}Position');
     position.dropDownMenuController.selected.value = 'text${profileController.currentUser?.position?.capitalize}Position';
+    position.dropDownMenuController.selectedValue = profileController.currentUser!.position!;
 
     return SingleChildScrollView(
       child: Column(

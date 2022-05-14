@@ -34,7 +34,6 @@ class RegisterBody extends StatelessWidget {
     bool positionValidation =
         position.validator(position.dropDownMenuController);
 
-    printInfo(info: position.dropDownMenuController.selected.value);
 
     if (usernameValidation &&
         emailValidation &&

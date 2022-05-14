@@ -130,7 +130,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<void> saveUser(user) async {
+  Future<void> saveUser(user, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -138,7 +138,7 @@ class _ApiClient implements ApiClient {
     _data.addAll(user.toJson());
     await _dio.fetch<void>(_setStreamType<void>(
         Options(method: 'PATCH', headers: _headers, extra: _extra)
-            .compose(_dio.options, 'api/users/saveUser/',
+            .compose(_dio.options, '/api/users/${id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;

@@ -31,8 +31,8 @@ abstract class ApiClient{
   @PATCH('/api/users/removeFriend/{id}')
   Future<UserModel> removeFriend(@Path() String id);
 
-  @PATCH('api/users/saveUser/')
-  Future<void> saveUser(@Body() UserModel user);
+  @PATCH('/api/users/{id}')
+  Future<void> saveUser(@Body() UserModel user, @Path() String id);
 
   @GET('/api/matches/')
   Future<List<MatchModel>> getAllMatches();
