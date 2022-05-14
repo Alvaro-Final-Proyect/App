@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:padel/screens/profile_screen/profile_controller.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/drop_down_menu.dart';

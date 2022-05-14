@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
     _loadUser();
 
     return Scaffold(
-      drawer: const CustomDrawer(),
+      drawer: Obx(() => homeController.isLoading() ? const CircularProgressIndicator() : CustomDrawer()),
       appBar: AppBar(
         title: Text('homeTitle'.tr),
         centerTitle: true,

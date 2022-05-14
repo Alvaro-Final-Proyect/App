@@ -1,8 +1,11 @@
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/data/models/user_response.dart';
+import 'package:padel/domain/user_use_case/accept_friend_request_use_case.dart';
 import 'package:padel/domain/user_use_case/get_all_users_use_case.dart';
 import 'package:get/get.dart';
 import 'package:padel/domain/user_use_case/get_user_from_token_use_case.dart';
+import 'package:padel/domain/user_use_case/remove_friend_use_case.dart';
+import 'package:padel/domain/user_use_case/send_friend_request_use_case.dart';
 
 class FriendController extends GetxController {
   final _isLoading = false.obs;
@@ -13,14 +16,24 @@ class FriendController extends GetxController {
 
   final getAllUsersUseCase = GetAllUsersUseCase();
   final getUserFormTokenUseCase = GetUserFromTokenUseCase();
+  final sendFriendRequestUseCase = SendFriendRequestUseCase();
+  final acceptFriendRequestUseCase = AcceptFriendRequestUseCase();
+  final removeFriendUseCase = RemoveFriendUseCase();
   final users = <UserModel>[].obs;
   final showingUsers = <UserModel>[].obs;
   var user = RetrofitHelper.user;
+
+  @override
+  void onInit(){
+    super.onInit();
+    loadUsers();
+  }
 
   Future<void> loadUsers() async {
     _isLoading.value = true;
     users.value = await getAllUsersUseCase();
     showingUsers.value = users;
+    refresh();
     _isLoading.value = false;
   }
 
@@ -29,5 +42,34 @@ class FriendController extends GetxController {
     user = await getUserFormTokenUseCase();
     update();
     _isLoading.value = false;
+  }
+
+  Future<void> sendFriendRequest(String userId) async {
+    try{
+      await sendFriendRequestUseCase(userId);
+      _loadError.value = '';
+    }on Exception catch(_){
+      _loadError.value = 'Friend request canceled';
+    }
+  }
+
+  Future<void> acceptFriendRequest(String userId)async {
+    try{
+      user = await acceptFriendRequestUseCase(userId);
+      _loadError.value = '';
+      update();
+    }on Exception catch(_){
+      _loadError.value = 'Friend request canceled';
+    }
+  }
+
+  Future<void> removeFriend(String userId) async {
+    try {
+      user = await removeFriendUseCase(userId);
+      _loadError.value = '';
+      update();
+    }on Exception catch(_){
+      _loadError.value = 'An error occurred';
+    }
   }
 }

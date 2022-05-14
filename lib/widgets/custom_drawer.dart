@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/core/retrofit_helper.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  CustomDrawer({Key? key}) : super(key: key);
+
+  final _user = RetrofitHelper.user;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +20,11 @@ class CustomDrawer extends StatelessWidget {
                 backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
               )
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 0, top: 10),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 0, top: 10),
             child: Text(
-              'Alvaro Martinez Gutierrez',
-              style: TextStyle(
+              '${_user?.name?.capitalize} ${_user?.surname?.capitalize}',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
