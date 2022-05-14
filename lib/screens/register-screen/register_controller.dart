@@ -11,16 +11,16 @@ class RegisterController extends GetxController {
 
   final registerUseCase = RegisterUseCase();
 
-  Future<void> register(
-    String username,
-    String email,
-    String name,
-    String password,
-    String surname,
-    String level,
-    String position,
-    String gender,
-  ) async {
+  Future<void> register({
+      required String username,
+      required String email,
+      required String password,
+      required String name,
+      required String surname,
+      required String level,
+      required String position,
+      required String gender,
+  }) async {
     _isLoading.value = true;
 
     UserModel newUser = UserModel(

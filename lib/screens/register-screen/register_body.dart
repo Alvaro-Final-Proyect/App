@@ -46,14 +46,14 @@ class RegisterBody extends StatelessWidget {
         positionValidation
     ) {
       await _registerController.register(
-          username.textEditingController.text,
-          email.textEditingController.text,
-          password.textEditingController.text,
-          name.textEditingController.text,
-          surname.textEditingController.text,
-          level.dropDownMenuController.selected.value,
-          position.dropDownMenuController.selectedValue,
-          genderController.gender);
+          username: username.textEditingController.text,
+          email: email.textEditingController.text,
+          password: password.textEditingController.text,
+          name: name.textEditingController.text,
+          surname: surname.textEditingController.text,
+          level: level.dropDownMenuController.selected.value,
+          position: position.dropDownMenuController.selectedValue,
+          gender: genderController.gender);
 
       if (_registerController.loadError() == '') {
         Fluttertoast.showToast(
