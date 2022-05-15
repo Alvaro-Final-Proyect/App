@@ -10,6 +10,17 @@ final darkTheme = ThemeData.dark().copyWith(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: darkGray,
     ),
+    iconTheme: IconThemeData(
+      color: white
+    ),
+    actionsIconTheme: IconThemeData(
+      color: white
+    ),
+    titleTextStyle: TextStyle(
+        color: white,
+        fontWeight: FontWeight.bold,
+        fontSize: 20
+    ),
   ),
   scaffoldBackgroundColor: black,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -20,6 +31,13 @@ final darkTheme = ThemeData.dark().copyWith(
   ),
   cardTheme: const CardTheme(
     color: darkGray
+  ),
+  tabBarTheme: const TabBarTheme(
+      labelColor: white
+  ),
+  colorScheme: const ColorScheme.dark().copyWith(
+    onPrimary: black,
+    onSurface: darkGray
   )
 );
 
@@ -45,5 +63,12 @@ final lightTheme = ThemeData.light().copyWith(
   ),
   drawerTheme: const DrawerThemeData(
       backgroundColor: lightGray
+  ),
+  tabBarTheme: const TabBarTheme(
+    labelColor: black
+  ),
+  colorScheme: const ColorScheme.dark().copyWith(
+    onPrimary: white,
+    onSurface: lightGray,
   ),
 );

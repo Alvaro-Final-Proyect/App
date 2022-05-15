@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/res/colors.dart';
 
 typedef CustomTextFieldValidator = bool Function(
   CustomTextFieldController customTextFieldController,
@@ -36,9 +37,12 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
             labelText: labelText.tr,
             border: const OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)
+            ),
             prefixIcon: icon != null ? Icon(icon) : null,
-            errorText: customTextFieldController.textError.value == '' ? null : customTextFieldController.textError.value
-          )
+            errorText: customTextFieldController.textError.value == '' ? null : customTextFieldController.textError.value,
+          ),
         ),
       );
     });

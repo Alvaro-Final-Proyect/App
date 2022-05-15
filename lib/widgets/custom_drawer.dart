@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/core/retrofit_helper.dart';
+import 'package:padel/res/colors.dart';
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
@@ -74,18 +75,18 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      color: Get.theme.brightness == Brightness.light ? Colors.blue : Colors.lightBlueAccent,
-      child: ListTile(
-        title: Text(title),
-        onTap: () {
-          if(page != null){
-            Get.toNamed(page!);
-          }
-        },
-        trailing: Icon(icon),
-      ),
-    );
+      return Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        color: Theme.of(context).colorScheme.onPrimary,
+        child: ListTile(
+          title: Text(title),
+          onTap: () {
+            if(page != null){
+              Get.toNamed(page!);
+            }
+          },
+          trailing: Icon(icon),
+        ),
+      );
   }
 }

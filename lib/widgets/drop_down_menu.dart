@@ -24,6 +24,9 @@ class DropdownMenu extends StatelessWidget {
       return DropdownButtonFormField(
         decoration:  InputDecoration(
           border: const OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)
+          ),
           errorText: dropDownMenuController.textError.value == '' ? null : dropDownMenuController.textError.value
         ),
         items: items.map<DropdownMenuItem<String>>((item) => DropdownMenuItem<String>(
