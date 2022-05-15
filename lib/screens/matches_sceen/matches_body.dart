@@ -35,9 +35,7 @@ class MatchesBody extends StatelessWidget {
         onRefresh: _loadMatches,
         child: GroupedListView<MatchModel, String>(
           elements: matchesController.matches,
-          groupBy: (element) {
-            return element.date.getDate();
-          },
+          groupBy: (element) => element.date.getDate(),
           groupSeparatorBuilder: (String date) {
             return Container(
               width: double.infinity,

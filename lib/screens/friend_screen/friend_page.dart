@@ -1,3 +1,4 @@
+import 'package:icon_badge/icon_badge.dart';
 import 'package:padel/screens/friend_screen/friend_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,15 +19,21 @@ class FriendPage extends StatelessWidget {
           leading: IconButton(
             onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back)
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(
+              const Tab(
                 child: Icon(Icons.person_search),
               ),
               Tab(
-                child: Icon(Icons.person_add),
+                child: Obx(() {
+                  return IconBadge(
+                    icon: const Icon(Icons.person_add),
+                    itemCount: friendController.user?.friendsRequests?.length ?? 0,
+                    hideZero: true,
+                  );
+                }),
               ),
-              Tab(
+              const Tab(
                 child: Icon(Icons.person),
               )
             ]

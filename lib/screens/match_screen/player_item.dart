@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user_response.dart';
+import '../../res/colors.dart';
 import 'match_controller.dart';
 import 'match_page.dart';
 
@@ -24,10 +25,13 @@ class PlayerItem extends StatelessWidget {
             children: [
               InkWell(
                 child: CircleAvatar(
-                  backgroundImage: player == null
-                      ? const NetworkImage('http://knttraining.co.uk/wp-content/uploads/2018/11/how-to-add-a-png-to-a-photo-300x300.png')
-                      : const NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
-                  backgroundColor: Colors.white,
+                  backgroundImage: player != null ? const NetworkImage(
+                      'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'
+                  ) : null,
+                  backgroundColor: player == null ? black : null,
+                  child: player == null
+                      ? const Icon(Icons.add, color: white)
+                      : null,
                 ),
                 onTap: () {
                   joinToMatch(index);

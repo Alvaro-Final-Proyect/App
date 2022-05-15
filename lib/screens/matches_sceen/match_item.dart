@@ -1,10 +1,10 @@
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/matches_sceen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
+
 import '../../data/models/match_model.dart';
 import 'matches_controller.dart';
 
@@ -81,27 +81,31 @@ class MatchItem extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                              child: Row(
-                                children: match.players
+                                child: Row(
+                              children: match.players
                                   .getRange(0, 2)
                                   .mapIndexed((index, player) {
-                                    return PlayerItem(index: index, joinToMatch: _joinToMatch, player: player,);
-                                  }
-                                ).toList(),
-                              )
-                            ),
+                                return PlayerItem(
+                                  index: index,
+                                  joinToMatch: _joinToMatch,
+                                  player: player.obs,
+                                );
+                              }).toList(),
+                            )),
                             Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: match.players
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: match.players
                                   .getRange(2, 4)
                                   .mapIndexed((index, player) {
-                                    index = index + 2;
-                                    return PlayerItem(player: player, index: index, joinToMatch: _joinToMatch,);
-                                  }
-                                ).toList(),
-                              )
-                            )
+                                index = index + 2;
+                                return PlayerItem(
+                                  player: player.obs,
+                                  index: index,
+                                  joinToMatch: _joinToMatch,
+                                );
+                              }).toList(),
+                            ))
                           ],
                         ),
                       ),
