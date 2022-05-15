@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:get/get.dart';
 import 'package:padel/domain/user_use_case/save_user_use_case.dart';
@@ -16,6 +18,10 @@ class ProfileController extends GetxController {
     currentUser?.surname = surname;
     currentUser?.position = position;
 
-    await saveUserUseCase(currentUser!);
+    try{
+      await saveUserUseCase(currentUser!);
+    }catch(e){
+      log('update error: $e');
+    }
   }
 }
