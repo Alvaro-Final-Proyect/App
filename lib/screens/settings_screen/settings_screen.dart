@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:padel/screens/settings_screen/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../res/colors.dart';
-import '../../res/themes.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
@@ -26,6 +24,7 @@ class SettingsScreen extends StatelessWidget {
                 );
 
                 settingsController.isDarkMode = !Get.isDarkMode;
+                settingsController.saveTheme();
               },
               icon: Icon(
                 settingsController.isDarkMode ? Icons.dark_mode : Icons.light_mode,

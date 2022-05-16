@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Obx(() => homeController.isLoading() ? const CircularProgressIndicator() : const HomeBody()),
+      body: Obx(() => homeController.isLoading() ? const Center(child: CircularProgressIndicator(),) : const HomeBody()),
     );
   }
 }

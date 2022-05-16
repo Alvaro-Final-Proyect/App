@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:flutter/services.dart';
+import 'dart:developer';
+import 'package:flutter/scheduler.dart';
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/core/shared_preferences_helper.dart';
 import 'package:padel/pages.dart';
-import 'package:padel/res/colors.dart';
 import 'package:padel/res/themes.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
@@ -38,6 +38,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // With this we init the retrofit helper
     RetrofitHelper();
+    bool isDarkMode = SharedPreferencesHelper.sharedPreferences.getBool('isDarkMode')
+        ?? SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
+
+    log(isDarkMode.toString());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -45,7 +49,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: loadFirstPage(),
       translations: Messages(),
       locale: Locale(Platform.localeName),

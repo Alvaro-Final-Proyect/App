@@ -59,7 +59,7 @@ final lightTheme = ThemeData.light().copyWith(
   ),
   scaffoldBackgroundColor: white,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: Color(0xff00b0fd),
+    backgroundColor: lightGray,
   ),
   drawerTheme: const DrawerThemeData(
       backgroundColor: lightGray

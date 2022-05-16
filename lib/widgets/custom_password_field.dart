@@ -41,6 +41,9 @@ class CustomPasswordField extends StatelessWidget {
           decoration: InputDecoration(
             labelText: labelText.tr,
             border: const OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)
+            ),
             prefixIcon: const Icon(Icons.lock),
             suffixIcon: IconButton(
               onPressed: customPasswordFieldController.toggleVisibility,

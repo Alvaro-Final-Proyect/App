@@ -25,9 +25,9 @@ class PlayerItem extends StatelessWidget {
               backgroundImage: player.value != null ? const NetworkImage(
                   'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'
               ) : null,
-              backgroundColor: player.value == null ? black : null,
+              backgroundColor: player.value == null ? Theme.of(context).colorScheme.onPrimary : null,
               child: player.value == null
-                  ? const Icon(Icons.add, color: white)
+                  ? const Icon(Icons.add, color: Colors.white)
                   : null,
             ),
             onTap: () {

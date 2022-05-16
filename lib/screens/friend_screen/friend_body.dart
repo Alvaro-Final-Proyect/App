@@ -35,7 +35,7 @@ class FriendBody extends StatelessWidget {
       log('reload');
 
       return _friendController.isLoading()
-          ? const CircularProgressIndicator()
+          ? const Center(child: CircularProgressIndicator(),)
           : TabBarView(children: [
               RefreshIndicator(
                   onRefresh: _refresh,

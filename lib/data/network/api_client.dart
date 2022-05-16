@@ -39,4 +39,7 @@ abstract class ApiClient{
 
   @PATCH('/api/matches/joinToMatch/{id}&{index}')
   Future<MatchModel> joinToMatch(@Path() String id, @Path() int index);
+
+  @PATCH('/api/matches/leaveMatch/{id}')
+  Future<MatchModel> leaveMatch(@Path() String id);
 }

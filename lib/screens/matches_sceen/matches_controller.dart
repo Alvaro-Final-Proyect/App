@@ -3,6 +3,7 @@ import 'package:padel/data/models/match_model.dart';
 import 'package:padel/domain/matches_use_case/get_all_matches_use_case.dart';
 import 'package:padel/domain/matches_use_case/join_to_match_use_case.dart';
 import 'package:get/get.dart';
+import 'package:padel/domain/matches_use_case/leave_match_use_case.dart';
 
 class MatchesController extends GetxController {
 
