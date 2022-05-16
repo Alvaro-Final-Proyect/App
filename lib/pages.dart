@@ -2,7 +2,7 @@ import 'package:padel/screens/friend_screen/friend_page.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
 import 'package:padel/screens/match_screen/match_page.dart';
-import 'package:padel/screens/matches_sceen/matches_page.dart';
+import 'package:padel/screens/matches_screen/matches_page.dart';
 import 'package:padel/screens/profile_screen/profile_page.dart';
 import 'package:padel/screens/register-screen/register_page.dart';
 import 'package:padel/screens/settings_screen/settings_screen.dart';

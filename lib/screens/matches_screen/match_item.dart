@@ -2,9 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:padel/screens/matches_sceen/player_item.dart';
+import 'package:padel/screens/matches_screen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
-
 import '../../data/models/match_model.dart';
 import 'matches_controller.dart';
 
@@ -44,32 +43,34 @@ class MatchItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(10),
       child: InkWell(
-        onTap: () => {Get.toNamed('home/matches/match', arguments: match)},
+        onTap: () => Get.toNamed('home/matches/match', arguments: match),
         child: SizedBox(
           height: 150,
           child: Row(
             children: [
               Expanded(
-                  child: Container(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Expanded(
                         child: Center(
-                      child: Text(
-                        match.date.getHour(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                          child: Text(
+                            match.date.getHour(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
-                    )),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: const BoxDecoration(color: Colors.yellow),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          decoration: const BoxDecoration(color: Colors.yellow),
+                        ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              )),
+              ),
               const VerticalDivider(),
               Expanded(
                 flex: 5,
@@ -81,31 +82,35 @@ class MatchItem extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                                child: Row(
-                              children: match.players
-                                  .getRange(0, 2)
-                                  .mapIndexed((index, player) {
-                                return PlayerItem(
-                                  index: index,
-                                  joinToMatch: _joinToMatch,
-                                  player: player.obs,
-                                );
-                              }).toList(),
-                            )),
+                              child: Row(
+                                children:
+                                    match.players.getRange(0, 2).mapIndexed(
+                                  (index, player) {
+                                    return PlayerItem(
+                                      index: index,
+                                      joinToMatch: _joinToMatch,
+                                      player: player.obs,
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
                             Expanded(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: match.players
-                                  .getRange(2, 4)
-                                  .mapIndexed((index, player) {
-                                index = index + 2;
-                                return PlayerItem(
-                                  player: player.obs,
-                                  index: index,
-                                  joinToMatch: _joinToMatch,
-                                );
-                              }).toList(),
-                            ))
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children:
+                                    match.players.getRange(2, 4).mapIndexed(
+                                  (index, player) {
+                                    index = index + 2;
+                                    return PlayerItem(
+                                      player: player.obs,
+                                      index: index,
+                                      joinToMatch: _joinToMatch,
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
                           ],
                         ),
                       ),
