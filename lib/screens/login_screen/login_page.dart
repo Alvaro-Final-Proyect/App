@@ -119,6 +119,7 @@ class DesktopBody extends StatelessWidget {
           )
         ),
         Expanded(
+          flex: 2,
           child: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -171,7 +172,6 @@ class DesktopBody extends StatelessWidget {
               ),
             ),
           ),
-          flex: 2,
         )
       ],
     );
@@ -253,15 +253,16 @@ class MobileBody extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
+                  flex: 1,
                   child: Container(
                     height: 200,
                     width: 200,
                     padding: const EdgeInsets.all(20),
                     child: Image.asset('assets/raqueta-de-padel.png', fit: BoxFit.contain,),
-                  ),
-                  flex: 1
+                  )
               ),
               Expanded(
+                flex: 3,
                 child: Center(
                   child: SingleChildScrollView(
                     child: Column(
@@ -316,7 +317,6 @@ class MobileBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                flex: 3,
               )
             ],
           ),

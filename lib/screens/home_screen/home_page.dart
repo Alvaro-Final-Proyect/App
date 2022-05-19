@@ -1,7 +1,10 @@
-import 'package:padel/screens/home_screen/home_controller.dart';
-import 'package:padel/widgets/custom_drawer.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:padel/screens/home_screen/home_controller.dart';
+import 'package:padel/widgets/custom_drawer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -22,27 +25,99 @@ class HomePage extends StatelessWidget {
     _loadUser();
 
     return Scaffold(
-      drawer: Obx(() => homeController.isLoading() ? const CircularProgressIndicator() : CustomDrawer()),
+      drawer: Obx(() => homeController.isLoading()
+          ? const CircularProgressIndicator()
+          : CustomDrawer()),
       appBar: AppBar(
         title: Text('homeTitle'.tr),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: _logout,
-            icon: const Icon(Icons.logout)
-          )
+          IconButton(onPressed: _logout, icon: const Icon(Icons.logout))
         ],
       ),
-      body: Obx(() => homeController.isLoading() ? const Center(child: CircularProgressIndicator(),) : const HomeBody()),
+      body: Obx(() => homeController.isLoading()
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : const HomeBody()),
     );
   }
 }
 
-class HomeBody extends StatelessWidget{
+class HomeBody extends StatelessWidget {
   const HomeBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column();
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: true,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+                child: Card(
+                  margin: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Expanded(
+                          child: Image.asset(
+                            'assets/raqueta-de-padel.png',
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AutoSizeText(
+                                'PADEL IT',
+                                style: GoogleFonts.bebasNeue(fontSize: 52),
+                              ),
+                              AutoSizeText(
+                                'GESTIÓN DEPORTIVA',
+                                style: GoogleFonts.bebasNeue(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(child: Container()),
+              CarouselSlider(
+                items: [
+                  'https://www.pavimentosdeportivos.com/pistas-de-padel/images/Padel-Palacio-Deportes-Benidorm.jpg',
+                  'https://www.padelnest.com/pictures/pic/GH/GHIH/GHIHXBA69I_x.jpg',
+                  'https://media.pistaenjuego.ovh/images/center/2/3/2/l.padel-palau-benidorm-1_1610355232.jpg',
+                  'https://media.pistaenjuego.ovh/images/center/3/3/2/l.padel-palau-benidorm-3_1610355233.jpg'
+                ].map((e) => Image.network(e)).toList(),
+                options: CarouselOptions(
+                  height: 300,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
