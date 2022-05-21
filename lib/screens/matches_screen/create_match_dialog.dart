@@ -142,7 +142,7 @@ class CreateMatchDialog extends StatelessWidget {
           ),
           ExpandedButton(
             text: 'Create',
-            onPressed: () {
+            onPressed: () async {
               final chosenDate = createMatchDialogController.selectedDate;
               final chosenTime = createMatchDialogController.selectedTime;
               if(chosenDate == null || chosenTime == null){
@@ -168,7 +168,8 @@ class CreateMatchDialog extends StatelessWidget {
                   maxLevel: userLevel == null ? 10.0 : (userLevel + .75).clamp(0.0, 10.0)
               );
 
-              matchesController.createMatch(match);
+              await matchesController.createMatch(match);
+              Get.back();
             },
           ),
         ],

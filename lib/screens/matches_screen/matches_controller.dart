@@ -52,14 +52,12 @@ class MatchesController extends GetxController {
     _isLoading.value = false;
   }
 
-  Future<void> createMatch(MatchModel match) async{
-    _isLoading.value = true;
+  Future<void> createMatch(MatchModel match) async {
     try{
       await createMatchUseCase(match);
       _loadError.value = '';
     }catch(e){
       _loadError.value = 'Could not create match';
     }
-    _isLoading.value = false;
   }
 }
