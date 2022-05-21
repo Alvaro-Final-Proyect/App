@@ -114,7 +114,7 @@ class DesktopBody extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Image.asset('assets/raqueta-de-padel.png', fit: BoxFit.contain,),
           )
         ),

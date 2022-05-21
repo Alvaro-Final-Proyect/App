@@ -42,4 +42,7 @@ abstract class ApiClient{
 
   @PATCH('/api/matches/leaveMatch/{id}')
   Future<MatchModel> leaveMatch(@Path() String id);
+
+  @POST('/api/matches/')
+  Future<MatchModel> createMatch(@Body() MatchModel match);
 }

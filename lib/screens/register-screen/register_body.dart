@@ -1,9 +1,10 @@
-import 'package:padel/screens/register-screen/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
 import 'package:get/get.dart';
+import 'package:padel/screens/register-screen/register_controller.dart';
+
 import '../../widgets/custom_password_field.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/drop_down_menu.dart';
@@ -34,7 +35,6 @@ class RegisterBody extends StatelessWidget {
     bool positionValidation =
         position.validator(position.dropDownMenuController);
 
-
     if (usernameValidation &&
         emailValidation &&
         passwordValidation &&
@@ -42,8 +42,7 @@ class RegisterBody extends StatelessWidget {
         nameValidation &&
         surnameValidation &&
         levelValidation &&
-        positionValidation
-    ) {
+        positionValidation) {
       await _registerController.register(
           username: username.textEditingController.text,
           email: email.textEditingController.text,
@@ -62,8 +61,7 @@ class RegisterBody extends StatelessWidget {
             textColor: Colors.black,
             backgroundColor: Colors.white38);
         Get.back();
-      }
-      else {
+      } else {
         printInfo(info: _registerController.loadError());
       }
     }
@@ -234,26 +232,24 @@ class RegisterBody extends StatelessWidget {
               name,
               surname,
               Card(
-                color: const Color.fromRGBO(250, 250, 250, 1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  side: const BorderSide(
-                    color: Color.fromRGBO(150, 150, 150, 1), width: 1.0
-                  )
+                shape: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      width: 3.0),
                 ),
+                color: Theme.of(context).colorScheme.onPrimary,
+                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'textSelectYourGender'.tr,
-                        style: const TextStyle(
-                          color: Color.fromRGBO(90, 90, 90, 1)
-                        ),
-                      )
-                    ),
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          'textSelectYourGender'.tr,
+                          style: Get.isDarkMode ? const TextStyle(color: Color(0xFF969ba4)) : const TextStyle(color: Color(0xFF5e5e5e)),
+                        )),
                     GenderPickerWithImage(
+                      unSelectedGenderTextStyle: Get.isDarkMode ? const TextStyle(color: Color(0xFF969ba4), fontSize: 19, fontWeight: FontWeight.w600,) : const TextStyle(color: Color(0xFF5e5e5e), fontSize: 19, fontWeight: FontWeight.w600,),
                       selectedGender: Gender.Male,
                       onChanged: (Gender? gender) {
                         if (gender == Gender.Female) {
@@ -267,17 +263,15 @@ class RegisterBody extends StatelessWidget {
                     )
                   ],
                 ),
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               ),
               Padding(
-                padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: level),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: level),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 0
-                ),
-                child: position),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  child: position),
               ExpandedButton(
                 text: 'registerTitle'.tr,
                 margin: const EdgeInsets.all(10),

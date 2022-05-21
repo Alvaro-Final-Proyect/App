@@ -8,15 +8,15 @@ class ExpandedButton extends StatelessWidget {
   final EdgeInsets padding;
   final TextStyle? textStyle;
 
-  const ExpandedButton({
-    Key? key,
-    required this.text,
-    this.margin = EdgeInsets.zero,
-    this.width = double.infinity,
-    this.padding = EdgeInsets.zero,
-    this.onPressed,
-    this.textStyle
-  }) : super(key: key);
+  const ExpandedButton(
+      {Key? key,
+      required this.text,
+      this.margin = EdgeInsets.zero,
+      this.width = double.infinity,
+      this.padding = EdgeInsets.zero,
+      this.onPressed,
+      this.textStyle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,18 @@ class ExpandedButton extends StatelessWidget {
       width: width,
       margin: margin,
       child: ElevatedButton(
-        onPressed: onPressed,
-        child: Padding(
-          padding: padding,
-          child: Text(text, style: textStyle,),
-        )
-      ),
+          onPressed: onPressed,
+          child: Padding(
+            padding: padding,
+            child: Text(
+              text,
+              style: textStyle ??
+                  TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.bold
+                  ),
+            ),
+          ),),
     );
   }
 }

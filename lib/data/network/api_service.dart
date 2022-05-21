@@ -72,4 +72,9 @@ class ApiService {
     final updatedMatch = await RetrofitHelper.getApiClient().leaveMatch(matchId);
     return updatedMatch;
   }
+
+  Future<MatchModel> createMatch(MatchModel match) async {
+    final createdMatch = await RetrofitHelper.getApiClient().createMatch(match);
+    return createdMatch;
+  }
 }

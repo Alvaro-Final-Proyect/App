@@ -36,7 +36,7 @@ dependencies:
   json_annotation: ^4.5.0
   objectid: ^2.1.0
   shared_preferences: ^2.0.15
-  grouped_list: ^4.2.0
+  grouped_list: ^5.0.1
   collection: ^1.16.0
   graphview: ^1.1.1
   retrofit_generator: ^4.0.1
