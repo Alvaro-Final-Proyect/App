@@ -27,7 +27,7 @@ class PlayerItem extends StatelessWidget {
               ) : null,
               backgroundColor: player.value == null ? Theme.of(context).colorScheme.onPrimary : null,
               child: player.value == null
-                  ? const Icon(Icons.add, color: Colors.white)
+                  ? Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimaryContainer)
                   : null,
             ),
             onTap: () {

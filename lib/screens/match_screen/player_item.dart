@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../data/models/user_response.dart';
-import '../../res/colors.dart';
 import 'match_controller.dart';
 import 'match_page.dart';
 
@@ -28,9 +25,9 @@ class PlayerItem extends StatelessWidget {
                   backgroundImage: player != null ? const NetworkImage(
                       'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'
                   ) : null,
-                  backgroundColor: player == null ? black : null,
+                  backgroundColor: player == null ? Theme.of(context).colorScheme.onPrimary : null,
                   child: player == null
-                      ? const Icon(Icons.add, color: white)
+                      ? Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimaryContainer)
                       : null,
                 ),
                 onTap: () {
