@@ -20,3 +20,5 @@ const blueDayDark = Color(0xFF0c2461);
 
 const darkYellow = Color(0xffdbea07);
 const lightYellow = Color(0xFFff9f1a);
+
+const checkGreen = Color(0xFFb3e099);

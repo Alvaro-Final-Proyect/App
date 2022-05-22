@@ -51,70 +51,73 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverFillRemaining(
-          hasScrollBody: true,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 200,
-                child: Card(
-                  margin: const EdgeInsets.all(20),
-                  child: Row(
-                    children: [
-                      Padding(
+        SliverList(delegate: SliverChildListDelegate(
+          [
+            SizedBox(
+              height: 200,
+              child: Card(
+                margin: const EdgeInsets.all(20),
+                color: Theme.of(context).colorScheme.onSurface,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Expanded(
+                        child: Image.asset(
+                          'assets/raqueta-de-padel.png',
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
                         padding: const EdgeInsets.all(10),
-                        child: Expanded(
-                          child: Image.asset(
-                            'assets/raqueta-de-padel.png',
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AutoSizeText(
+                              'PADEL IT',
+                              style: GoogleFonts.bebasNeue(fontSize: 52),
+                            ),
+                            AutoSizeText(
+                              'GESTIÓN DEPORTIVA',
+                              style: GoogleFonts.bebasNeue(fontSize: 18),
+                            ),
+                          ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AutoSizeText(
-                                'PADEL IT',
-                                style: GoogleFonts.bebasNeue(fontSize: 52),
-                              ),
-                              AutoSizeText(
-                                'GESTIÓN DEPORTIVA',
-                                style: GoogleFonts.bebasNeue(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(child: Container()),
-              CarouselSlider(
-                items: [
-                  'https://www.pavimentosdeportivos.com/pistas-de-padel/images/Padel-Palacio-Deportes-Benidorm.jpg',
-                  'https://www.padelnest.com/pictures/pic/GH/GHIH/GHIHXBA69I_x.jpg',
-                  'https://media.pistaenjuego.ovh/images/center/2/3/2/l.padel-palau-benidorm-1_1610355232.jpg',
-                  'https://media.pistaenjuego.ovh/images/center/3/3/2/l.padel-palau-benidorm-3_1610355233.jpg'
-                ].map((e) => Image.network(e)).toList(),
-                options: CarouselOptions(
-                  height: 300,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
+            ),
+          ],
+        )),
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: CarouselSlider(
+              items: [
+                'https://www.pavimentosdeportivos.com/pistas-de-padel/images/Padel-Palacio-Deportes-Benidorm.jpg',
+                'https://www.padelnest.com/pictures/pic/GH/GHIH/GHIHXBA69I_x.jpg',
+                'https://media.pistaenjuego.ovh/images/center/2/3/2/l.padel-palau-benidorm-1_1610355232.jpg',
+                'https://media.pistaenjuego.ovh/images/center/3/3/2/l.padel-palau-benidorm-3_1610355233.jpg'
+              ].map((e) => Image.network(e)).toList(),
+              options: CarouselOptions(
+                height: 300,
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
               ),
-            ],
+            ),
           ),
         ),
       ],

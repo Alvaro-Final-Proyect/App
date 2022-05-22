@@ -14,8 +14,6 @@ class MatchBody extends StatelessWidget {
 
   final matchController = Get.find<MatchController>();
 
-
-
   Future<void> _joinToMatch(int index) async {
     if (matchController.match.value.players[index] != null) {
       return;
@@ -45,122 +43,124 @@ class MatchBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return CustomScrollView(
+        controller: ScrollController(),
         slivers: [
-          SliverFillRemaining(
-            hasScrollBody: true,
-            child: Column(
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Date',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Level',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
+                Expanded(
+                  child: Column(
                     children: [
-                      const Expanded(
-                        child: Text(
-                          'Date',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
+                      const Text(
+                        'Team 1',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
+                      ...matchController.match.value.players
+                          .getRange(0, 2)
+                          .mapIndexed(
+                        (index, player) {
+                          return PlayerItem(
+                            _joinToMatch,
+                            index: index,
+                            player: player,
+                          );
+                        },
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          'Level',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Team 1',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          ...matchController.match.value.players
-                              .getRange(0, 2)
-                              .mapIndexed(
-                                (index, player) {
-                              return PlayerItem(
-                                _joinToMatch,
-                                index: index,
-                                player: player,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Team 2',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          ...matchController.match.value.players
-                              .getRange(2, 4)
-                              .mapIndexed(
-                                (index, player) {
-                              return PlayerItem(_joinToMatch,
-                                  index: index + 2, player: player);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  thickness: 2,
-                  height: 50,
                 ),
                 Expanded(
-                  child: Container(),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Team 2',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      ...matchController.match.value.players
+                          .getRange(2, 4)
+                          .mapIndexed(
+                        (index, player) {
+                          return PlayerItem(_joinToMatch,
+                              index: index + 2, player: player);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+            ),
+            const Divider(
+              thickness: 2,
+              height: 50,
+            ),
+          ])),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
                 if (matchController.match.value.players.firstWhereOrNull(
                         (element) => element?.id == matchController.user.id) !=
                     null) ...[
@@ -185,9 +185,9 @@ class MatchBody extends StatelessWidget {
                     text: 'Leave game',
                     onPressed: () async {
                       await matchController.leaveMatch();
-                      if(matchController.loadError() == ''){
+                      if (matchController.loadError() == '') {
                         Fluttertoast.showToast(msg: 'You left the game.');
-                      }else{
+                      } else {
                         Fluttertoast.showToast(msg: 'An error occurred.');
                       }
                     },
@@ -201,8 +201,8 @@ class MatchBody extends StatelessWidget {
                   ),
                 ],
               ],
-            ),
-          ),
+            )
+          )
         ],
       );
     });
