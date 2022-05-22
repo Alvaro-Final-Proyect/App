@@ -77,4 +77,9 @@ class ApiService {
     final createdMatch = await RetrofitHelper.getApiClient().createMatch(match);
     return createdMatch;
   }
+
+  Future<List<UserModel>> getAllFriends() async{
+    final friends = await RetrofitHelper.getApiClient().getAllFriends();
+    return friends;
+  }
 }

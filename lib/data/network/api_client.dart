@@ -45,4 +45,7 @@ abstract class ApiClient{
 
   @POST('/api/matches/')
   Future<MatchModel> createMatch(@Body() MatchModel match);
+
+  @GET('/api/users/getAllFriends')
+  Future<List<UserModel>> getAllFriends();
 }

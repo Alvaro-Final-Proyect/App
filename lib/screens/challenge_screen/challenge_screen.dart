@@ -28,21 +28,43 @@ class ChallengeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: matchController.user.friends?.length ?? 0,
-      itemBuilder: (BuildContext context, int index) {
-        final user = matchController.user.friends![index];
-        return Container(
-          margin: const EdgeInsets.all(10),
-          child: ListTile(
-            title: const Text('Name and Surname'),
-            subtitle: const Text('Level and position'),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.check, color: checkGreen,)
-            )
-          ),
-        );
+    matchController.loadFriends();
+
+    return Obx(
+      () {
+        return matchController.isLoading()
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: matchController.friends.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final user = matchController.friends[index];
+
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      title: Text('${user.name} ${user.surname}'),
+                      subtitle:
+                          Text('${user.level} - ${user.position?.capitalize}'),
+                      trailing: IconButton(
+                        onPressed: () {
+
+                        },
+                        icon: const Icon(
+                          Icons.check,
+                          color: checkGreen,
+                        ),
+                      ),
+                      leading: const CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png',
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
       },
     );
   }
