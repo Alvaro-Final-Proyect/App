@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/domain/user_use_case/get_user_from_token_use_case.dart';
 import 'package:padel/domain/login_use_case.dart';
@@ -17,6 +19,7 @@ class LoginController extends GetxController{
 
   Future<void> login(String username, String password, bool keepLogged) async {
     _isLoading.value = true;
+
     try{
       final token = await loginUseCase(username, password);
       if(token.token == null || token.token == ''){

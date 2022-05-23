@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/match_controller.dart';
 
@@ -32,14 +33,20 @@ class ChallengeBody extends StatelessWidget {
 
     return Obx(
       () {
-        return matchController.isLoading()
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+        final showingFriends = matchController.friends
+            .where(
+              (friend) => !friend.matchesInvitations.contains(
+                matchController.match.value.id,
+              ),
+            )
+            .toList();
+
+        return showingFriends.isEmpty
+            ? Center(child: Text('textYouHaveInvitedAllYourFriends'.tr),)
             : ListView.builder(
-                itemCount: matchController.friends.length,
+                itemCount: showingFriends.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final user = matchController.friends[index];
+                  final user = showingFriends[index];
 
                   return Container(
                     margin: const EdgeInsets.all(10),
@@ -48,8 +55,13 @@ class ChallengeBody extends StatelessWidget {
                       subtitle:
                           Text('${user.level} - ${user.position?.capitalize}'),
                       trailing: IconButton(
-                        onPressed: () {
-
+                        onPressed: () async {
+                          await matchController.sendMatchInvitation(user.id!);
+                          if(matchController.loadError().isEmpty){
+                            Fluttertoast.showToast(msg: 'textInvitationSent'.tr);
+                          }else{
+                            Fluttertoast.showToast(msg: 'textCouldNotSendInvitation'.tr);
+                          }
                         },
                         icon: const Icon(
                           Icons.check,

@@ -22,7 +22,7 @@ class MatchItem extends StatelessWidget {
             (element) => element?.id == matchesController.user.id) !=
         null) {
       Fluttertoast.showToast(
-          msg: 'You are already joined to the match',
+          msg: 'errorAlreadyJoined'.tr,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           textColor: Colors.black,
@@ -34,7 +34,7 @@ class MatchItem extends StatelessWidget {
     if (matchesController.loadError() != '') {
       Fluttertoast.showToast(msg: matchesController.loadError());
     } else {
-      Fluttertoast.showToast(msg: 'Joined');
+      Fluttertoast.showToast(msg: 'textJoined'.tr);
     }
   }
 
@@ -120,7 +120,7 @@ class MatchItem extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            'Level: ${match.minLevel} - ${match.maxLevel}',
+                            '${'textLevel'.tr}: ${match.minLevel} - ${match.maxLevel}',
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),

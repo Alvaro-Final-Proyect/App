@@ -23,7 +23,7 @@ class MatchBody extends StatelessWidget {
             (element) => element?.id == matchController.user.id) !=
         null) {
       Fluttertoast.showToast(
-          msg: 'You are already joined to the match',
+          msg: 'errorAlreadyJoined'.tr,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           textColor: Colors.black,
@@ -35,176 +35,180 @@ class MatchBody extends StatelessWidget {
     if (matchController.loadError() != '') {
       Fluttertoast.showToast(msg: matchController.loadError());
     } else {
-      Fluttertoast.showToast(msg: 'Joined');
+      Fluttertoast.showToast(msg: 'textJoined'.tr);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return CustomScrollView(
-        controller: ScrollController(),
-        slivers: [
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Date',
-                      style: TextStyle(
-                        fontSize: 18,
+    return Obx(
+      () {
+        return CustomScrollView(
+          controller: ScrollController(),
+          slivers: [
+            SliverList(
+                delegate: SliverChildListDelegate([
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'textDay'.tr,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'textLevel'.tr,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 2,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          '${'textTeam'.tr} 1',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        ...matchController.match.value.players
+                            .getRange(0, 2)
+                            .mapIndexed(
+                          (index, player) {
+                            return PlayerItem(
+                              _joinToMatch,
+                              index: index,
+                              player: player,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(
-                    flex: 3,
-                    child: Text(
-                      '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          '${'textTeam'.tr} 2',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        ...matchController.match.value.players
+                            .getRange(2, 4)
+                            .mapIndexed(
+                          (index, player) {
+                            return PlayerItem(_joinToMatch,
+                                index: index + 2, player: player);
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Level',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
+              const Divider(
+                thickness: 2,
+                height: 50,
               ),
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Team 1',
-                        style: TextStyle(
+            ])),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (matchController.match.value.players.firstWhereOrNull(
+                          (element) =>
+                              element?.id == matchController.user.id) !=
+                      null) ...[
+                    ExpandedButton(
+                      text: 'textSetResult'.tr,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const MatchResultDialog();
+                          },
+                        );
+                      },
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      textStyle: const TextStyle(
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      ...matchController.match.value.players
-                          .getRange(0, 2)
-                          .mapIndexed(
-                        (index, player) {
-                          return PlayerItem(
-                            _joinToMatch,
-                            index: index,
-                            player: player,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Team 2',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      ...matchController.match.value.players
-                          .getRange(2, 4)
-                          .mapIndexed(
-                        (index, player) {
-                          return PlayerItem(_joinToMatch,
-                              index: index + 2, player: player);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const Divider(
-              thickness: 2,
-              height: 50,
-            ),
-          ])),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (matchController.match.value.players.firstWhereOrNull(
-                        (element) => element?.id == matchController.user.id) !=
-                    null) ...[
-                  ExpandedButton(
-                    text: 'Set result',
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const MatchResultDialog();
-                        },
-                      );
-                    },
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(20),
-                    textStyle: const TextStyle(
+                          fontSize: 18),
+                    ),
+                    ExpandedButton(
+                      text: 'textLeaveGame'.tr,
+                      onPressed: () async {
+                        await matchController.leaveMatch();
+                        if (matchController.loadError() == '') {
+                          Fluttertoast.showToast(msg: 'textYourLeftTheGame'.tr);
+                        } else {
+                          Fluttertoast.showToast(msg: 'An error occurred.');
+                        }
+                      },
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      textStyle: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  ExpandedButton(
-                    text: 'Leave game',
-                    onPressed: () async {
-                      await matchController.leaveMatch();
-                      if (matchController.loadError() == '') {
-                        Fluttertoast.showToast(msg: 'You left the game.');
-                      } else {
-                        Fluttertoast.showToast(msg: 'An error occurred.');
-                      }
-                    },
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(20),
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
+                  ],
                 ],
-              ],
-            )
-          )
-        ],
-      );
-    });
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

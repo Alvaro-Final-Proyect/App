@@ -31,7 +31,8 @@ class RegisterController extends GetxController {
       password: password,
       level: double.parse(level),
       gender: gender,
-      position: position
+      position: position,
+      matchesInvitations: []
     );
 
     try{

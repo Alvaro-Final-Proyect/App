@@ -14,8 +14,9 @@ class UserModel {
   double? level;
   List<String>? friends;
   List<String>? friendsRequests;
+  List<String> matchesInvitations;
 
-  UserModel({this.id, this.username, this.email, this.name, this.surname, this.password, this.gender, this.level, this.friends, this.friendsRequests, this.position});
+  UserModel({required this.matchesInvitations, this.id, this.username, this.email, this.name, this.surname, this.password, this.gender, this.level, this.friends, this.friendsRequests, this.position});
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 

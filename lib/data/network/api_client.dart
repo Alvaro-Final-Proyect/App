@@ -48,4 +48,7 @@ abstract class ApiClient{
 
   @GET('/api/users/getAllFriends')
   Future<List<UserModel>> getAllFriends();
+
+  @PATCH('/api/users/sendMatchInvitation/{matchId}&{userInvitedId}')
+  Future<void> sendMatchInvitation(@Path() String matchId, @Path() String userInvitedId);
 }

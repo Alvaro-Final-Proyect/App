@@ -72,13 +72,13 @@ class CreateMatchDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Column(
-        children: const [
+        children: [
           Center(
             child: Text(
-              'New Match',
+              'textNewMatch'.tr,
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
           ),
         ],
@@ -102,7 +102,7 @@ class CreateMatchDialog extends StatelessWidget {
                       width: 3.0,
                     ),
                   ),
-                  labelText: 'Choose Date',
+                  labelText: 'textDay'.tr,
                   prefixIcon: const Icon(
                     Icons.date_range,
                   ),
@@ -129,7 +129,7 @@ class CreateMatchDialog extends StatelessWidget {
                       width: 3.0,
                     ),
                   ),
-                  labelText: 'Choose Time',
+                  labelText: 'textHour'.tr,
                   prefixIcon: const Icon(
                     Icons.access_time,
                   ),
@@ -141,7 +141,7 @@ class CreateMatchDialog extends StatelessWidget {
             height: 10,
           ),
           ExpandedButton(
-            text: 'Create',
+            text: 'textCreate'.tr,
             onPressed: () async {
               final chosenDate = createMatchDialogController.selectedDate;
               final chosenTime = createMatchDialogController.selectedTime;

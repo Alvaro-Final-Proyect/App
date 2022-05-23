@@ -82,4 +82,8 @@ class ApiService {
     final friends = await RetrofitHelper.getApiClient().getAllFriends();
     return friends;
   }
+
+  Future<void> sendMatchInvitation(String matchId, String userInvitedId) async {
+    await RetrofitHelper.getApiClient().sendMatchInvitation(matchId, userInvitedId);
+  }
 }

@@ -46,7 +46,7 @@ class MatchesBody extends StatelessWidget {
                         color: Color(0xFFB7245C),
                       ),
                       child: Text(
-                        date.tr,
+                        '${'textDay'.tr}: ${date.tr}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     );

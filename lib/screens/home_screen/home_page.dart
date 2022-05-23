@@ -75,11 +75,11 @@ class HomeBody extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             AutoSizeText(
-                              'PADEL IT',
+                              'textAppName'.tr,
                               style: GoogleFonts.bebasNeue(fontSize: 52),
                             ),
                             AutoSizeText(
-                              'GESTIÓN DEPORTIVA',
+                              'textSportManagement'.tr,
                               style: GoogleFonts.bebasNeue(fontSize: 18),
                             ),
                           ],

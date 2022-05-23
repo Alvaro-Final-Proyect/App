@@ -15,17 +15,12 @@ class MatchPage extends StatelessWidget {
   final matchController =
       Get.put(MatchController((Get.arguments as MatchModel).obs));
 
-  void _handleClick(String selection){
-    switch(selection){
-      case 'Challenge friend':
-        if(matchController.match.value.players.firstWhereOrNull((element) => element?.id == matchController.user.id) == null){
-          Fluttertoast.showToast(msg: 'For challenge you need to join first');
-          return;
-        }
-        Get.toNamed('/home/matches/match/challenge');
-        break;
-      default: break;
+  void _handleClick(_){
+    if(matchController.match.value.players.firstWhereOrNull((element) => element?.id == matchController.user.id) == null){
+      Fluttertoast.showToast(msg: 'textYouNeedToJoin'.tr);
+      return;
     }
+    Get.toNamed('/home/matches/match/challenge');
   }
 
   @override
@@ -42,7 +37,7 @@ class MatchPage extends StatelessWidget {
           PopupMenuButton<String>(
             onSelected: _handleClick,
             itemBuilder: (BuildContext context) {
-              return {'Challenge friend'}.map((String choice) {
+              return {'textChallengeFriend'.tr}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:padel/data/models/user_response.dart';
 import 'package:padel/domain/matches_use_case/leave_match_use_case.dart';
 import 'package:padel/domain/user_use_case/get_all_friends_use_case.dart';
+import 'package:padel/domain/user_use_case/send_match_invitation_use_case.dart';
 
 import '../../domain/matches_use_case/join_to_match_use_case.dart';
 
@@ -20,6 +21,7 @@ class MatchController extends GetxController {
   final joinToMatchUseCase = JoinToMatchUseCase();
   final leaveMatchUseCase = LeaveMatchUseCase();
   final getAllFriendsUseCase = GetAllFriendsUseCase();
+  final sendMatchInvitationUseCase = SendMatchInvitationUseCase();
 
   final user = RetrofitHelper.user!;
   final friends = <UserModel>[].obs;
@@ -50,13 +52,21 @@ class MatchController extends GetxController {
   }
 
   Future<void> loadFriends() async {
-    _isLoading.value = true;
     try{
       friends.value = await getAllFriendsUseCase();
       _loadError.value = '';
     }catch(e){
       _loadError.value = 'Could not load your friends';
     }
-    _isLoading.value = false;
+  }
+
+  Future<void> sendMatchInvitation(String userInvitedId) async {
+    try{
+      await sendMatchInvitationUseCase(match.value.id, userInvitedId);
+      await loadFriends();
+      _loadError.value = '';
+    }catch(e){
+      _loadError.value = 'Could not send match invitatin';
+    }
   }
 }

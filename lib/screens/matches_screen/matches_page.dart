@@ -14,7 +14,7 @@ class MatchesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('homeTitle'.tr),
+        title: Text('textMatches'.tr),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
@@ -30,7 +30,7 @@ class MatchesPage extends StatelessWidget {
           );
           matchesController.loadMatches();
         },
-        label: const Text('Create'),
+        label: Text('textCreate'.tr),
         icon: const Icon(Icons.add),
       ),
     );

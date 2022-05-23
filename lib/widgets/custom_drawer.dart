@@ -36,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
             height: 40,
           ),
           const DrawerItem(
-            title: 'Profile',
+            title: 'titleProfile',
             icon: Icons.manage_accounts,
             page: '/home/profile',
           ),
@@ -46,17 +46,17 @@ class CustomDrawer extends StatelessWidget {
               page: '/home/matches',
           ),
           const DrawerItem(
-            title: 'Friends',
+            title: 'textFriends',
             icon: Icons.people,
             page: '/home/friends',
           ),
           const DrawerItem(
-            title: 'Tournaments',
+            title: 'textTournaments',
             icon: Icons.military_tech,
             page: '/home/tournaments',
           ),
           const DrawerItem(
-            title: 'Settings',
+            title: 'textSettings',
             icon: Icons.settings,
             page: '/home/settings',
           )
@@ -79,7 +79,7 @@ class DrawerItem extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 5),
         color: Theme.of(context).colorScheme.onPrimary,
         child: ListTile(
-          title: Text(title),
+          title: Text(title.tr),
           onTap: () {
             if(page != null){
               Get.toNamed(page!);
