@@ -35,14 +35,20 @@ class ChallengeBody extends StatelessWidget {
       () {
         final showingFriends = matchController.friends
             .where(
-              (friend) => !friend.matchesInvitations.contains(
-                matchController.match.value.id,
-              ),
+              (friend) =>
+                  matchController.match.value.players.firstWhereOrNull(
+                          (element) => element?.id == friend.id) ==
+                      null &&
+                  !friend.matchesInvitations.contains(
+                    matchController.match.value.id,
+                  ),
             )
             .toList();
 
         return showingFriends.isEmpty
-            ? Center(child: Text('textYouHaveInvitedAllYourFriends'.tr),)
+            ? Center(
+                child: Text('textYouHaveInvitedAllYourFriends'.tr),
+              )
             : ListView.builder(
                 itemCount: showingFriends.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -57,10 +63,12 @@ class ChallengeBody extends StatelessWidget {
                       trailing: IconButton(
                         onPressed: () async {
                           await matchController.sendMatchInvitation(user.id!);
-                          if(matchController.loadError().isEmpty){
-                            Fluttertoast.showToast(msg: 'textInvitationSent'.tr);
-                          }else{
-                            Fluttertoast.showToast(msg: 'textCouldNotSendInvitation'.tr);
+                          if (matchController.loadError().isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: 'textInvitationSent'.tr);
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: 'textCouldNotSendInvitation'.tr);
                           }
                         },
                         icon: const Icon(
