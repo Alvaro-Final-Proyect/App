@@ -3,6 +3,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:padel/screens/challenge_screen/challenge_screen.dart';
 import 'package:padel/screens/friend_screen/friend_page.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
+import 'package:padel/screens/invitations_screen/invitations_screen.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
 import 'package:padel/screens/match_screen/match_page.dart';
 import 'package:padel/screens/matches_screen/matches_page.dart';
@@ -61,5 +62,9 @@ List<GetPage<dynamic>> pages = [
     name: '/home/matches/match/challenge',
     page: () => ChallengeScreen(),
     transition: Transition.upToDown,
+  ),
+  GetPage(
+    name: '/home/invitations',
+    page: () => InvitationsScreen(),
   ),
 ];

@@ -54,6 +54,7 @@ class Messages extends Translations {
       'textYouHaveInvitedAllYourFriends': 'You have invited all your friends',
       'textInvitationSent': 'Invitation sent',
       'textCouldNotSendInvitation': 'Could not send invitation',
+      'textInvitations': 'Invitations',
     },
     'es_ES': {
       'loginTitle': 'Iniciar Sesión',
@@ -105,6 +106,7 @@ class Messages extends Translations {
       'textYouHaveInvitedAllYourFriends': 'Ya has invitado a todos tus amigos!',
       'textInvitationSent': 'Invitación enviada',
       'textCouldNotSendInvitation': 'No se ha podido enviar la invitación',
+      'textInvitations': 'Invitaciones',
     }
   };
 }

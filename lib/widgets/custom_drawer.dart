@@ -56,6 +56,11 @@ class CustomDrawer extends StatelessWidget {
             page: '/home/tournaments',
           ),
           const DrawerItem(
+            title: 'textInvitations',
+            icon: Icons.mail,
+            page: '/home/invitations',
+          ),
+          const DrawerItem(
             title: 'textSettings',
             icon: Icons.settings,
             page: '/home/settings',
