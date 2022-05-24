@@ -25,26 +25,29 @@ class FriendRequestItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log('reload req');
-    return ExpansionTile(
-      title: Text('${_user.name} ${_user.surname}'),
-      leading: const CircleAvatar(
-        backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      child: ExpansionTile(
+        title: Text('${_user.name} ${_user.surname}'),
+        leading: const CircleAvatar(
+          backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
+        ),
+        children: <Widget>[
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Level: ${_user.level}'),
+                Text('Position: ${_user.position}'),
+                ElevatedButton(
+                  onPressed: _acceptRequest,
+                  child: const Text('Accept Friend')
+                )
+              ],
+            ),
+          )
+        ],
       ),
-      children: <Widget>[
-        ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Level: ${_user.level}'),
-              Text('Position: ${_user.position}'),
-              ElevatedButton(
-                onPressed: _acceptRequest,
-                child: const Text('Accept Friend')
-              )
-            ],
-          ),
-        )
-      ],
     );
   }
 }

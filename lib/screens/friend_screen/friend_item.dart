@@ -23,26 +23,29 @@ class FriendItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text('${_user.name} ${_user.surname}'),
-      leading: const CircleAvatar(
-        backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      child: ExpansionTile(
+        title: Text('${_user.name} ${_user.surname}'),
+        leading: const CircleAvatar(
+          backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
+        ),
+        children: <Widget>[
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Level: ${_user.level}'),
+                Text('Position: ${_user.position}'),
+                ElevatedButton(
+                  onPressed: _removeFriend,
+                  child: const Text('Delete friend')
+                )
+              ],
+            ),
+          )
+        ],
       ),
-      children: <Widget>[
-        ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Level: ${_user.level}'),
-              Text('Position: ${_user.position}'),
-              ElevatedButton(
-                onPressed: _removeFriend,
-                child: const Text('Delete friend')
-              )
-            ],
-          ),
-        )
-      ],
     );
   }
 }
