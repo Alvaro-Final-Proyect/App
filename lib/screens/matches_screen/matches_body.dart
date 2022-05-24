@@ -23,43 +23,68 @@ class MatchesBody extends StatelessWidget {
     }
   }
 
+  Future<void> _loadPlayerMatches() async {
+    await matchesController.loadPlayerMatches();
+    if (matchesController.loadError().isNotEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Could not load your matches',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _loadMatches();
+    _loadPlayerMatches();
 
-    return Obx(
-      () {
-        return matchesController.isLoading()
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : RefreshIndicator(
-                onRefresh: _loadMatches,
-                child: GroupedListView<MatchModel, String>(
-                  elements: matchesController.matches,
-                  groupBy: (element) => element.date.getDate(),
-                  groupSeparatorBuilder: (String date) {
-                    return Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(20),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFB7245C),
-                      ),
-                      child: Text(
-                        '${'textDay'.tr}: ${date.tr}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    );
-                  },
-                  itemBuilder: (_, MatchModel match) => MatchItem(match: match),
-                  itemComparator: (a, b) =>
-                      a.date.millisecondsSinceEpoch -
-                      b.date.millisecondsSinceEpoch,
-                  order: GroupedListOrder.ASC,
-                  useStickyGroupSeparators: true,
-                ),
-              );
-      },
+    return TabBarView(
+      children: [
+        Obx(
+          () {
+            return matchesController.isLoading()
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: _loadMatches,
+                    child: GroupedListView<MatchModel, String>(
+                      elements: matchesController.matches,
+                      groupBy: (element) => element.date.getDate(),
+                      groupSeparatorBuilder: (String date) {
+                        return Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(20),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFB7245C),
+                          ),
+                          child: Text(
+                            '${'textDay'.tr}: ${date.tr}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        );
+                      },
+                      itemBuilder: (_, MatchModel match) =>
+                          MatchItem(match: match),
+                      itemComparator: (a, b) =>
+                          a.date.millisecondsSinceEpoch -
+                          b.date.millisecondsSinceEpoch,
+                      order: GroupedListOrder.ASC,
+                      useStickyGroupSeparators: true,
+                    ),
+                  );
+          },
+        ),
+        Obx(() {
+          return ListView.builder(
+            itemCount: matchesController.userMatches.length,
+            itemBuilder: (context, index) {
+              final match = matchesController.userMatches[index];
+              return MatchItem(match: match);
+            }
+          );
+        }),
+      ],
     );
   }
 }

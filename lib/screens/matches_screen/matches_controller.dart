@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/domain/matches_use_case/create_match_use_case.dart';
@@ -5,6 +7,7 @@ import 'package:padel/domain/matches_use_case/get_all_matches_use_case.dart';
 import 'package:padel/domain/matches_use_case/join_to_match_use_case.dart';
 import 'package:get/get.dart';
 import 'package:padel/domain/matches_use_case/leave_match_use_case.dart';
+import 'package:padel/domain/user_use_case/get_user_matches_use_case.dart';
 
 class MatchesController extends GetxController {
 
@@ -17,9 +20,11 @@ class MatchesController extends GetxController {
   final getAllMatchesUseCase = GetAllMatchesUseCase();
   final joinToMatchUseCase = JoinToMatchUseCase();
   final createMatchUseCase = CreateMatchUseCase();
+  final getUserMatchesUseCase = GetUserMatchesUseCase();
 
   final RxList<MatchModel> matches = <MatchModel>[].obs;
   final user = RetrofitHelper.user!;
+  final userMatches = <MatchModel>[].obs;
 
   Future<void> loadMatches() async {
     _isLoading.value = true;
@@ -59,5 +64,20 @@ class MatchesController extends GetxController {
     }catch(e){
       _loadError.value = 'Could not create match';
     }
+  }
+
+  Future<void> loadPlayerMatches() async {
+    _isLoading.value = true;
+
+    try{
+      final matches = await getUserMatchesUseCase();
+      log(matches.toString());
+      userMatches.value = matches;
+      _loadError.value = '';
+    }catch(e){
+      _loadError.value = 'Could not load your matches';
+    }
+
+    _isLoading.value = false;
   }
 }

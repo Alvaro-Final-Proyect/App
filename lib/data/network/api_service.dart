@@ -91,4 +91,9 @@ class ApiService {
     final matches = await RetrofitHelper.getApiClient().getInvitedMatches();
     return matches;
   }
+
+  Future<List<MatchModel>> getUserMatches() async {
+    final matches = await RetrofitHelper.getApiClient().getUserMatches();
+    return matches;
+  }
 }

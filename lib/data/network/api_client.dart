@@ -54,4 +54,7 @@ abstract class ApiClient{
 
   @GET('/api/users/getInvitedMatches')
   Future<List<MatchModel>> getInvitedMatches();
+
+  @GET('/api/users/getUserMatches')
+  Future<List<MatchModel>> getUserMatches();
 }

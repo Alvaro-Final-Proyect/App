@@ -12,26 +12,39 @@ class MatchesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('textMatches'.tr),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(Icons.arrow_back),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('textMatches'.tr),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(Icons.arrow_back),
+          ),
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                child: Icon(Icons.person_search),
+              ),
+              Tab(
+                child: Icon(Icons.access_alarm),
+              ),
+            ],
+          ),
         ),
-      ),
-      body: MatchesBody(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await showDialog(
-            context: context,
-            builder: (context) => CreateMatchDialog(),
-          );
-          matchesController.loadMatches();
-        },
-        label: Text('textCreate'.tr),
-        icon: const Icon(Icons.add),
+        body: MatchesBody(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            await showDialog(
+              context: context,
+              builder: (context) => CreateMatchDialog(),
+            );
+            matchesController.loadMatches();
+          },
+          label: Text('textCreate'.tr),
+          icon: const Icon(Icons.add),
+        ),
       ),
     );
   }
