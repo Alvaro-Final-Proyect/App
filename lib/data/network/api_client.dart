@@ -51,4 +51,7 @@ abstract class ApiClient{
 
   @PATCH('/api/users/sendMatchInvitation/{matchId}&{userInvitedId}')
   Future<void> sendMatchInvitation(@Path() String matchId, @Path() String userInvitedId);
+
+  @GET('/api/users/getInvitedMatches')
+  Future<List<MatchModel>> getInvitedMatches();
 }

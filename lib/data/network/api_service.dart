@@ -86,4 +86,9 @@ class ApiService {
   Future<void> sendMatchInvitation(String matchId, String userInvitedId) async {
     await RetrofitHelper.getApiClient().sendMatchInvitation(matchId, userInvitedId);
   }
+
+  Future<List<MatchModel>> getInvitedMatches() async {
+    final matches = await RetrofitHelper.getApiClient().getInvitedMatches();
+    return matches;
+  }
 }
