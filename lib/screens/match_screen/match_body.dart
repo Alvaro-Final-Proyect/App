@@ -167,7 +167,8 @@ class MatchBody extends StatelessWidget {
                           (element) =>
                               element?.id == matchController.user.id) !=
                       null) ...[
-                    ExpandedButton(
+                    if(matchController.match.value.date.millisecondsSinceEpoch < DateTime.now().millisecondsSinceEpoch)
+                      ExpandedButton(
                       text: 'textSetResult'.tr,
                       onPressed: () {
                         showDialog(
