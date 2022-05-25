@@ -71,10 +71,10 @@ class MatchesController extends GetxController {
 
     try{
       final matches = await getUserMatchesUseCase();
-      log(matches.toString());
       userMatches.value = matches;
       _loadError.value = '';
     }catch(e){
+      log('$e, ${e.runtimeType}');
       _loadError.value = 'Could not load your matches';
     }
 

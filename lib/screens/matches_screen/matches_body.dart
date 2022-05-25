@@ -51,7 +51,7 @@ class MatchesBody extends StatelessWidget {
                     child: GroupedListView<MatchModel, String>(
                       elements: matchesController.matches,
                       groupBy: (element) => element.date.getDate(),
-                      groupSeparatorBuilder: (String date) {
+                      groupHeaderBuilder: (MatchModel match) {
                         return Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(20),
@@ -59,7 +59,7 @@ class MatchesBody extends StatelessWidget {
                             color: Color(0xFFB7245C),
                           ),
                           child: Text(
-                            '${'textDay'.tr}: ${date.tr}',
+                            '${'textDay'.tr}: ${match.date.getDate()}',
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         );
@@ -75,15 +75,36 @@ class MatchesBody extends StatelessWidget {
                   );
           },
         ),
-        Obx(() {
-          return ListView.builder(
-            itemCount: matchesController.userMatches.length,
-            itemBuilder: (context, index) {
-              final match = matchesController.userMatches[index];
-              return MatchItem(match: match);
-            }
-          );
-        }),
+        Obx(
+          () {
+            return RefreshIndicator(
+              onRefresh: _loadMatches,
+              child: GroupedListView<MatchModel, String>(
+                elements: matchesController.userMatches.value,
+                groupBy: (element) => element.date.getDate(),
+                groupHeaderBuilder: (MatchModel match) {
+                  return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFB7245C),
+                    ),
+                    child: Text(
+                      '${'textDay'.tr}: ${match.date.getDate()}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  );
+                },
+                itemBuilder: (_, MatchModel match) => MatchItem(match: match),
+                itemComparator: (a, b) =>
+                    a.date.millisecondsSinceEpoch -
+                    b.date.millisecondsSinceEpoch,
+                order: GroupedListOrder.DESC,
+                floatingHeader: true,
+              ),
+            );
+          },
+        ),
       ],
     );
   }

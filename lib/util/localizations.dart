@@ -55,6 +55,8 @@ class Messages extends Translations {
       'textInvitationSent': 'Invitation sent',
       'textCouldNotSendInvitation': 'Could not send invitation',
       'textInvitations': 'Invitations',
+      'textPlay': 'Play!',
+      'textRecord': 'Record',
     },
     'es_ES': {
       'loginTitle': 'Iniciar Sesión',
@@ -107,6 +109,8 @@ class Messages extends Translations {
       'textInvitationSent': 'Invitación enviada',
       'textCouldNotSendInvitation': 'No se ha podido enviar la invitación',
       'textInvitations': 'Invitaciones',
+      'textPlay': 'Jugar!',
+      'textRecord': 'Historial',
     }
   };
 }

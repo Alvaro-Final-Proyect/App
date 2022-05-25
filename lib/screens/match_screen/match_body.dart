@@ -185,24 +185,25 @@ class MatchBody extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     ),
-                    ExpandedButton(
-                      text: 'textLeaveGame'.tr,
-                      onPressed: () async {
-                        await matchController.leaveMatch();
-                        if (matchController.loadError() == '') {
-                          Fluttertoast.showToast(msg: 'textYourLeftTheGame'.tr);
-                        } else {
-                          Fluttertoast.showToast(msg: 'An error occurred.');
-                        }
-                      },
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(20),
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
+                    if(matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
+                      ExpandedButton(
+                        text: 'textLeaveGame'.tr,
+                        onPressed: () async {
+                          await matchController.leaveMatch();
+                          if (matchController.loadError() == '') {
+                            Fluttertoast.showToast(msg: 'textYourLeftTheGame'.tr);
+                          } else {
+                            Fluttertoast.showToast(msg: 'An error occurred.');
+                          }
+                        },
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(20),
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      )
                   ],
                 ],
               ),

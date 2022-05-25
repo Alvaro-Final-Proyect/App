@@ -16,19 +16,19 @@ class MatchesPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('textMatches'.tr),
+          title: Text('textPlay'.tr),
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: const Icon(Icons.arrow_back),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
               Tab(
-                child: Icon(Icons.person_search),
+                text: 'textMatches'.tr,
               ),
               Tab(
-                child: Icon(Icons.access_alarm),
+                text: 'textRecord'.tr,
               ),
             ],
           ),
