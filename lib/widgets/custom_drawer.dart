@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/res/colors.dart';
 
+import '../data/models/user_response.dart';
+import '../res/constants.dart';
+
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
 
-  final _user = RetrofitHelper.user;
+  final _user = RetrofitHelper.user.obs;
+  UserModel? get user => _user.value;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +23,18 @@ class CustomDrawer extends StatelessWidget {
               width: 100,
               height: 100,
               margin: const EdgeInsets.only(top: 5),
-              child: const CircleAvatar(
-                backgroundImage: NetworkImage('https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'),
+              child: CircleAvatar(
+                backgroundImage: user?.image ==
+                    null
+                    ? Image.network(userImageUrl).image
+                    : Image.memory(base64Decode(user!.image!))
+                    .image,
               )
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 0, top: 10),
             child: Text(
-              '${_user?.name?.capitalize} ${_user?.surname?.capitalize}',
+              '${user?.name?.capitalize} ${user?.surname?.capitalize}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

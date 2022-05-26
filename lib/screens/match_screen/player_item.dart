@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../data/models/user_response.dart';
+import '../../res/constants.dart';
 import 'match_controller.dart';
 import 'match_page.dart';
 
@@ -22,9 +25,13 @@ class PlayerItem extends StatelessWidget {
             children: [
               InkWell(
                 child: CircleAvatar(
-                  backgroundImage: player != null ? const NetworkImage(
-                      'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png'
-                  ) : null,
+                  backgroundImage: player != null ? player?.image == null
+                      ? Image.network(userImageUrl).image
+                      : Image.memory(
+                    base64Decode(
+                      player!.image!,
+                    ),
+                  ).image : null,
                   backgroundColor: player == null ? Theme.of(context).colorScheme.onPrimary : null,
                   child: player == null
                       ? Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimaryContainer)

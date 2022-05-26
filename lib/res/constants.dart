@@ -1,0 +1,1 @@
+const userImageUrl = 'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png';

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/profile_screen/profile_body.dart';
 import 'package:padel/screens/profile_screen/profile_controller.dart';
@@ -17,7 +18,12 @@ class ProfilePage extends StatelessWidget {
     String surname,
     String position,
   ) async {
-    profileController.save(username, email, name, surname, position);
+    await profileController.save(username, email, name, surname, position);
+    if(profileController.error.isEmpty){
+      Fluttertoast.showToast(msg: 'Profile saved');
+    }else{
+      Fluttertoast.showToast(msg: 'Could not load your profile');
+    }
   }
 
   @override
@@ -56,12 +62,16 @@ class ProfilePage extends StatelessWidget {
               nameValidation &&
               surnameValidation &&
               positionValidation) {
+
+
             _save(
                 body.username.textEditingController.text,
                 body.email.textEditingController.text,
                 body.name.textEditingController.text,
                 body.surname.textEditingController.text,
                 body.position.dropDownMenuController.selectedValue);
+
+
           }
         },
         child: const Icon(Icons.check),

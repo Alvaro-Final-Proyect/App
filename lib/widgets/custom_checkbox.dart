@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/res/colors.dart';
 
 class CheckboxController extends GetxController {
   var isChecked = false.obs;
@@ -16,11 +17,15 @@ class CustomCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return CheckboxListTile(
+    return Obx(
+      () {
+        return CheckboxListTile(
           title: Text(title.tr),
           value: checkboxController.isChecked.value,
-          onChanged: (value) => checkboxController.toggleCheck(value ?? false));
-    });
+          onChanged: (value) => checkboxController.toggleCheck(value ?? false),
+          tileColor: Get.isDarkMode ? black : white,
+        );
+      },
+    );
   }
 }

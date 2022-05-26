@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/match_controller.dart';
 
 import '../../res/colors.dart';
+import '../../res/constants.dart';
 
 class ChallengeScreen extends StatelessWidget {
   ChallengeScreen({Key? key}) : super(key: key);
@@ -76,10 +79,14 @@ class ChallengeBody extends StatelessWidget {
                           color: checkGreen,
                         ),
                       ),
-                      leading: const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default.png',
-                        ),
+                      leading: CircleAvatar(
+                        backgroundImage: user.image == null
+                            ? Image.network(userImageUrl).image
+                            : Image.memory(
+                          base64Decode(
+                            user.image!,
+                          ),
+                        ).image,
                       ),
                     ),
                   );

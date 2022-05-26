@@ -4,39 +4,40 @@ import 'package:flutter/services.dart';
 import 'colors.dart';
 
 final darkTheme = ThemeData.dark().copyWith(
-    brightness: Brightness.dark,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: darkGray,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: darkGray,
-      ),
-      iconTheme: IconThemeData(color: white),
-      actionsIconTheme: IconThemeData(color: white),
-      titleTextStyle:
-          TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 20),
+  brightness: Brightness.dark,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: darkGray,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: darkGray,
     ),
-    scaffoldBackgroundColor: black,
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Color(0xff03fcb1),
-    ),
-    drawerTheme: const DrawerThemeData(backgroundColor: darkGray),
-    cardTheme: const CardTheme(color: darkGray),
-    tabBarTheme: const TabBarTheme(labelColor: white),
-    colorScheme: const ColorScheme.dark().copyWith(
-      onPrimary: black,
-      onSurface: darkGray,
-      onPrimaryContainer: white,
-    ),
-    timePickerTheme: const TimePickerThemeData(
-      dayPeriodTextColor: white,
-      backgroundColor: darkGray,
-      hourMinuteTextColor: white,
-      dialBackgroundColor: black,
-      dialTextColor: white,
-      entryModeIconColor: white,
-      helpTextStyle: TextStyle(color: white, fontWeight: FontWeight.bold),
-    ),
-    listTileTheme: const ListTileThemeData(tileColor: darkGray));
+    iconTheme: IconThemeData(color: white),
+    actionsIconTheme: IconThemeData(color: white),
+    titleTextStyle:
+        TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 20),
+  ),
+  scaffoldBackgroundColor: black,
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: Color(0xff03fcb1),
+  ),
+  drawerTheme: const DrawerThemeData(backgroundColor: darkGray),
+  cardTheme: const CardTheme(color: darkGray),
+  tabBarTheme: const TabBarTheme(labelColor: white),
+  colorScheme: const ColorScheme.dark().copyWith(
+    onPrimary: black,
+    onSurface: darkGray,
+    onPrimaryContainer: white,
+  ),
+  timePickerTheme: const TimePickerThemeData(
+    dayPeriodTextColor: white,
+    backgroundColor: darkGray,
+    hourMinuteTextColor: white,
+    dialBackgroundColor: black,
+    dialTextColor: white,
+    entryModeIconColor: white,
+    helpTextStyle: TextStyle(color: white, fontWeight: FontWeight.bold),
+  ),
+  listTileTheme: const ListTileThemeData(tileColor: darkGray),
+);
 
 final lightTheme = ThemeData.light().copyWith(
   brightness: Brightness.light,

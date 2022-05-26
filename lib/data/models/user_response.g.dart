@@ -24,6 +24,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           ?.map((e) => e as String)
           .toList(),
       position: json['position'] as String?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -35,6 +36,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'password': instance.password,
       'gender': instance.gender,
       'position': instance.position,
+      'image': instance.image,
       'level': instance.level,
       'friends': instance.friends,
       'friendsRequests': instance.friendsRequests,

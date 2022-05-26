@@ -138,6 +138,7 @@ class DesktopBody extends StatelessWidget {
                   CustomCheckbox(
                     checkboxController: checkboxController,
                     title: 'textKeepMeLogged',
+                    
                   ),
                   ExpandedButton(
                     text: 'loginTitle'.tr,
