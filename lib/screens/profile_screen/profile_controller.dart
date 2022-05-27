@@ -15,7 +15,6 @@ class ProfileController extends GetxController {
 
   Future<void> save(String username, String email, String name, String surname,
       String position) async {
-
     currentUser?.username = username;
     currentUser?.email = email;
     currentUser?.name = name;

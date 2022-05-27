@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/matches_screen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
+
 import '../../data/models/match_model.dart';
 import 'matches_controller.dart';
 
@@ -13,7 +13,7 @@ class MatchItem extends StatelessWidget {
   final MatchModel match;
   final matchesController = Get.find<MatchesController>();
 
-  Future<void> _joinToMatch(int index) async {
+  Future<void> _joinToMatch(int index, BuildContext context) async {
     if (match.players[index] != null) {
       return;
     }
@@ -21,21 +21,30 @@ class MatchItem extends StatelessWidget {
     if (match.players.firstWhereOrNull(
             (element) => element?.id == matchesController.user.id) !=
         null) {
-      Fluttertoast.showToast(
-          msg: 'errorAlreadyJoined'.tr,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          textColor: Colors.black,
-          backgroundColor: Colors.white38);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('errorAlreadyJoined'.tr),
+        ),
+      );
+
       return;
     }
 
-    await matchesController.joinToMatch(match, index);
-    if (matchesController.loadError() != '') {
-      Fluttertoast.showToast(msg: matchesController.loadError());
-    } else {
-      Fluttertoast.showToast(msg: 'textJoined'.tr);
-    }
+    matchesController.joinToMatch(match, index).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(matchesController.loadError().isEmpty
+              ? 'textJoined'.tr
+              : matchesController.loadError()),
+        ),
+      );
+    }).catchError((err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Ha ocurrido un error inesperado'),
+        ),
+      );
+    });
   }
 
   @override

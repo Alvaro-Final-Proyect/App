@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../data/models/user_response.dart';
 import '../../res/constants.dart';
 
-typedef JoinToMatch = Future<void> Function(int index);
+typedef JoinToMatch = void Function(int index, BuildContext context);
 
 class PlayerItem extends StatelessWidget {
   const PlayerItem({
@@ -37,7 +37,7 @@ class PlayerItem extends StatelessWidget {
                   : null,
             ),
             onTap: () {
-              joinToMatch(index);
+              joinToMatch(index, context);
             },
           )
       );

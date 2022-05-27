@@ -174,7 +174,7 @@ class MatchBody extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return const MatchResultDialog();
+                            return MatchResultDialog();
                           },
                         );
                       },

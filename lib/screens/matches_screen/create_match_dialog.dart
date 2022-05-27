@@ -145,31 +145,59 @@ class CreateMatchDialog extends StatelessWidget {
             onPressed: () async {
               final chosenDate = createMatchDialogController.selectedDate;
               final chosenTime = createMatchDialogController.selectedTime;
-              if(chosenDate == null || chosenTime == null){
+              if (chosenDate == null || chosenTime == null) {
                 Fluttertoast.showToast(msg: 'Choose a date and an hour');
                 return;
               }
 
               final DateTime selectedDate = DateTime(
-                chosenDate.year,
-                chosenDate.month,
-                chosenDate.day,
-                chosenTime.hour,
-                chosenTime.minute
-              );
+                  chosenDate.year,
+                  chosenDate.month,
+                  chosenDate.day,
+                  chosenTime.hour,
+                  chosenTime.minute);
 
               final userLevel = matchesController.user.level;
 
               final match = MatchModel(
                   id: '',
-                  players: [matchesController.user, null, null, null,],
-                  minLevel: userLevel == null ? 0.0 : (userLevel - .75).clamp(0.0, 10.0),
+                  players: [
+                    matchesController.user,
+                    null,
+                    null,
+                    null,
+                  ],
+                  minLevel: userLevel == null
+                      ? 0.0
+                      : (userLevel - .75).clamp(0.0, 10.0),
                   date: selectedDate,
-                  maxLevel: userLevel == null ? 10.0 : (userLevel + .75).clamp(0.0, 10.0)
-              );
+                  maxLevel: userLevel == null
+                      ? 10.0
+                      : (userLevel + .75).clamp(0.0, 10.0));
 
-              await matchesController.createMatch(match);
-              Get.back();
+              matchesController.createMatch(match).then((value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      matchesController.loadError().isEmpty
+                          ? 'Partida creada correctamente'
+                          : 'No se ha podido crear la partida, comprueba los campos',
+                    ),
+                  ),
+                );
+
+                if(matchesController.loadError().isEmpty){
+                  Get.back();
+                }
+              }).catchError((err) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Ha ocurrido un error inesperado'
+                    ),
+                  ),
+                );
+              });
             },
           ),
         ],

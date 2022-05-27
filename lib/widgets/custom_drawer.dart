@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/core/retrofit_helper.dart';
-import 'package:padel/res/colors.dart';
 
 import '../data/models/user_response.dart';
 import '../res/constants.dart';
@@ -12,6 +11,7 @@ class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
 
   final _user = RetrofitHelper.user.obs;
+
   UserModel? get user => _user.value;
 
   @override
@@ -19,31 +19,31 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.only(top: 5),
-              child: CircleAvatar(
-                backgroundImage: user?.image ==
-                    null
-                    ? Image.network(userImageUrl).image
-                    : Image.memory(base64Decode(user!.image!))
-                    .image,
-              )
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0, top: 10),
-            child: Text(
-              '${user?.name?.capitalize} ${user?.surname?.capitalize}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-              textAlign: TextAlign.center,
+          DrawerHeader(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: CircleAvatar(
+                    backgroundImage: user?.image == null
+                        ? Image.network(userImageUrl).image
+                        : Image.memory(base64Decode(user!.image!)).image,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 0, top: 10),
+                  child: Text(
+                    '${user?.name?.capitalize} ${user?.surname?.capitalize}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
-          ),
-          const Divider(
-            height: 40,
           ),
           const DrawerItem(
             title: 'titleProfile',
@@ -51,9 +51,9 @@ class CustomDrawer extends StatelessWidget {
             page: '/home/profile',
           ),
           const DrawerItem(
-              title: 'Play!',
-              icon: Icons.sports_tennis,
-              page: '/home/matches',
+            title: 'Play!',
+            icon: Icons.sports_tennis,
+            page: '/home/matches',
           ),
           const DrawerItem(
             title: 'textFriends',
@@ -74,15 +74,16 @@ class CustomDrawer extends StatelessWidget {
             title: 'textSettings',
             icon: Icons.settings,
             page: '/home/settings',
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }
 
 class DrawerItem extends StatelessWidget {
-  const DrawerItem({Key? key, required this.title, this.page, this.icon}) : super(key: key);
+  const DrawerItem({Key? key, required this.title, this.page, this.icon})
+      : super(key: key);
 
   final String title;
   final String? page;
@@ -90,18 +91,18 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-        margin: const EdgeInsets.only(bottom: 5),
-        color: Theme.of(context).colorScheme.onPrimary,
-        child: ListTile(
-          title: Text(title.tr),
-          onTap: () {
-            if(page != null){
-              Get.toNamed(page!);
-            }
-          },
-          trailing: Icon(icon),
-        ),
-      );
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: ListTile(
+        title: Text(title.tr),
+        onTap: () {
+          if (page != null) {
+            Get.toNamed(page!);
+          }
+        },
+        trailing: Icon(icon),
+      ),
+    );
   }
 }

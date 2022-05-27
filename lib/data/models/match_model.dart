@@ -11,8 +11,10 @@ class MatchModel implements Comparable<MatchModel> {
   double minLevel;
   double maxLevel;
   DateTime date;
+  int? winner;
+  List<List<int>>? result;
 
-  MatchModel({required this.id, required this.players, required this.minLevel, required this.date, required this.maxLevel});
+  MatchModel({required this.id, required this.players, required this.minLevel, required this.date, required this.maxLevel, this.winner, this.result});
   factory MatchModel.fromJson(Map<String, dynamic> json) => _$MatchModelFromJson(json);
   Map<String, dynamic> toJson() => _$MatchModelToJson(this);
 

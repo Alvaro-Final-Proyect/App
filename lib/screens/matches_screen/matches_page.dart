@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +42,7 @@ class MatchesPage extends StatelessWidget {
               context: context,
               builder: (context) => CreateMatchDialog(),
             );
-            matchesController.loadMatches();
+            log('finished');
           },
           label: Text('textCreate'.tr),
           icon: const Icon(Icons.add),

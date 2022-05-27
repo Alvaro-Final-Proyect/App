@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/profile_screen/profile_body.dart';
 import 'package:padel/screens/profile_screen/profile_controller.dart';
@@ -11,19 +8,25 @@ class ProfilePage extends StatelessWidget {
 
   final profileController = Get.put(ProfileController());
 
-  void _save(
-    String username,
-    String email,
-    String name,
-    String surname,
-    String position,
-  ) async {
-    await profileController.save(username, email, name, surname, position);
-    if(profileController.error.isEmpty){
-      Fluttertoast.showToast(msg: 'Profile saved');
-    }else{
-      Fluttertoast.showToast(msg: 'Could not load your profile');
-    }
+  void _save(String username, String email, String name, String surname,
+      String position, BuildContext context) {
+    profileController
+        .save(username, email, name, surname, position)
+        .then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(profileController.error.isEmpty
+              ? 'Tu perfil se ha guardado correctamente'
+              : 'No hemos podido guardar tu perfil'),
+        ),
+      );
+    }).catchError((err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Ha ocurrido un error inesperado'),
+        ),
+      );
+    });
   }
 
   @override
@@ -55,23 +58,19 @@ class ProfilePage extends StatelessWidget {
           bool positionValidation =
               body.position.validator(body.position.dropDownMenuController);
 
-          log(body.position.dropDownMenuController.selectedValue);
-
           if (usernameValidation &&
               emailValidation &&
               nameValidation &&
               surnameValidation &&
               positionValidation) {
-
-
             _save(
-                body.username.textEditingController.text,
-                body.email.textEditingController.text,
-                body.name.textEditingController.text,
-                body.surname.textEditingController.text,
-                body.position.dropDownMenuController.selectedValue);
-
-
+              body.username.textEditingController.text,
+              body.email.textEditingController.text,
+              body.name.textEditingController.text,
+              body.surname.textEditingController.text,
+              body.position.dropDownMenuController.selectedValue,
+              context,
+            );
           }
         },
         child: const Icon(Icons.check),

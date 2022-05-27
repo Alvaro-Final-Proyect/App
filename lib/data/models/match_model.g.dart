@@ -15,6 +15,10 @@ MatchModel _$MatchModelFromJson(Map<String, dynamic> json) => MatchModel(
       minLevel: (json['minLevel'] as num).toDouble(),
       date: DateTime.parse(json['date'] as String),
       maxLevel: (json['maxLevel'] as num).toDouble(),
+      winner: json['winner'] as int?,
+      result: (json['result'] as List<dynamic>?)
+          ?.map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          .toList(),
     );
 
 Map<String, dynamic> _$MatchModelToJson(MatchModel instance) =>
@@ -24,4 +28,6 @@ Map<String, dynamic> _$MatchModelToJson(MatchModel instance) =>
       'minLevel': instance.minLevel,
       'maxLevel': instance.maxLevel,
       'date': instance.date.toIso8601String(),
+      'winner': instance.winner,
+      'result': instance.result,
     };
