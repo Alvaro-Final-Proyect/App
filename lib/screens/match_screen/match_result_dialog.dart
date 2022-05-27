@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:padel/screens/match_screen/match_controller.dart';
 import 'package:padel/util/string_extensions.dart';
 import 'package:padel/widgets/expanded_button.dart';
 
@@ -15,6 +17,7 @@ class MatchResultDialog extends StatelessWidget {
   final team2Set1 = TextEditingController();
   final team2Set2 = TextEditingController();
   final team2Set3 = TextEditingController();
+  final matchController = Get.find<MatchController>();
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +199,17 @@ class MatchResultDialog extends StatelessWidget {
                 return;
               }
 
-              
+              matchController.setMatchResult(winner, [set1, set2, set3]).then((value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      matchController.loadError().isEmpty
+                          ? 'Resultado guardado correctamente'
+                          : 'No se ha podido guardar el resultado',
+                    ),
+                  ),
+                );
+              });
             },
           ),
         ],

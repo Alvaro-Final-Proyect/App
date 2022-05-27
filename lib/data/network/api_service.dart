@@ -98,4 +98,8 @@ class ApiService {
     final matches = await RetrofitHelper.getApiClient().getUserMatches();
     return matches;
   }
+
+  Future<void> setMatchResult(String matchId, int winner, List<List<int>> result) async{
+    await RetrofitHelper.getApiClient().setMatchResult(matchId, winner, result);
+  }
 }
