@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class ProfileController extends GetxController {
 
   String error = '';
 
+  final pickedImage = ''.obs;
   final saveUserUseCase = SaveUserUseCase();
 
   Future<void> save(String username, String email, String name, String surname,
@@ -20,19 +22,19 @@ class ProfileController extends GetxController {
     currentUser?.name = name;
     currentUser?.surname = surname;
     currentUser?.position = position;
+    if(pickedImage.isNotEmpty){
+      currentUser?.image = pickedImage.value;
+    }
 
     try{
       await saveUserUseCase(currentUser!);
       error = '';
     }catch(e){
-      log('update error: $e');
       error = 'Could not save your profile';
     }
   }
 
   void setUserImage(String imageBase64){
-    _currentUser.update((val) {
-      val?.image = imageBase64;
-    });
+    pickedImage.value = imageBase64;
   }
 }

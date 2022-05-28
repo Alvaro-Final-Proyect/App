@@ -107,9 +107,11 @@ class ProfileBody extends StatelessWidget {
                     backgroundImage: profileController.currentUser?.image == null
                       ? Image.network(userImageUrl).image
                       : Image.memory(
-                          base64Decode(
+                          profileController.pickedImage.isEmpty ? base64Decode(
                             profileController.currentUser!.image!,
-                          ),
+                          ) : base64Decode(
+                            profileController.pickedImage.value,
+                          )
                         ).image,
                   );
                 }),

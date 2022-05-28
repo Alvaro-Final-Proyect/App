@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,6 +43,8 @@ class MatchBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(matchController.match.value.result.toString());
+
     return Obx(
       () {
         return CustomScrollView(
@@ -164,34 +168,87 @@ class MatchBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   if (matchController.match.value.players.firstWhereOrNull(
-                          (element) =>
-                              element?.id == matchController.user.id) !=
-                      null) ...[
-                    if(matchController.match.value.date.millisecondsSinceEpoch < DateTime.now().millisecondsSinceEpoch)
-                      ExpandedButton(
-                      text: 'textSetResult'.tr,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MatchResultDialog();
+                              (element) =>
+                                  element?.id == matchController.user.id) !=
+                          null &&
+                      matchController.match.value.players
+                          .any((element) => element == null)) ...[
+                    if (matchController
+                            .match.value.date.millisecondsSinceEpoch <
+                        DateTime.now().millisecondsSinceEpoch)
+                      if (matchController.match.value.result != null &&
+                          matchController.match.value.winner != null)
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Expanded(
+                                    child: Text('TEAM 1'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![0][0]}'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![1][0]}'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![2][0]}'),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const Divider(thickness: 2,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Expanded(
+                                    child: Text('TEAM 2'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![0][1]}'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![1][1]}'),
+                                  ),
+                                  Expanded(
+                                    child: Text('${matchController.match.value.result![2][1]}'),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      else
+                        ExpandedButton(
+                          text: 'textSetResult'.tr,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return MatchResultDialog();
+                              },
+                            );
                           },
-                        );
-                      },
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(20),
-                      textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                    if(matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(20),
+                          textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                    if (matchController
+                            .match.value.date.millisecondsSinceEpoch >
+                        DateTime.now().millisecondsSinceEpoch)
                       ExpandedButton(
                         text: 'textLeaveGame'.tr,
                         onPressed: () async {
                           await matchController.leaveMatch();
                           if (matchController.loadError() == '') {
-                            Fluttertoast.showToast(msg: 'textYourLeftTheGame'.tr);
+                            Fluttertoast.showToast(
+                                msg: 'textYourLeftTheGame'.tr);
                           } else {
                             Fluttertoast.showToast(msg: 'An error occurred.');
                           }

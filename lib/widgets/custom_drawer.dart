@@ -11,7 +11,6 @@ class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
 
   final _user = RetrofitHelper.user.obs;
-
   UserModel? get user => _user.value;
 
   @override
