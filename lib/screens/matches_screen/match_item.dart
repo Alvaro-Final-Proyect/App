@@ -8,9 +8,10 @@ import '../../data/models/match_model.dart';
 import 'matches_controller.dart';
 
 class MatchItem extends StatelessWidget {
-  MatchItem({Key? key, required this.match}) : super(key: key);
+  MatchItem(this._match, {Key? key,}) : super(key: key);
 
-  final MatchModel match;
+  final Rx<MatchModel> _match;
+  MatchModel get match => _match.value;
   final matchesController = Get.find<MatchesController>();
 
   Future<void> _joinToMatch(int index, BuildContext context) async {
@@ -30,7 +31,7 @@ class MatchItem extends StatelessWidget {
       return;
     }
 
-    matchesController.joinToMatch(match, index).then((value) {
+    matchesController.joinToMatch(_match, index).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(matchesController.loadError().isEmpty

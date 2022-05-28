@@ -51,171 +51,193 @@ class MatchBody extends StatelessWidget {
           controller: ScrollController(),
           slivers: [
             SliverList(
-                delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'textDay'.tr,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'textLevel'.tr,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(
-                thickness: 2,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
                       children: [
-                        Text(
-                          '${'textTeam'.tr} 1',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                        Expanded(
+                          child: Text(
+                            'textDay'.tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                        ...matchController.match.value.players
-                            .getRange(0, 2)
-                            .mapIndexed(
-                          (index, player) {
-                            return PlayerItem(
-                              _joinToMatch,
-                              index: index,
-                              player: player,
-                            );
-                          },
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            '${matchController.match.value.date.getDate()} ${matchController.match.value.date.getHour()}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Column(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Row(
                       children: [
-                        Text(
-                          '${'textTeam'.tr} 2',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                        Expanded(
+                          child: Text(
+                            'textLevel'.tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                        ...matchController.match.value.players
-                            .getRange(2, 4)
-                            .mapIndexed(
-                          (index, player) {
-                            return PlayerItem(_joinToMatch,
-                                index: index + 2, player: player);
-                          },
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            '${matchController.match.value.minLevel} - ${matchController.match.value.maxLevel}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ],
                     ),
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              '${'textTeam'.tr} 1',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            ...matchController.match.value.players
+                                .getRange(0, 2)
+                                .mapIndexed(
+                              (index, player) {
+                                return PlayerItem(
+                                  _joinToMatch,
+                                  index: index,
+                                  player: player,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              '${'textTeam'.tr} 2',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            ...matchController.match.value.players
+                                .getRange(2, 4)
+                                .mapIndexed(
+                              (index, player) {
+                                return PlayerItem(
+                                  _joinToMatch,
+                                  index: index + 2,
+                                  player: player,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    thickness: 2,
+                    height: 50,
                   ),
                 ],
               ),
-              const Divider(
-                thickness: 2,
-                height: 50,
-              ),
-            ])),
+            ),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  if (matchController.match.value.players.firstWhereOrNull(
-                              (element) =>
-                                  element?.id == matchController.user.id) !=
-                          null &&
-                      matchController.match.value.players
-                          .any((element) => element == null)) ...[
-                    if (matchController
-                            .match.value.date.millisecondsSinceEpoch <
-                        DateTime.now().millisecondsSinceEpoch)
-                      if (matchController.match.value.result != null &&
-                          matchController.match.value.winner != null)
+                  // SOLO MOSTRAR ESTAS OPCIONES SI EL USUARIO ESTÁ EN LA PARTIDA
+                  if (matchController.match.value.players.firstWhereOrNull((element) => element?.id == matchController.user.id) != null) ...[
+                    // SI LA PARTIDA HA ACABADO Y ESTÁ COMPLETA MOSTRAR GUARDAR RESULTADO (SI NO HAY UNO YA) O MOSTRAR EL RESULTADO
+                    if (matchController.match.value.date.millisecondsSinceEpoch < DateTime.now().millisecondsSinceEpoch && !matchController.match.value.players.any((element) => element == null))
+                      if (matchController.match.value.result != null && matchController.match.value.winner != null)
                         Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  const Expanded(
-                                    child: Text('TEAM 1'),
+                                  Expanded(
+                                    child: Text(
+                                      '${'textTeam'.tr} 1',
+                                      style: const TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                   Expanded(
-                                    child: Text('${matchController.match.value.result![0][0]}'),
+                                    flex: 3,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '${matchController.match.value.result![0][0]} - ${matchController.match.value.result![1][0]} - ${matchController.match.value.result![2][0]}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Expanded(
-                                    child: Text('${matchController.match.value.result![1][0]}'),
-                                  ),
-                                  Expanded(
-                                    child: Text('${matchController.match.value.result![2][0]}'),
-                                  )
                                 ],
                               ),
                             ),
-                            const Divider(thickness: 2,),
+                            const Divider(
+                              thickness: 2,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  const Expanded(
-                                    child: Text('TEAM 2'),
+                                  Expanded(
+                                    child: Text(
+                                      '${'textTeam'.tr} 2',
+                                      style: const TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                   Expanded(
-                                    child: Text('${matchController.match.value.result![0][1]}'),
+                                    flex: 3,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '${matchController.match.value.result![0][1]} - ${matchController.match.value.result![1][1]} - ${matchController.match.value.result![2][1]}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Expanded(
-                                    child: Text('${matchController.match.value.result![1][1]}'),
-                                  ),
-                                  Expanded(
-                                    child: Text('${matchController.match.value.result![2][1]}'),
-                                  )
                                 ],
                               ),
                             )
@@ -239,9 +261,8 @@ class MatchBody extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ),
-                    if (matchController
-                            .match.value.date.millisecondsSinceEpoch >
-                        DateTime.now().millisecondsSinceEpoch)
+                    // SI LA PARTIDA NO SE HA JUGADO MOSTAR EL BOTÓN DE SALIR DE LA PARTIDA
+                    if (matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
                       ExpandedButton(
                         text: 'textLeaveGame'.tr,
                         onPressed: () async {
@@ -260,7 +281,7 @@ class MatchBody extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
-                      )
+                      ),
                   ],
                 ],
               ),

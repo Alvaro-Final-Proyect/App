@@ -44,17 +44,17 @@ class MatchesController extends GetxController {
     _isLoading.value = false;
   }
 
-  Future<void> joinToMatch(MatchModel match, int index) async {
-    _isLoading.value = true;
-
+  Future<void> joinToMatch(Rx<MatchModel> match, int index) async {
     try{
-      match = await joinToMatchUseCase(match.id, index);
+      final matchUpdated = await joinToMatchUseCase(match.value.id, index);
+      match.update((val) {
+        val?.players = matchUpdated.players;
+      });
+      matches.refresh();
       _loadError.value = '';
     }on Exception catch(_){
       _loadError.value = 'Could not join to match';
     }
-
-    _isLoading.value = false;
   }
 
   Future<void> createMatch(MatchModel match) async {

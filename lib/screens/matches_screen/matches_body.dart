@@ -70,7 +70,7 @@ class MatchesBody extends StatelessWidget {
                           );
                         },
                         itemBuilder: (_, MatchModel match) =>
-                            MatchItem(match: match),
+                            MatchItem(match.obs),
                         itemComparator: (a, b) =>
                             a.date.millisecondsSinceEpoch -
                             b.date.millisecondsSinceEpoch,
@@ -101,7 +101,7 @@ class MatchesBody extends StatelessWidget {
                             );
                           },
                           itemBuilder: (_, MatchModel match) =>
-                              MatchItem(match: match),
+                              MatchItem(match.obs),
                           itemComparator: (a, b) =>
                               a.date.millisecondsSinceEpoch -
                               b.date.millisecondsSinceEpoch,
