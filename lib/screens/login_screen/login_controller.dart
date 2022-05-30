@@ -19,6 +19,7 @@ class LoginController extends GetxController{
 
   Future<void> login(String username, String password, bool keepLogged) async {
     _isLoading.value = true;
+    log('$username $password');
 
     try{
       final token = await loginUseCase(username, password);
@@ -28,9 +29,7 @@ class LoginController extends GetxController{
         _loadError.value = '';
         RetrofitHelper.setToken(token.token!);
         final preferences = await SharedPreferences.getInstance();
-        if(keepLogged){
-          await preferences.setString('token', token.token!);
-        }
+        if(keepLogged){await preferences.setString('token', token.token!); }
         RetrofitHelper.user = await getUserFromTokenUseCase();
       }
     }on Exception catch(_){

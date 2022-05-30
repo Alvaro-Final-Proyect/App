@@ -37,6 +37,12 @@ final darkTheme = ThemeData.dark().copyWith(
     helpTextStyle: TextStyle(color: white, fontWeight: FontWeight.bold),
   ),
   listTileTheme: const ListTileThemeData(tileColor: darkGray),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: darkGray,
+    contentTextStyle: TextStyle(
+      color: white,
+    ),
+  ),
 );
 
 final lightTheme = ThemeData.light().copyWith(
@@ -74,5 +80,12 @@ final lightTheme = ThemeData.light().copyWith(
   ),
   listTileTheme: const ListTileThemeData(
     tileColor: lightGray,
+
+  ),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: lightGray,
+    contentTextStyle: TextStyle(
+      color: black,
+    ),
   ),
 );

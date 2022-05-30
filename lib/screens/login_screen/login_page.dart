@@ -1,14 +1,12 @@
-import 'dart:developer';
-
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:padel/screens/login_screen/login_controller.dart';
 import 'package:padel/widgets/custom_checkbox.dart';
 import 'package:padel/widgets/custom_text_field.dart';
 import 'package:padel/widgets/expanded_button.dart';
 import 'package:padel/widgets/responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import '../../widgets/custom_password_field.dart';
 import 'login_controller.dart';
 
@@ -35,9 +33,7 @@ class LoginBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      mobileBody: MobileBody(),
-      desktopBody: DesktopBody()
-    );
+        mobileBody: MobileBody(), desktopBody: DesktopBody());
   }
 }
 
@@ -45,6 +41,7 @@ class DesktopBody extends StatelessWidget {
   DesktopBody({Key? key}) : super(key: key);
 
   final _loginController = Get.find<LoginController>();
+
   final username = CustomTextField(
       labelText: 'textUsernameOrEmail',
       icon: Icons.person,
@@ -54,58 +51,68 @@ class DesktopBody extends StatelessWidget {
         final RxString textError = customTextFieldController.textError;
         bool result = false;
 
-        if(text.isBlank?? true){
+        if (text.isBlank ?? true) {
           textError.value = 'This field cant be empty';
-        }else {
+        } else {
           textError.value = '';
           result = true;
         }
 
         return result;
-      }
-  );
+      });
   final password = CustomPasswordField(
       labelText: 'textPassword',
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      validator: (customPasswordFieldController, textEditingController) {
+      validator: (customPasswordFieldController, textEditingController, _) {
         final String text = textEditingController.text;
         final RxString textError = customPasswordFieldController.textError;
         bool result = false;
 
-        if(text.isBlank?? true){
+        if (text.isBlank ?? true) {
           textError.value = 'Password cant be empty';
-        }else {
+        } else {
           textError.value = '';
           result = true;
         }
 
         return result;
-      }
-  );
+      });
   final checkboxController = CheckboxController();
-  void _login() async {
-    final usernameValidation = username.validator(username.customTextFieldController, username.textEditingController);
-    final passwordValidation = password.validator(password.customPasswordFieldController, password.textEditingController);
 
-    if(!usernameValidation || !passwordValidation) {
+  void _login(BuildContext context) async {
+    final usernameValidation = username.validator(
+        username.customTextFieldController, username.textEditingController);
+    final passwordValidation = password.validator(
+        password.customPasswordFieldController,
+        password.textEditingController,
+        null);
+
+    if (!usernameValidation || !passwordValidation) {
       return;
     }
 
-    await _loginController.login(
-        username.textEditingController.text,
-        password.textEditingController.text,
-        checkboxController.isChecked.value
-    );
-
-    if (_loginController.loadError() == '') {
-      Get.offAllNamed('/home');
-    } else {
-      log('error');
-      Fluttertoast.showToast(
-        msg: _loginController.loadError(),
-        toastLength: Toast.LENGTH_SHORT,
-      );
-    }
+    _loginController
+        .login(
+          username.textEditingController.text,
+          password.textEditingController.text,
+          checkboxController.isChecked.value,
+        )
+        .then(
+          (value) => {
+            if (_loginController.loadError() == '')
+              {Get.offAllNamed('/home')}
+            else
+              {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      _loginController.loadError(),
+                    ),
+                  ),
+                )
+              }
+          },
+        );
   }
 
   @override
@@ -113,11 +120,13 @@ class DesktopBody extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Image.asset('assets/raqueta-de-padel.png', fit: BoxFit.contain,),
-          )
-        ),
+            child: Container(
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+          child: Image.asset(
+            'assets/raqueta-de-padel.png',
+            fit: BoxFit.contain,
+          ),
+        )),
         Expanded(
           flex: 2,
           child: Center(
@@ -125,31 +134,26 @@ class DesktopBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                      'HELLO AGAIN',
-                      style: GoogleFonts.bebasNeue(fontSize: 52)
-                  ),
-                  const Text(
-                      'Welcome back, you\'ve been missed!',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)
-                  ),
+                  Text('HELLO AGAIN',
+                      style: GoogleFonts.bebasNeue(fontSize: 52)),
+                  const Text('Welcome back, you\'ve been missed!',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   username,
                   password,
                   CustomCheckbox(
                     checkboxController: checkboxController,
                     title: 'textKeepMeLogged',
-                    
                   ),
                   ExpandedButton(
                     text: 'loginTitle'.tr,
-                    onPressed: _login,
+                    onPressed: () => _login(context),
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     padding: const EdgeInsets.all(20),
                     textStyle: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18
-                    ),
+                        fontSize: 18),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -162,11 +166,8 @@ class DesktopBody extends StatelessWidget {
                           onPressed: () => Get.toNamed('/register'),
                           child: const Text(
                             'Register now!',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold
-                            ),
-                          )
-                      )
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ))
                     ],
                   )
                 ],
@@ -184,65 +185,76 @@ class MobileBody extends StatelessWidget {
 
   final _loginController = Get.find<LoginController>();
   final username = CustomTextField(
-    labelText: 'textUsernameOrEmail',
-    icon: Icons.person,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    validator: (customTextFieldController, textEditingController) {
-      final String text = textEditingController.text;
-      final RxString textError = customTextFieldController.textError;
-      bool result = false;
-
-      if(text.isBlank?? true){
-        textError.value = 'This field cant be empty';
-      }else {
-        textError.value = '';
-        result = true;
-      }
-
-      return result;
-    }
-  );
-  final password = CustomPasswordField(
-      labelText: 'textPassword',
+      labelText: 'textUsernameOrEmail',
+      icon: Icons.person,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      validator: (customPasswordFieldController, textEditingController) {
+      validator: (customTextFieldController, textEditingController) {
         final String text = textEditingController.text;
-        final RxString textError = customPasswordFieldController.textError;
+        final RxString textError = customTextFieldController.textError;
         bool result = false;
 
-        if(text.isBlank?? true){
-          textError.value = 'Password cant be empty';
-        }else {
+        if (text.isBlank ?? true) {
+          textError.value = 'This field cant be empty';
+        } else {
           textError.value = '';
           result = true;
         }
 
         return result;
-      }
-  );
-  final checkboxController = CheckboxController();
-  void _login() async {
-    final usernameValidation = username.validator(username.customTextFieldController, username.textEditingController);
-    final passwordValidation = password.validator(password.customPasswordFieldController, password.textEditingController);
+      });
+  final password = CustomPasswordField(
+      labelText: 'textPassword',
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      validator: (customPasswordFieldController, textEditingController, _) {
+        final String text = textEditingController.text;
+        final RxString textError = customPasswordFieldController.textError;
+        bool result = false;
 
-    if(!usernameValidation || !passwordValidation) {
+        if (text.isBlank ?? true) {
+          textError.value = 'Password cant be empty';
+        } else {
+          textError.value = '';
+          result = true;
+        }
+
+        return result;
+      });
+  final checkboxController = CheckboxController();
+
+  void _login(context) async {
+    final usernameValidation = username.validator(
+        username.customTextFieldController, username.textEditingController);
+    final passwordValidation = password.validator(
+        password.customPasswordFieldController,
+        password.textEditingController,
+        null);
+
+    if (!usernameValidation || !passwordValidation) {
       return;
     }
 
-    await _loginController.login(
-        username.textEditingController.text,
-        password.textEditingController.text,
-        checkboxController.isChecked.value
-    );
-
-    if (_loginController.loadError() == '') {
-      Get.offAllNamed('/home');
-    } else {
-      Fluttertoast.showToast(
-        msg: _loginController.loadError(),
-        toastLength: Toast.LENGTH_SHORT,
-      );
-    }
+    _loginController
+        .login(
+          username.textEditingController.text,
+          password.textEditingController.text,
+          checkboxController.isChecked.value,
+        )
+        .then(
+          (value) => {
+            if (_loginController.loadError() == '')
+              {Get.offAllNamed('/home')}
+            else
+              {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      _loginController.loadError(),
+                    ),
+                  ),
+                )
+              }
+          },
+        );
   }
 
   @override
@@ -259,9 +271,11 @@ class MobileBody extends StatelessWidget {
                     height: 200,
                     width: 200,
                     padding: const EdgeInsets.all(20),
-                    child: Image.asset('assets/raqueta-de-padel.png', fit: BoxFit.contain,),
-                  )
-              ),
+                    child: Image.asset(
+                      'assets/raqueta-de-padel.png',
+                      fit: BoxFit.contain,
+                    ),
+                  )),
               Expanded(
                 flex: 3,
                 child: Center(
@@ -270,15 +284,14 @@ class MobileBody extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                            'HELLO AGAIN',
-                            style: GoogleFonts.bebasNeue(fontSize: 52)
+                        Text('HELLO AGAIN',
+                            style: GoogleFonts.bebasNeue(fontSize: 52)),
+                        const Text('Welcome back, you\'ve been missed!',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        const SizedBox(
+                          height: 20,
                         ),
-                        const Text(
-                            'Welcome back, you\'ve been missed!',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)
-                        ),
-                        const SizedBox(height: 20,),
                         username,
                         password,
                         CustomCheckbox(
@@ -287,14 +300,13 @@ class MobileBody extends StatelessWidget {
                         ),
                         ExpandedButton(
                           text: 'loginTitle'.tr,
-                          onPressed: _login,
+                          onPressed: () => _login(context),
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           padding: const EdgeInsets.all(20),
                           textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18
-                          ),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -304,14 +316,11 @@ class MobileBody extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextButton(
-                              onPressed: () => Get.toNamed('/register'),
-                              child: const Text(
-                                'Register now!',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                ),
-                              )
-                            )
+                                onPressed: () => Get.toNamed('/register'),
+                                child: const Text(
+                                  'Register now!',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
                           ],
                         )
                       ],

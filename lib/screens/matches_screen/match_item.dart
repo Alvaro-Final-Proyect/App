@@ -64,17 +64,20 @@ class MatchItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: Center(
-                          child: Text(
-                            match.date.getHour(),
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                        child: Text(
+                          match.date.getHour(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Container(
-                          decoration: const BoxDecoration(color: Colors.yellow),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            Icon(Icons.male),
+                            Icon(Icons.female)
+                          ],
                         ),
                       ),
                     ],

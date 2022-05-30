@@ -34,7 +34,8 @@ class MatchPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
         ),
         actions: [
-          PopupMenuButton<String>(
+          if(matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
+            PopupMenuButton<String>(
             onSelected: _handleClick,
             itemBuilder: (BuildContext context) {
               return {'textChallengeFriend'.tr}.map((String choice) {

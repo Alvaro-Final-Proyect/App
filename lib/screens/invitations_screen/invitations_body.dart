@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/res/constants.dart';
 import 'package:padel/screens/invitations_screen/invitations_controller.dart';
 import 'package:padel/util/date_time_extensions.dart';
 
@@ -25,21 +28,53 @@ class InvitationsBody extends StatelessWidget {
                   return Container(
                     margin: const EdgeInsets.all(10),
                     child: ListTile(
-                      title: Row(
-                        children: match.players
-                            .map((e) => e == null
-                                ? const Icon(Icons.circle)
-                                : const Icon(Icons.person))
-                            .toList(),
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: match.players
+                              .map(
+                                (player) => Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  child: CircleAvatar(
+                                    backgroundImage: player != null
+                                        ? player.image == null
+                                            ? Image.network(
+                                                userImageUrl,
+                                              ).image
+                                            : Image.memory(
+                                                base64Decode(
+                                                  player.image!,
+                                                ),
+                                              ).image
+                                        : null,
+                                    backgroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
-                      subtitle: Text(
-                          '${'textDay'.tr}: ${match.date.getDate()}, ${'textLevel'.tr}: ${match.minLevel} - ${match.maxLevel}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${'textDay'.tr}: ${match.date.getDate()} - ${match.date.getHour()}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '${'textLevel'.tr}: ${match.minLevel} - ${match.maxLevel}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                       trailing: TextButton(
-                        onPressed: () {
-                          Get.toNamed('/home/matches/match', arguments: match);
-                        },
-                        child: const Text('IR'),
-                      ),
+                          onPressed: () {
+                            Get.toNamed('/home/matches/match', arguments: match);
+                          },
+                          child: const Text('IR'),
+                        ),
                     ),
                   );
                 },

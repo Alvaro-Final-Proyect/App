@@ -38,7 +38,7 @@ class RegisterController extends GetxController {
     try{
       await registerUseCase(newUser);
     }on Exception catch(_){
-      _loadError.value = 'An error occurred on register';
+      _loadError.value = 'Could not create your account';
     }
 
     _isLoading.value = false;

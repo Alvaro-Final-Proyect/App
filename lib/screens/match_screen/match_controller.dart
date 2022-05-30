@@ -66,6 +66,7 @@ class MatchController extends GetxController {
 
   Future<void> sendMatchInvitation(String userInvitedId) async {
     try{
+      log('${match.value.id} - $userInvitedId');
       await sendMatchInvitationUseCase(match.value.id, userInvitedId);
       await loadFriends();
       _loadError.value = '';

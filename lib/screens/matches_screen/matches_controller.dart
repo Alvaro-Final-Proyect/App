@@ -59,10 +59,8 @@ class MatchesController extends GetxController {
 
   Future<void> createMatch(MatchModel match) async {
     try{
-      await createMatchUseCase(match);
-      matches.add(match);
-      log(match.toString());
-      log(matches.contains(match).toString());
+      final matchCreated = await createMatchUseCase(match);
+      matches.add(matchCreated);
       matches.refresh();
       _loadError.value = '';
     }catch(e){

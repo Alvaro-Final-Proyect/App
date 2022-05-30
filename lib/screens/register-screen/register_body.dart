@@ -23,10 +23,10 @@ class RegisterBody extends StatelessWidget {
     bool emailValidation = email.validator(
         email.customTextFieldController, email.textEditingController);
     bool passwordValidation = password.validator(
-        password.customPasswordFieldController, password.textEditingController);
+        password.customPasswordFieldController, password.textEditingController, null);
     bool repeatPasswordValidation = repeatPassword.validator(
         repeatPassword.customPasswordFieldController,
-        repeatPassword.textEditingController);
+        repeatPassword.textEditingController, password.textEditingController.text);
     bool nameValidation = name.validator(
         name.customTextFieldController, name.textEditingController);
     bool surnameValidation = surname.validator(
@@ -109,7 +109,7 @@ class RegisterBody extends StatelessWidget {
   final password = CustomPasswordField(
       labelText: 'textPassword',
       margin: const EdgeInsets.all(10),
-      validator: (customPasswordFieldController, textEditingController) {
+      validator: (customPasswordFieldController, textEditingController, _) {
         final String text = textEditingController.text;
         final RxString textError = customPasswordFieldController.textError;
         bool result = false;
@@ -127,7 +127,8 @@ class RegisterBody extends StatelessWidget {
   final repeatPassword = CustomPasswordField(
       labelText: 'textRepeatPassword',
       margin: const EdgeInsets.all(10),
-      validator: (customPasswordFieldController, textEditingController) {
+      validator: (customPasswordFieldController, textEditingController,
+          otherPassword) {
         final String text = textEditingController.text;
         final RxString textError = customPasswordFieldController.textError;
         bool result = false;
@@ -136,6 +137,8 @@ class RegisterBody extends StatelessWidget {
           textError.value = 'Password cant be empty';
         } else if (text.length < 5) {
           textError.value = 'Password length must be 5 or more';
+        } else if (text != otherPassword) {
+          textError.value = 'Both passwords must be equals';
         } else {
           textError.value = '';
           result = true;
@@ -246,10 +249,22 @@ class RegisterBody extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         child: Text(
                           'textSelectYourGender'.tr,
-                          style: Get.isDarkMode ? const TextStyle(color: Color(0xFF969ba4)) : const TextStyle(color: Color(0xFF5e5e5e)),
+                          style: Get.isDarkMode
+                              ? const TextStyle(color: Color(0xFF969ba4))
+                              : const TextStyle(color: Color(0xFF5e5e5e)),
                         )),
                     GenderPickerWithImage(
-                      unSelectedGenderTextStyle: Get.isDarkMode ? const TextStyle(color: Color(0xFF969ba4), fontSize: 19, fontWeight: FontWeight.w600,) : const TextStyle(color: Color(0xFF5e5e5e), fontSize: 19, fontWeight: FontWeight.w600,),
+                      unSelectedGenderTextStyle: Get.isDarkMode
+                          ? const TextStyle(
+                              color: Color(0xFF969ba4),
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                            )
+                          : const TextStyle(
+                              color: Color(0xFF5e5e5e),
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                            ),
                       selectedGender: Gender.Male,
                       onChanged: (Gender? gender) {
                         if (gender == Gender.Female) {

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 typedef CustomPasswordFieldValidator = bool Function(
     CustomPasswordFieldController customPasswordFieldController,
-    TextEditingController textEditingController
+    TextEditingController textEditingController,
+    String? support
 );
 
 class CustomPasswordFieldController extends GetxController {
