@@ -99,7 +99,7 @@ class ApiService {
     return matches;
   }
 
-  Future<void> setMatchResult(String matchId, int winner, List<List<int>> result) async{
+  Future<void> setMatchResult(String matchId, int winner, Map<String, List<List<int>>> result) async{
     await RetrofitHelper.getApiClient().setMatchResult(matchId, winner, result);
   }
 }

@@ -77,7 +77,7 @@ class MatchController extends GetxController {
 
   Future<void> setMatchResult(int winner, List<List<int>> result) async {
     try{
-      await setMatchResultUseCase(match.value.id, winner, result);
+      await setMatchResultUseCase(match.value.id, winner, {'result': result});
       match.update((val) {
         val?.winner = winner;
         val?.result = result;

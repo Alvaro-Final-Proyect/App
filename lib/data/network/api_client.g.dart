@@ -282,12 +282,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<void> setMatchResult(id, winner, sets) async {
+  Future<void> setMatchResult(id, winner, result) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll({'result': sets});
+    _data.addAll(result);
     await _dio.fetch<void>(_setStreamType<void>(
         Options(method: 'PATCH', headers: _headers, extra: _extra)
             .compose(

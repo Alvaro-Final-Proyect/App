@@ -32,4 +32,8 @@ class MatchModel implements Comparable<MatchModel> {
     }
     return 0;
   }
+
+  bool get isEmpty => players.any((element) => element == null);
+  bool canJoin(UserModel user) => user.level! == user.level!.clamp(minLevel, maxLevel);
+  String get winnerText => winner == null ? 'Unknown' : winner == 0 ? 'Team 1' : 'Team 2';
 }

@@ -57,6 +57,10 @@ class Messages extends Translations {
       'textInvitations': 'Invitations',
       'textPlay': 'Play!',
       'textRecord': 'Record',
+      'roundOfSixteen': 'Round Of 16',
+      'quarterFinals': 'Quarter Finals',
+      'semiFinals': 'Semi-Final',
+      'final': 'Final'
     },
     'es_ES': {
       'loginTitle': 'Iniciar Sesión',
@@ -111,6 +115,10 @@ class Messages extends Translations {
       'textInvitations': 'Invitaciones',
       'textPlay': 'Jugar!',
       'textRecord': 'Historial',
+      'roundOfSixteen': 'Octavos',
+      'quarterFinals': 'Cuartos',
+      'semiFinals': 'Semi Final',
+      'final': 'Final'
     }
   };
 }

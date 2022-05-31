@@ -1,89 +1,160 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:graphview/GraphView.dart';
+import 'package:get/get.dart';
+import 'package:padel/data/models/match_model.dart';
+import 'package:padel/data/models/user_response.dart';
+import 'package:padel/res/colors.dart';
+
+import '../../util/image_extensions.dart';
 
 class TournamentsPage extends StatelessWidget {
   TournamentsPage({Key? key}) : super(key: key);
 
-  final graph = Graph()..isTree = true;
-  final builder = BuchheimWalkerConfiguration();
-  final nodes = <Map<String, dynamic>>[
-      {'id': 1, 'label': 'circle'},
-      {'id': 2, 'label': 'ellipse'},
-      {'id': 3, 'label': 'square'}
-  ];
-
-  final edges = <Map<String, int>>[
-      {'from': 1, 'to': 3},
-      {'from': 1, 'to': 2},
-  ];
-
-  void init() {
-    for (var element in edges) {
-      var fromNodeId = element['from'];
-      var toNodeId = element['to'];
-      graph.addEdge(Node.Id(fromNodeId), Node.Id(toNodeId));
-    }
-
-    builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_RIGHT_LEFT);
-  }
+  final tournament = <String, List<MatchModel?>>{
+    'roundOfSixteen': [
+      MatchModel(
+        id: 'id',
+        players: [
+          UserModel(matchesInvitations: []),
+          UserModel(matchesInvitations: []),
+          UserModel(matchesInvitations: []),
+          UserModel(matchesInvitations: []),
+        ],
+        minLevel: 3.0,
+        date: DateTime.now(),
+        maxLevel: 4.0,
+      ),
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+    ],
+    'quarterFinals': [
+      null,
+      null,
+      null,
+      null,
+    ],
+    'semiFinals': [
+      null,
+      null,
+    ],
+    'final': [
+      null,
+    ],
+  };
 
   @override
   Widget build(BuildContext context) {
-    init();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tournaments'),
+        title: Text('textTournaments'.tr),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: InteractiveViewer(
-              constrained: false,
-              child: GraphView(
-                graph: graph,
-                algorithm: BuchheimWalkerAlgorithm(
-                    builder, TreeEdgeRenderer(builder)),
-                paint: Paint()
-                  ..color = Colors.green
-                  ..strokeWidth = 1
-                  ..style = PaintingStyle.stroke,
-                builder: (Node node) {
-                  // I can decide what widget should be shown here based on the id
-                  var nodeId = node.key?.value as int;
-                  var currentNode = nodes.firstWhere((element) => nodeId == element['id'] as int);
-                  return MatchItem(currentNode: currentNode);
-                },
-              )
-            )
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: tournament.keys.length,
+        itemBuilder: (context, index) {
+          final key = tournament.keys.elementAt(index);
+          final matches = tournament[key]!;
+          return Container(
+            padding: const EdgeInsets.all(10),
+            child: ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              title: Text(key.tr),
+              subtitle: Column(
+                children: matches.map(
+                  (match) {
+                    return Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: white,
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      child: isJoinableMatch(match, key)
+                          ? const EmptyMatch()
+                          : match == null
+                              ? const Center(
+                                  child: Text('?'),
+                                )
+                              : NotEmptyMatch(
+                                  match: match,
+                                ),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
+          );
+        },
       ),
+    );
+  }
+
+  bool isJoinableMatch(MatchModel? match, String key) =>
+      (match == null || match.isEmpty) && key == 'roundOfSixteen';
+}
+
+class NotEmptyMatch extends StatelessWidget {
+  const NotEmptyMatch({
+    Key? key,
+    required this.match,
+  }) : super(key: key);
+
+  final MatchModel match;
+
+  @override
+  Widget build(BuildContext context) {
+    final team1 = match.players.getRange(0, 2);
+    final team2 = match.players.getRange(2, 4);
+
+    return Wrap(
+      direction: Axis.vertical,
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  ...team1.map((e) => CircleAvatar(backgroundImage: ImageExtensions.fromUser(e!,),),).toList(),
+                  ...team2.map((e) => CircleAvatar(backgroundImage: ImageExtensions.fromUser(e!,),),).toList(),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20,),
+        AutoSizeText('Winner: ${match.winnerText}', overflow: TextOverflow.fade,),
+      ],
     );
   }
 }
 
-class MatchItem extends StatelessWidget {
-  const MatchItem({
+class EmptyMatch extends StatelessWidget {
+  const EmptyMatch({
     Key? key,
-    required this.currentNode,
   }) : super(key: key);
-
-  final Map<String, dynamic> currentNode;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-      ),
-      padding: const EdgeInsets.all(20),
-      child: Text(currentNode['label'] as String),
+    return Row(
+      children: [
+        const Expanded(
+          child: Text('Empty match'),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text(
+            'JOIN!',
+          ),
+        )
+      ],
     );
   }
 }
