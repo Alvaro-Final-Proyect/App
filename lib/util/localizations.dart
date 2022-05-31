@@ -60,7 +60,8 @@ class Messages extends Translations {
       'roundOfSixteen': 'Round Of 16',
       'quarterFinals': 'Quarter Finals',
       'semiFinals': 'Semi-Final',
-      'final': 'Final'
+      'final': 'Final',
+      'textLoading': 'Loading'
     },
     'es_ES': {
       'loginTitle': 'Iniciar Sesión',
@@ -118,7 +119,8 @@ class Messages extends Translations {
       'roundOfSixteen': 'Octavos',
       'quarterFinals': 'Cuartos',
       'semiFinals': 'Semi Final',
-      'final': 'Final'
+      'final': 'Final',
+      'textLoading': 'Cargando'
     }
   };
 }

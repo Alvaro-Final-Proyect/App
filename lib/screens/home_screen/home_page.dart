@@ -16,14 +16,8 @@ class HomePage extends StatelessWidget {
     Get.offAllNamed('/login');
   }
 
-  _loadUser() async {
-    await homeController.loadUser();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _loadUser();
-
     return Scaffold(
       drawer: Obx(() => homeController.isLoading()
           ? const CircularProgressIndicator()

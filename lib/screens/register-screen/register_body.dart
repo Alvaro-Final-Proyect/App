@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/register-screen/register_controller.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../widgets/custom_password_field.dart';
 import '../../widgets/custom_text_field.dart';
@@ -17,53 +17,77 @@ class GenderController {
 class RegisterBody extends StatelessWidget {
   RegisterBody({Key? key}) : super(key: key);
 
-  void _register() async {
+  bool validateFields() {
     bool usernameValidation = username.validator(
         username.customTextFieldController, username.textEditingController);
     bool emailValidation = email.validator(
         email.customTextFieldController, email.textEditingController);
     bool passwordValidation = password.validator(
-        password.customPasswordFieldController, password.textEditingController, null);
+        password.customPasswordFieldController,
+        password.textEditingController,
+        null);
     bool repeatPasswordValidation = repeatPassword.validator(
         repeatPassword.customPasswordFieldController,
-        repeatPassword.textEditingController, password.textEditingController.text);
+        repeatPassword.textEditingController,
+        password.textEditingController.text);
     bool nameValidation = name.validator(
         name.customTextFieldController, name.textEditingController);
     bool surnameValidation = surname.validator(
         surname.customTextFieldController, surname.textEditingController);
     bool levelValidation = level.validator(level.dropDownMenuController);
     bool positionValidation =
-        position.validator(position.dropDownMenuController);
+    position.validator(position.dropDownMenuController);
 
-    if (usernameValidation &&
+    return usernameValidation &&
         emailValidation &&
         passwordValidation &&
         repeatPasswordValidation &&
         nameValidation &&
         surnameValidation &&
         levelValidation &&
-        positionValidation) {
-      await _registerController.register(
-          username: username.textEditingController.text,
-          email: email.textEditingController.text,
-          password: password.textEditingController.text,
-          name: name.textEditingController.text,
-          surname: surname.textEditingController.text,
-          level: level.dropDownMenuController.selected.value,
-          position: position.dropDownMenuController.selectedValue,
-          gender: genderController.gender);
+        positionValidation;
+  }
 
-      if (_registerController.loadError() == '') {
-        Fluttertoast.showToast(
-            msg: 'User registered correctly',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Colors.black,
-            backgroundColor: Colors.white38);
-        Get.back();
-      } else {
-        printInfo(info: _registerController.loadError());
-      }
+  void _register(BuildContext context) async {
+
+    if (validateFields()) {
+
+      LoadingPopup.show(context: context);
+
+      _registerController.register(
+        username: username.textEditingController.text,
+        email: email.textEditingController.text,
+        password: password.textEditingController.text,
+        name: name.textEditingController.text,
+        surname: surname.textEditingController.text,
+        level: level.dropDownMenuController.selected.value,
+        position: position.dropDownMenuController.selectedValue,
+        gender: genderController.gender,
+      ).then(
+        (value) {
+          Get.back();
+
+          if (_registerController.loadError() == '') {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'User registered correctly',
+                ),
+              ),
+            );
+
+            Get.back();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Username or email repeated',
+                ),
+              ),
+            );
+          }
+        },
+      );
     }
   }
 
@@ -291,7 +315,7 @@ class RegisterBody extends StatelessWidget {
                 text: 'registerTitle'.tr,
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(20),
-                onPressed: _register,
+                onPressed: () => _register(context),
               ),
             ],
           ),

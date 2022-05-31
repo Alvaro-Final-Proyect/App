@@ -1,11 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:padel/screens/login_screen/login_controller.dart';
 import 'package:padel/widgets/custom_checkbox.dart';
 import 'package:padel/widgets/custom_text_field.dart';
-import 'package:padel/widgets/expanded_button.dart';
-import 'package:padel/widgets/responsive_layout.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../widgets/custom_password_field.dart';
 import 'login_controller.dart';
@@ -19,29 +19,18 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('loginTitle'.tr),
+        title: Text('Padel IT'.tr),
         centerTitle: true,
       ),
-      body: const LoginBody(),
+      body: LoginBody(),
     );
   }
 }
 
 class LoginBody extends StatelessWidget {
-  const LoginBody({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ResponsiveLayout(
-        mobileBody: MobileBody(), desktopBody: DesktopBody());
-  }
-}
-
-class DesktopBody extends StatelessWidget {
-  DesktopBody({Key? key}) : super(key: key);
+  LoginBody({Key? key}) : super(key: key);
 
   final _loginController = Get.find<LoginController>();
-
   final username = CustomTextField(
       labelText: 'textUsernameOrEmail',
       icon: Icons.person,
@@ -79,7 +68,7 @@ class DesktopBody extends StatelessWidget {
       });
   final checkboxController = CheckboxController();
 
-  void _login(BuildContext context) async {
+  _login(context) async {
     final usernameValidation = username.validator(
         username.customTextFieldController, username.textEditingController);
     final passwordValidation = password.validator(
@@ -91,7 +80,7 @@ class DesktopBody extends StatelessWidget {
       return;
     }
 
-    _loginController
+    await _loginController
         .login(
           username.textEditingController.text,
           password.textEditingController.text,
@@ -117,221 +106,88 @@ class DesktopBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            child: Container(
-          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-          child: Image.asset(
-            'assets/raqueta-de-padel.png',
-            fit: BoxFit.contain,
-          ),
-        )),
-        Expanded(
-          flex: 2,
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('HELLO AGAIN',
-                      style: GoogleFonts.bebasNeue(fontSize: 52)),
-                  const Text('Welcome back, you\'ve been missed!',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 40, 0, 40),
+                    child: Text(
+                      'loginTitle'.tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
                   username,
                   password,
                   CustomCheckbox(
                     checkboxController: checkboxController,
                     title: 'textKeepMeLogged',
                   ),
-                  ExpandedButton(
-                    text: 'loginTitle'.tr,
-                    onPressed: () => _login(context),
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    padding: const EdgeInsets.all(20),
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Not a member?',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextButton(
-                          onPressed: () => Get.toNamed('/register'),
-                          child: const Text(
-                            'Register now!',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ))
-                    ],
-                  )
                 ],
               ),
             ),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class MobileBody extends StatelessWidget {
-  MobileBody({Key? key}) : super(key: key);
-
-  final _loginController = Get.find<LoginController>();
-  final username = CustomTextField(
-      labelText: 'textUsernameOrEmail',
-      icon: Icons.person,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      validator: (customTextFieldController, textEditingController) {
-        final String text = textEditingController.text;
-        final RxString textError = customTextFieldController.textError;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          textError.value = 'This field cant be empty';
-        } else {
-          textError.value = '';
-          result = true;
-        }
-
-        return result;
-      });
-  final password = CustomPasswordField(
-      labelText: 'textPassword',
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      validator: (customPasswordFieldController, textEditingController, _) {
-        final String text = textEditingController.text;
-        final RxString textError = customPasswordFieldController.textError;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          textError.value = 'Password cant be empty';
-        } else {
-          textError.value = '';
-          result = true;
-        }
-
-        return result;
-      });
-  final checkboxController = CheckboxController();
-
-  void _login(context) async {
-    final usernameValidation = username.validator(
-        username.customTextFieldController, username.textEditingController);
-    final passwordValidation = password.validator(
-        password.customPasswordFieldController,
-        password.textEditingController,
-        null);
-
-    if (!usernameValidation || !passwordValidation) {
-      return;
-    }
-
-    _loginController
-        .login(
-          username.textEditingController.text,
-          password.textEditingController.text,
-          checkboxController.isChecked.value,
-        )
-        .then(
-          (value) => {
-            if (_loginController.loadError() == '')
-              {Get.offAllNamed('/home')}
-            else
-              {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      _loginController.loadError(),
+            // FOOTER
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        LoadingPopup.show(context: context, loadingText: 'Loading...');
+                        await _login(context);
+                        Get.back();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        'loginTitle'.tr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                   ),
-                )
-              }
-          },
-        );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverFillRemaining(
-          hasScrollBody: true,
-          child: Column(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    padding: const EdgeInsets.all(20),
-                    child: Image.asset(
-                      'assets/raqueta-de-padel.png',
-                      fit: BoxFit.contain,
-                    ),
-                  )),
-              Expanded(
-                flex: 3,
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('HELLO AGAIN',
-                            style: GoogleFonts.bebasNeue(fontSize: 52)),
-                        const Text('Welcome back, you\'ve been missed!',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        username,
-                        password,
-                        CustomCheckbox(
-                          checkboxController: checkboxController,
-                          title: 'textKeepMeLogged',
-                        ),
-                        ExpandedButton(
-                          text: 'loginTitle'.tr,
-                          onPressed: () => _login(context),
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          padding: const EdgeInsets.all(20),
-                          textStyle: const TextStyle(
-                              color: Colors.white,
+                        TextButton(
+                          child: Text(
+                            'textDontHaveAccount'.tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Not a member?',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              fontSize: 17,
                             ),
-                            TextButton(
-                                onPressed: () => Get.toNamed('/register'),
-                                child: const Text(
-                                  'Register now!',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ))
-                          ],
-                        )
+                          ),
+                          onPressed: () => Get.toNamed('/register'),
+                        ),
                       ],
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        )
-      ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

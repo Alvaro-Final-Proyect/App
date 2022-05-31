@@ -88,4 +88,5 @@ final lightTheme = ThemeData.light().copyWith(
       color: black,
     ),
   ),
+
 );

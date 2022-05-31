@@ -7,6 +7,13 @@ class HomeController extends GetxController{
   final _isLoading = false.obs;
   final _loadError = ''.obs;
 
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadUser();
+  }
+
   bool isLoading() => _isLoading.value;
   String loadError() => _loadError.value;
   final _getUserFromTokenUseCase = GetUserFromTokenUseCase();
