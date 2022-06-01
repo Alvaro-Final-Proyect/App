@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:padel/core/retrofit_helper.dart';
 
@@ -68,6 +69,11 @@ class CustomDrawer extends StatelessWidget {
             title: 'textInvitations',
             icon: Icons.mail,
             page: '/home/invitations',
+          ),
+          const DrawerItem(
+            title: 'Ranking',
+            icon: FontAwesomeIcons.rankingStar,
+            page: '/home/ranking',
           ),
           const DrawerItem(
             title: 'textSettings',
