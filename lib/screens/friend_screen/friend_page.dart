@@ -16,9 +16,6 @@ class FriendPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('textFriends'.tr),
-          leading: IconButton(
-            onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back)
-          ),
           bottom: TabBar(
             tabs: [
               const Tab(

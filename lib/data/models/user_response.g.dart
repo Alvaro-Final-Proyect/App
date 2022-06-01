@@ -25,6 +25,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           .toList(),
       position: json['position'] as String?,
       image: json['image'] as String?,
+      isAdmin: json['isAdmin'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -41,4 +42,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'friends': instance.friends,
       'friendsRequests': instance.friendsRequests,
       'matchesInvitations': instance.matchesInvitations,
+      'isAdmin': instance.isAdmin,
     };

@@ -56,15 +56,12 @@ class RankingItem extends StatelessWidget {
         leading: getLeading(),
         title: Row(
           children: [
-            if (isFriend || isCurrentUser)
-              CircleAvatar(
-                backgroundImage: ImageExtensions.fromUser(user),
-              ),
-            if (isFriend || isCurrentUser)
-              const SizedBox(
-                width: 10,
-              ),
             Text('${user.name?.capitalize} ${user.surname?.capitalize}'),
+            const SizedBox(width: 10,),
+            if(isFriend)
+              const Icon(Icons.group)
+            else if(isCurrentUser)
+              const Icon(Icons.person)
           ],
         ),
         trailing: Text('${user.level ?? 0}'),

@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
             page: '/home/profile',
           ),
           const DrawerItem(
-            title: 'Play!',
+            title: 'textPlay',
             icon: Icons.sports_tennis,
             page: '/home/matches',
           ),
@@ -80,6 +80,12 @@ class CustomDrawer extends StatelessWidget {
             icon: Icons.settings,
             page: '/home/settings',
           ),
+          if(user!.isAdmin)
+            const DrawerItem(
+              title: 'textAdministration',
+              icon: Icons.admin_panel_settings,
+              page: '/home/administration',
+            ),
         ],
       ),
     );

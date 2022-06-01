@@ -61,7 +61,11 @@ class Messages extends Translations {
       'quarterFinals': 'Quarter Finals',
       'semiFinals': 'Semi-Final',
       'final': 'Final',
-      'textLoading': 'Loading'
+      'textLoading': 'Loading',
+      'textMyPosition': 'My position',
+      'textChangeTheme': 'Change Theme',
+      'textLogout': 'Logout',
+      'textAdministration': 'Administration',
     },
     'es_ES': {
       'loginTitle': 'Iniciar Sesión',
@@ -120,7 +124,11 @@ class Messages extends Translations {
       'quarterFinals': 'Cuartos',
       'semiFinals': 'Semi Final',
       'final': 'Final',
-      'textLoading': 'Cargando'
+      'textLoading': 'Cargando',
+      'textMyPosition': 'Mi posición',
+      'textChangeTheme': 'Cambiar tema',
+      'textLogout': 'Cerrar sesión',
+      'textAdministration': 'Administración',
     }
   };
 }

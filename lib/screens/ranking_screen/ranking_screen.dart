@@ -29,6 +29,7 @@ class RankingScreen extends StatelessWidget {
               }
             },
             icon: const Icon(Icons.person),
+            tooltip: 'textMyPosition'.tr,
           ),
         ],
       ),

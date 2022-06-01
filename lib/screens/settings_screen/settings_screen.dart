@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text('textSettings'.tr),
         actions: [
           Obx(() {
             return IconButton(
@@ -29,7 +29,8 @@ class SettingsScreen extends StatelessWidget {
               icon: Icon(
                 settingsController.isDarkMode ? Icons.dark_mode : Icons.light_mode,
                 color: settingsController.isDarkMode ? darkYellow : lightYellow,
-              )
+              ),
+              tooltip: 'textChangeTheme'.tr,
             );
           }),
         ],

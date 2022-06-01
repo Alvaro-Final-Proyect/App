@@ -60,4 +60,7 @@ abstract class ApiClient{
 
   @PATCH('/api/matches/setMatchResult/{id}&{winner}')
   Future<void> setMatchResult(@Path() String id, @Path() int winner, @Body() Map<String, List<List<int>>> result);
+
+  @GET('/api/matches/getLastWeekMatches')
+  Future<List<MatchModel>> getLastWeekMatches();
 }

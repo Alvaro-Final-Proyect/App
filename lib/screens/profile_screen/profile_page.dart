@@ -36,9 +36,6 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('titleProfile'.tr),
-        leading: IconButton(
-            onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back)),
-        centerTitle: true,
       ),
       body: body,
       floatingActionButton: FloatingActionButton(

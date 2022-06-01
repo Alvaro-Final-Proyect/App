@@ -102,4 +102,8 @@ class ApiService {
   Future<void> setMatchResult(String matchId, int winner, Map<String, List<List<int>>> result) async{
     await RetrofitHelper.getApiClient().setMatchResult(matchId, winner, result);
   }
+
+  Future<List<MatchModel>> getLastWeekMatches() async {
+    return await RetrofitHelper.getApiClient().getLastWeekMatches();
+  }
 }

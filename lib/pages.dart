@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:padel/screens/administration_screen/administration_screen.dart';
 import 'package:padel/screens/challenge_screen/challenge_screen.dart';
 import 'package:padel/screens/friend_screen/friend_page.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
@@ -71,5 +72,9 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/home/ranking',
     page: () => RankingScreen(),
+  ),
+  GetPage(
+    name: '/home/administration',
+    page: () => AdministrationScreen(),
   ),
 ];

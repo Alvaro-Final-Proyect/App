@@ -20,10 +20,6 @@ class MatchesPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('textPlay'.tr),
           centerTitle: true,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(Icons.arrow_back),
-          ),
           bottom: TabBar(
             tabs: [
               Tab(

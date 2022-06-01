@@ -19,21 +19,33 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Obx(() => homeController.isLoading()
-          ? const CircularProgressIndicator()
-          : CustomDrawer()),
+      drawer: Obx(
+        () {
+          return homeController.isLoading()
+              ? const CircularProgressIndicator()
+              : CustomDrawer();
+        },
+      ),
       appBar: AppBar(
         title: Text('homeTitle'.tr),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: _logout, icon: const Icon(Icons.logout))
+          IconButton(
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+            tooltip: 'textLogout'.tr,
+          )
         ],
       ),
-      body: Obx(() => homeController.isLoading()
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : const HomeBody()),
+      body: Obx(
+        () {
+          return homeController.isLoading()
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : const HomeBody();
+        },
+      ),
     );
   }
 }
@@ -45,7 +57,8 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverList(delegate: SliverChildListDelegate(
+        SliverList(
+            delegate: SliverChildListDelegate(
           [
             SizedBox(
               height: 200,
