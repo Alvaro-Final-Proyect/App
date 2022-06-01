@@ -19,13 +19,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Obx(
-        () {
-          return homeController.isLoading()
-              ? const CircularProgressIndicator()
-              : CustomDrawer();
-        },
-      ),
+      drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('homeTitle'.tr),
         centerTitle: true,
@@ -37,15 +31,7 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Obx(
-        () {
-          return homeController.isLoading()
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : const HomeBody();
-        },
-      ),
+      body: const HomeBody(),
     );
   }
 }

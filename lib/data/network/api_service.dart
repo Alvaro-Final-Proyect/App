@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:padel/core/retrofit_helper.dart';
+import 'package:padel/data/models/company_settings_model.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/token_response.dart';
 import 'package:padel/data/models/user_response.dart';
@@ -105,5 +106,9 @@ class ApiService {
 
   Future<List<MatchModel>> getLastWeekMatches() async {
     return await RetrofitHelper.getApiClient().getLastWeekMatches();
+  }
+
+  Future<CompanySettingsModel> getCompanySettings() async {
+    return await RetrofitHelper.getApiClient().getCompanySettings();
   }
 }

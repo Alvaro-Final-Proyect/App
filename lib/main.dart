@@ -7,6 +7,7 @@ import 'package:padel/pages.dart';
 import 'package:padel/res/themes.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
+import 'package:padel/screens/splash_screen/splash_screen.dart';
 import 'package:padel/util/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,8 +42,6 @@ class MyApp extends StatelessWidget {
     bool isDarkMode = SharedPreferencesHelper.sharedPreferences.getBool('isDarkMode')
         ?? SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
 
-    log(isDarkMode.toString());
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: pages,
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      home: loadFirstPage(),
+      home: SplashScreen(),
       translations: Messages(),
       locale: Locale(Platform.localeName),
       fallbackLocale: const Locale('en_US'),

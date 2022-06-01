@@ -4,6 +4,8 @@ import 'package:padel/data/models/user_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
+import '../models/company_settings_model.dart';
+
 part 'api_client.g.dart';
 
 @RestApi(baseUrl: "http://192.168.1.128:8080")
@@ -63,4 +65,7 @@ abstract class ApiClient{
 
   @GET('/api/matches/getLastWeekMatches')
   Future<List<MatchModel>> getLastWeekMatches();
+
+  @GET('/api/companySettings/')
+  Future<CompanySettingsModel> getCompanySettings();
 }
