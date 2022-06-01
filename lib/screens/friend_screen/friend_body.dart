@@ -22,11 +22,12 @@ class FriendBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        final noRelationUsers = _friendController.users
-            .where((p0) =>
-                p0.id != _friendController.user!.id &&
-                !_friendController.user!.friends!.contains(p0.id))
-            .toList();
+        final noRelationUsers = _friendController.users.where((other) {
+          log('Name: ${other.name}, Friends req: ${other.friendsRequests}');
+          return other.id != _friendController.user!.id &&
+              !_friendController.user!.friends!.contains(other.id) &&
+              !other.friendsRequests!.contains(_friendController.user?.id);
+        }).toList();
         final friendsRequests = _friendController.users
             .where((p0) =>
                 _friendController.user!.friendsRequests!.contains(p0.id))

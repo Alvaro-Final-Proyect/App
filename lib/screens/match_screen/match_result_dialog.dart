@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/match_controller.dart';
 import 'package:padel/util/string_extensions.dart';
 import 'package:padel/widgets/expanded_button.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 class MatchResultDialog extends StatelessWidget {
   MatchResultDialog({
@@ -199,16 +200,25 @@ class MatchResultDialog extends StatelessWidget {
                 return;
               }
 
+              LoadingPopup.show(context: context);
+
               matchController.setMatchResult(winner, [set1, set2, set3]).then((value) {
+                Get.back();
+                bool isSuccess = matchController.loadError().isEmpty;
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      matchController.loadError().isEmpty
+                      isSuccess
                           ? 'Resultado guardado correctamente'
                           : 'No se ha podido guardar el resultado',
                     ),
                   ),
                 );
+
+                if(isSuccess){
+                  Get.back();
+                }
               });
             },
           ),

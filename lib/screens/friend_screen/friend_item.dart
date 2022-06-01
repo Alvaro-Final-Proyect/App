@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../data/models/user_response.dart';
 import '../../res/constants.dart';
+import '../../widgets/loading_popup.dart';
 import 'friend_controller.dart';
 
 class FriendItem extends StatelessWidget {
@@ -13,15 +14,22 @@ class FriendItem extends StatelessWidget {
   final friendController = Get.find<FriendController>();
   final UserModel _user;
 
-  void _removeFriend() async {
-    printInfo(info: 'removing');
-    await friendController.removeFriend(_user.id!);
-    if(friendController.loadError() != ''){
-      Fluttertoast.showToast(
-        msg: friendController.loadError(),
-        toastLength: Toast.LENGTH_SHORT,
+  void _removeFriend(BuildContext context) async {
+    LoadingPopup.show(context: context);
+
+    await friendController.removeFriend(_user.id!).then((value) {
+      Get.back();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            friendController.loadError().isEmpty
+                ? 'Amigo eliminado correctamente'
+                : 'Ha ocurrido un error al eliminar a tu amigo',
+          ),
+        ),
       );
-    }
+    });
   }
 
   @override
@@ -47,7 +55,7 @@ class FriendItem extends StatelessWidget {
                 Text('Level: ${_user.level}'),
                 Text('Position: ${_user.position}'),
                 ElevatedButton(
-                  onPressed: _removeFriend,
+                  onPressed: () => _removeFriend(context),
                   child: const Text('Delete friend')
                 )
               ],

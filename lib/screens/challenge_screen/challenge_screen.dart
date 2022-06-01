@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/match_controller.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../res/colors.dart';
 import '../../res/constants.dart';
@@ -65,14 +66,23 @@ class ChallengeBody extends StatelessWidget {
                           Text('${user.level} - ${user.position?.capitalize}'),
                       trailing: IconButton(
                         onPressed: () async {
-                          await matchController.sendMatchInvitation(user.id!);
-                          if (matchController.loadError().isEmpty) {
-                            Fluttertoast.showToast(
-                                msg: 'textInvitationSent'.tr);
-                          } else {
-                            Fluttertoast.showToast(
-                                msg: 'textCouldNotSendInvitation'.tr);
-                          }
+                          LoadingPopup.show(context: context);
+
+                          await matchController.sendMatchInvitation(user.id!).then((value) {
+                            Get.back();
+                            final isSuccess = matchController.loadError().isEmpty;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  isSuccess
+                                      ? 'textInvitationSent'.tr
+                                      : 'textCouldNotSendInvitation'.tr,
+                                ),
+                              ),
+                            );
+
+                          });
                         },
                         icon: const Icon(
                           Icons.check,

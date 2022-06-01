@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../data/models/user_response.dart';
 import '../../res/constants.dart';
@@ -14,8 +15,22 @@ class UserItem extends StatelessWidget {
   final friendController = Get.find<FriendController>();
   final UserModel _user;
 
-  void _sendRequest() async {
-    await friendController.sendFriendRequest(_user.id!);
+  void _sendRequest(BuildContext context) async {
+    LoadingPopup.show(context: context);
+
+    await friendController.sendFriendRequest(_user).then((value) {
+      Get.back();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            friendController.loadError().isEmpty
+                ? 'La solicitud ha sido enviada'
+                : 'Ha ocurrido un error al enviar la petición',
+          ),
+        ),
+      );
+    });
     if (friendController.loadError() != '') {
       Fluttertoast.showToast(
         msg: friendController.loadError(),
@@ -47,7 +62,7 @@ class UserItem extends StatelessWidget {
                 Text('Level: ${_user.level}'),
                 Text('Position: ${_user.position}'),
                 ElevatedButton(
-                  onPressed: _sendRequest,
+                  onPressed: () => _sendRequest(context),
                   child: const Text('Request friend'),
                 ),
               ],

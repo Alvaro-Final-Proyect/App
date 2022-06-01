@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:padel/widgets/loading_popup.dart';
 import '../../data/models/user_response.dart';
 import '../../res/constants.dart';
 import 'friend_controller.dart';
@@ -14,14 +15,21 @@ class FriendRequestItem extends StatelessWidget {
   final friendController = Get.find<FriendController>();
   final UserModel _user;
 
-  void _acceptRequest() async {
-    await friendController.acceptFriendRequest(_user.id!);
-    if(friendController.loadError() != ''){
-      Fluttertoast.showToast(
-        msg: friendController.loadError(),
-        toastLength: Toast.LENGTH_SHORT,
+  void _acceptRequest(BuildContext context) async {
+    LoadingPopup.show(context: context);
+    await friendController.acceptFriendRequest(_user.id!).then((value) {
+      Get.back();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            friendController.loadError().isEmpty
+                ? 'Ya tienes un nuevo amigo!'
+                : 'Ha ocurrido un error al aceptar la petición',
+          ),
+        ),
       );
-    }
+    });
   }
 
   @override
@@ -48,7 +56,7 @@ class FriendRequestItem extends StatelessWidget {
                 Text('Level: ${_user.level}'),
                 Text('Position: ${_user.position}'),
                 ElevatedButton(
-                  onPressed: _acceptRequest,
+                  onPressed: () => _acceptRequest(context),
                   child: const Text('Accept Friend')
                 )
               ],

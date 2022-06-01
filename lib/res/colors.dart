@@ -5,7 +5,7 @@ const darkGray = Color(0xFF303952);
 const lightGray = Color(0xFFD2DAE2);
 
 const black = Color(0xFF243042);
-const white = Color(0xFFECECEC);
+const white = Color(0xFFf5f6fa);
 
 
 // Primaries Dark

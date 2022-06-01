@@ -7,6 +7,7 @@ import 'package:padel/screens/matches_screen/matches_controller.dart';
 import 'package:padel/util/date_time_extensions.dart';
 import 'package:padel/util/time_of_day_extensions.dart';
 import 'package:padel/widgets/expanded_button.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 class CreateMatchDialogController extends GetxController {
   DateTime? selectedDate;
@@ -143,8 +144,10 @@ class CreateMatchDialog extends StatelessWidget {
           ExpandedButton(
             text: 'textCreate'.tr,
             onPressed: () async {
+
               final chosenDate = createMatchDialogController.selectedDate;
               final chosenTime = createMatchDialogController.selectedTime;
+
               if (chosenDate == null || chosenTime == null) {
                 Fluttertoast.showToast(msg: 'Choose a date and an hour');
                 return;
@@ -175,13 +178,16 @@ class CreateMatchDialog extends StatelessWidget {
                       ? 10.0
                       : (userLevel + .75).clamp(0.0, 10.0));
 
+              LoadingPopup.show(context: context);
+
               matchesController.createMatch(match).then((value) {
+                Get.back();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       matchesController.loadError().isEmpty
                           ? 'Partida creada correctamente'
-                          : 'No se ha podido crear la partida, comprueba los campos',
+                          : 'La fecha introducida no es válida',
                     ),
                   ),
                 );

@@ -50,9 +50,9 @@ class FriendController extends GetxController {
     _isLoading.value = false;
   }
 
-  Future<void> sendFriendRequest(String userId) async {
+  Future<void> sendFriendRequest(UserModel otherUser) async {
     try{
-      await sendFriendRequestUseCase(userId);
+      await sendFriendRequestUseCase(otherUser.id!);
       _loadError.value = '';
     }on Exception catch(_){
       _loadError.value = 'Friend request canceled';
