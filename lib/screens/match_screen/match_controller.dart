@@ -34,7 +34,10 @@ class MatchController extends GetxController {
     _isLoading.value = true;
 
     try{
-      match.value = await joinToMatchUseCase(match.value.id, index);
+      final matchUpdated = await joinToMatchUseCase(match.value.id, index);
+      match.update((val) {
+        val?.players = matchUpdated.players;
+      });
       _loadError.value = '';
     }on Exception catch(_){
       _loadError.value = 'Could not join to match';
@@ -47,7 +50,10 @@ class MatchController extends GetxController {
   Future<void> leaveMatch() async{
     _isLoading.value = true;
     try{
-      match.value = await leaveMatchUseCase(match.value.id);
+      final matchUpdated = await leaveMatchUseCase(match.value.id);
+      match.update((val) {
+        val?.players = matchUpdated.players;
+      });
       _loadError.value = '';
     }on Exception catch(_){
       _loadError.value = 'Could not leave match';

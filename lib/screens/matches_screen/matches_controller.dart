@@ -24,6 +24,7 @@ class MatchesController extends GetxController {
 
   final RxList<MatchModel> matches = <MatchModel>[].obs;
   final user = RetrofitHelper.user!;
+  final companySettings = RetrofitHelper.companySettings;
   final userMatches = <MatchModel>[].obs;
 
   Future<void> loadMatches() async {

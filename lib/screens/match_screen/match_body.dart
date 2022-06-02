@@ -6,8 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../widgets/expanded_button.dart';
+import '../../widgets/pay_poup.dart';
 import 'match_controller.dart';
 import 'match_result_dialog.dart';
 
@@ -16,7 +18,7 @@ class MatchBody extends StatelessWidget {
 
   final matchController = Get.find<MatchController>();
 
-  Future<void> _joinToMatch(int index) async {
+  Future<void> _joinToMatch(int index, BuildContext context) async {
     if (matchController.match.value.players[index] != null) {
       return;
     }
@@ -24,21 +26,38 @@ class MatchBody extends StatelessWidget {
     if (matchController.match.value.players.firstWhereOrNull(
             (element) => element?.id == matchController.user.id) !=
         null) {
-      Fluttertoast.showToast(
-          msg: 'errorAlreadyJoined'.tr,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          textColor: Colors.black,
-          backgroundColor: Colors.white38);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(matchController.loadError().isEmpty
+              ? 'errorAlreadyJoined'.tr
+              : matchController.loadError(),
+          ),
+        ),
+      );
       return;
     }
 
-    await matchController.joinToMatch(index);
-    if (matchController.loadError() != '') {
-      Fluttertoast.showToast(msg: matchController.loadError());
-    } else {
-      Fluttertoast.showToast(msg: 'textJoined'.tr);
-    }
+    LoadingPopup.show(context: context);
+
+    await matchController.joinToMatch(index).then((value) {
+      Get.back();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(matchController.loadError().isEmpty
+              ? 'textJoined'.tr
+              : matchController.loadError(),
+          ),
+        ),
+      );
+
+      PayPopup.show(context: context);
+    }).catchError((err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Ha ocurrido un error inesperado'),
+        ),
+      );
+    });
   }
 
   @override
@@ -266,13 +285,18 @@ class MatchBody extends StatelessWidget {
                       ExpandedButton(
                         text: 'textLeaveGame'.tr,
                         onPressed: () async {
-                          await matchController.leaveMatch();
-                          if (matchController.loadError() == '') {
-                            Fluttertoast.showToast(
-                                msg: 'textYourLeftTheGame'.tr);
-                          } else {
-                            Fluttertoast.showToast(msg: 'An error occurred.');
-                          }
+                          LoadingPopup.show(context: context);
+                          await matchController.leaveMatch().then((value) {
+                            Get.back();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(matchController.loadError().isEmpty
+                                    ? 'textYourLeftTheGame'.tr
+                                    : matchController.loadError(),
+                                ),
+                              ),
+                            );
+                          });
                         },
                         margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.all(20),

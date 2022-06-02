@@ -38,7 +38,7 @@ class PlayerItem extends StatelessWidget {
                       : null,
                 ),
                 onTap: () {
-                  joinToMatch(index);
+                  joinToMatch(index, context);
                 },
               ),
               const SizedBox(

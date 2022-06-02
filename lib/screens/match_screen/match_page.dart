@@ -6,7 +6,7 @@ import 'package:padel/screens/match_screen/match_controller.dart';
 
 import 'match_body.dart';
 
-typedef JoinToMatch = Future<void> Function(int index);
+typedef JoinToMatch = Future<void> Function(int index, BuildContext context);
 
 class MatchPage extends StatelessWidget {
   MatchPage({Key? key}) : super(key: key);
