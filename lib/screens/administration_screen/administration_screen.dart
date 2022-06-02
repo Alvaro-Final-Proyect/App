@@ -18,6 +18,7 @@ class AdministrationScreen extends StatelessWidget {
       case Menu.updateUser:
         break;
       case Menu.companyConfiguration:
+        Get.toNamed('/home/administration/companySettings');
         break;
     }
   }
