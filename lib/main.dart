@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:developer';
 import 'package:flutter/scheduler.dart';
 import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/core/shared_preferences_helper.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
-  // With this we load an instance of SharedPreferences
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferencesHelper.setSharedPreferences(await SharedPreferences.getInstance());
   runApp(const MyApp());
@@ -23,21 +21,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // Method that checks the token on shared preferences and returns the HomePage
-  // or the LoginPage
-  Widget loadFirstPage() {
-    String? token = SharedPreferencesHelper.sharedPreferences.getString('token');
-    if(token != null && token != ''){
-      RetrofitHelper.setToken(token);
-      return HomePage();
-    }
-
-    return LoginPage();
-  }
-
   @override
   Widget build(BuildContext context) {
-    // With this we init the retrofit helper
     RetrofitHelper();
     bool isDarkMode = SharedPreferencesHelper.sharedPreferences.getBool('isDarkMode')
         ?? SchedulerBinding.instance.window.platformBrightness == Brightness.dark;

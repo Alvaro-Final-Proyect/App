@@ -22,7 +22,7 @@ class CompanySettingsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // TODO SHOW ARE U SURE?
-          bool matchPriceValidation = _companySettingsController.matchPriceInputController.validate({});
+          bool matchPriceValidation = _companySettingsController.matchPriceInputController.validate();
           if(matchPriceValidation){
             ConfirmDialog.show(context, onContinue: () async {
               double matchPrice = double.parse(_companySettingsController.matchPriceInputController.text);

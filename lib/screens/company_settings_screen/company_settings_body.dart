@@ -21,7 +21,7 @@ class CompanySettingsBody extends StatelessWidget {
                   initialValue: _companySettingsController.companySettings.matchPrice.toString(),
                   onChanged: (value) {
                     _companySettingsController.matchPriceInputController.onChanged(value);
-                    _companySettingsController.matchPriceInputController.validate({});
+                    _companySettingsController.matchPriceInputController.validate();
                   },
                   decoration: InputDecoration(
                     labelText: 'textMatchPrice'.tr,

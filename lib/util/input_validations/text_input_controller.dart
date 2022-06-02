@@ -9,5 +9,5 @@ class TextInputController extends GetxController {
   String? get error => _error.value;
 
   void onChanged(String value) => text = value;
-  bool validate(Map<String, String> values) => true;
+  bool validate({Map<String, String>? values}) => true;
 }
