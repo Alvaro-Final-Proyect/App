@@ -213,14 +213,22 @@ class AdministrationBody extends StatelessWidget {
           ),
           label: LabelStyle(
             style: TextStyle(
-                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 11),
+              color: Get.theme.colorScheme.onPrimaryContainer,
+              fontSize: 11,
+            ),
             offset: const Offset(0, 7.5),
           ),
         ),
         AxisGuide(
           label: LabelStyle(
+            maxLines: 1,
             style: TextStyle(
-                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 12),
+              color: Get.theme.colorScheme.onPrimaryContainer,
+              fontSize: 12,
+              overflow: TextOverflow.fade,
+            ),
+            maxWidth: 30,
+            minWidth: 30,
             offset: const Offset(-7.5, 0),
           ),
           grid: StrokeStyle(
