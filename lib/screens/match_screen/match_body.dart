@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/match_screen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
@@ -28,12 +27,25 @@ class MatchBody extends StatelessWidget {
         null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(matchController.loadError().isEmpty
-              ? 'errorAlreadyJoined'.tr
-              : matchController.loadError(),
+          content: Text('errorAlreadyJoined'.tr),
+        ),
+      );
+      return;
+    }
+
+    final playerLevel = matchController.user.level ?? 0;
+
+    if (playerLevel.clamp(matchController.match.value.minLevel,
+            matchController.match.value.maxLevel) !=
+        playerLevel) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Tu nivel no te permite unirte'
           ),
         ),
       );
+
       return;
     }
 
@@ -43,9 +55,10 @@ class MatchBody extends StatelessWidget {
       Get.back();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(matchController.loadError().isEmpty
-              ? 'textJoined'.tr
-              : matchController.loadError(),
+          content: Text(
+            matchController.loadError().isEmpty
+                ? 'textJoined'.tr
+                : matchController.loadError(),
           ),
         ),
       );
@@ -193,10 +206,18 @@ class MatchBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // SOLO MOSTRAR ESTAS OPCIONES SI EL USUARIO ESTÁ EN LA PARTIDA
-                  if (matchController.match.value.players.firstWhereOrNull((element) => element?.id == matchController.user.id) != null) ...[
+                  if (matchController.match.value.players.firstWhereOrNull(
+                          (element) =>
+                              element?.id == matchController.user.id) !=
+                      null) ...[
                     // SI LA PARTIDA HA ACABADO Y ESTÁ COMPLETA MOSTRAR GUARDAR RESULTADO (SI NO HAY UNO YA) O MOSTRAR EL RESULTADO
-                    if (matchController.match.value.date.millisecondsSinceEpoch < DateTime.now().millisecondsSinceEpoch && !matchController.match.value.players.any((element) => element == null))
-                      if (matchController.match.value.result != null && matchController.match.value.winner != null)
+                    if (matchController
+                                .match.value.date.millisecondsSinceEpoch <
+                            DateTime.now().millisecondsSinceEpoch &&
+                        !matchController.match.value.players
+                            .any((element) => element == null))
+                      if (matchController.match.value.result != null &&
+                          matchController.match.value.winner != null)
                         Column(
                           children: [
                             Padding(
@@ -281,7 +302,9 @@ class MatchBody extends StatelessWidget {
                               fontSize: 18),
                         ),
                     // SI LA PARTIDA NO SE HA JUGADO MOSTAR EL BOTÓN DE SALIR DE LA PARTIDA
-                    if (matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
+                    if (matchController
+                            .match.value.date.millisecondsSinceEpoch >
+                        DateTime.now().millisecondsSinceEpoch)
                       ExpandedButton(
                         text: 'textLeaveGame'.tr,
                         onPressed: () async {
@@ -290,9 +313,10 @@ class MatchBody extends StatelessWidget {
                             Get.back();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(matchController.loadError().isEmpty
-                                    ? 'textYourLeftTheGame'.tr
-                                    : matchController.loadError(),
+                                content: Text(
+                                  matchController.loadError().isEmpty
+                                      ? 'textYourLeftTheGame'.tr
+                                      : matchController.loadError(),
                                 ),
                               ),
                             );

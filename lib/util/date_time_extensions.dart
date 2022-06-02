@@ -12,6 +12,5 @@ extension DateFormatting on DateTime {
   }
 
   String getHour() => '${hour < 10 ? '0$hour' : hour}:${minute < 10 ? '0$minute' : minute}';
-
   String getDate() => '${day < 10 ? '0$day' : day}/${month < 10 ? '0$month' : month}/$year';
 }

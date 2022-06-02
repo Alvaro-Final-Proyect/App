@@ -35,6 +35,22 @@ class MatchItem extends StatelessWidget {
       return;
     }
 
+    final playerLevel = matchesController.user.level ?? 0;
+
+    if (playerLevel.clamp(match.minLevel,
+        match.maxLevel) !=
+        playerLevel) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Tu nivel no te permite unirte'
+          ),
+        ),
+      );
+
+      return;
+    }
+
     LoadingPopup.show(context: context);
 
     matchesController.joinToMatch(_match, index).then((value) {
