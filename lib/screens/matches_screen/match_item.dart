@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/matches_screen/player_item.dart';
 import 'package:padel/util/date_time_extensions.dart';
+import 'package:padel/widgets/loading_popup.dart';
 
 import '../../data/models/match_model.dart';
 import '../../widgets/pay_poup.dart';
@@ -34,7 +35,10 @@ class MatchItem extends StatelessWidget {
       return;
     }
 
+    LoadingPopup.show(context: context);
+
     matchesController.joinToMatch(_match, index).then((value) {
+      Get.back();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(matchesController.loadError().isEmpty
