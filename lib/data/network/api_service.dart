@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:developer';
 
 import 'package:padel/core/retrofit_helper.dart';
@@ -5,6 +6,8 @@ import 'package:padel/data/models/company_settings_model.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/token_response.dart';
 import 'package:padel/data/models/user_response.dart';
+
+import '../../util/wrap_map.dart';
 
 class ApiService {
   ApiService._privateConstructor();
@@ -116,7 +119,7 @@ class ApiService {
     return await RetrofitHelper.getApiClient().updateCompanySettings(companySettingsModel);
   }
 
-  Future<List<String>> getAllUsernames() async {
-    return await RetrofitHelper.getApiClient().getAllUsernames();
+  Future<WrapMap> getAllUsernames() async {
+    return await RetrofitHelper.getApiClient().getAllUsernamesAndEmails();
   }
 }

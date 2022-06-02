@@ -1,6 +1,7 @@
+import 'package:padel/util/wrap_map.dart';
 import '../data/network/api_service.dart';
 
-class GetAllUsernamesUseCase {
+class GetAllUsernamesAndEmailsUseCase {
   final ApiService _api = ApiService();
-  Future<List<String>> call() => _api.getAllUsernames();
+  Future<WrapMap> call() => _api.getAllUsernames();
 }

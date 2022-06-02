@@ -19,7 +19,7 @@ class CreateUserBody extends StatelessWidget {
           Input(
             controller: _createUserController.usernameInputController,
             prefixIcon: const Icon(Icons.person),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
             onChanged: (value) {
               _createUserController.usernameInputController.onChanged(value);
               _createUserController.usernameInputController.validate(
@@ -31,10 +31,12 @@ class CreateUserBody extends StatelessWidget {
           Input(
             controller: _createUserController.emailInputController,
             prefixIcon: const Icon(Icons.email),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             onChanged: (value) {
               _createUserController.emailInputController.onChanged(value);
-              _createUserController.emailInputController.validate();
+              _createUserController.emailInputController.validate(
+                  values: {'emails': _createUserController.emails}
+              );
             },
             label: 'textEmail'.tr,
           ),
@@ -43,7 +45,7 @@ class CreateUserBody extends StatelessWidget {
             return Input(
               controller: _createUserController.passwordInputController,
               prefixIcon: const Icon(Icons.password),
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               onChanged: (value) {
                 _createUserController.passwordInputController.onChanged(value);
                 _createUserController.passwordInputController.validate();
@@ -73,7 +75,7 @@ class CreateUserBody extends StatelessWidget {
             return Input(
               controller: _createUserController.repeatPasswordInputController,
               prefixIcon: const Icon(Icons.password),
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               onChanged: (value) {
                 _createUserController.repeatPasswordInputController
                     .onChanged(value);
@@ -102,7 +104,7 @@ class CreateUserBody extends StatelessWidget {
           Input(
             controller: _createUserController.nameInputController,
             prefixIcon: const Icon(Icons.person),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             onChanged: (value) {
               _createUserController.nameInputController.onChanged(value);
               _createUserController.nameInputController.validate();
@@ -113,7 +115,7 @@ class CreateUserBody extends StatelessWidget {
           Input(
             controller: _createUserController.surnamePasswordController,
             prefixIcon: const Icon(Icons.person),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             onChanged: (value) {
               _createUserController.surnamePasswordController.onChanged(value);
               _createUserController.surnamePasswordController.validate();
@@ -122,7 +124,7 @@ class CreateUserBody extends StatelessWidget {
           ),
           // IS ADMIN
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
             child: CustomCheckbox(
               checkboxController: _createUserController.checkboxController,
               title: 'Is admin?',
@@ -131,7 +133,7 @@ class CreateUserBody extends StatelessWidget {
           ExpandedButton(
             text: 'textCreateUser'.tr,
             onPressed: () {},
-            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5),
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
             padding: const EdgeInsets.all(20),
           )
         ],

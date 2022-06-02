@@ -9,6 +9,12 @@ class EmailInputController extends TextInputController {
       return false;
     }
 
+    final emails = values?['emails'] as List<String>;
+    if(emails.contains(text)){
+      error = 'Email already in use';
+      return false;
+    }
+
     error = null;
     return true;
   }

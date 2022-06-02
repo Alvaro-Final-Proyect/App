@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/token_response.dart';
 import 'package:padel/data/models/user_response.dart';
+import 'package:padel/util/wrap_map.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -72,6 +75,6 @@ abstract class ApiClient{
   @PATCH('/api/companySettings/')
   Future<CompanySettingsModel> updateCompanySettings(@Body() CompanySettingsModel companySettingsModel);
 
-  @GET('/getAllUsernames')
-  Future<List<String>> getAllUsernames();
+  @GET('/getAllUsernamesAndEmails')
+  Future<WrapMap> getAllUsernamesAndEmails();
 }
