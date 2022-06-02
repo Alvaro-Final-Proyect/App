@@ -1,6 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:padel/util/input_validations/text_input_controller.dart';
+import 'package:padel/util/input_controllers/text_input_controller.dart';
 
 class PasswordInputController extends TextInputController {
   final _isVisible = false.obs;

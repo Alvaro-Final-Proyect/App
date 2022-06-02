@@ -1,4 +1,4 @@
-import 'package:padel/util/input_validations/password_input_controller.dart';
+import 'package:padel/util/input_controllers/password_input_controller.dart';
 
 class RepeatPasswordInputController extends PasswordInputController {
   @override

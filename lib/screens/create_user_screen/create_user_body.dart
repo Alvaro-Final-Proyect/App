@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/create_user_screen/create_user_controller.dart';
-import 'package:padel/util/input_validations/text_input_controller.dart';
+import 'package:padel/util/input_controllers/text_input_controller.dart';
 
 class CreateUserBody extends StatelessWidget {
   CreateUserBody({Key? key}) : super(key: key);
@@ -13,6 +13,7 @@ class CreateUserBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          // USERNAME
           Input(
             controller: _createUserController.usernameInputController,
             prefixIcon: const Icon(Icons.person),
@@ -24,6 +25,7 @@ class CreateUserBody extends StatelessWidget {
             },
             label: 'textUsername'.tr,
           ),
+          // EMAIL
           Input(
             controller: _createUserController.emailInputController,
             prefixIcon: const Icon(Icons.email),
@@ -34,6 +36,7 @@ class CreateUserBody extends StatelessWidget {
             },
             label: 'textEmail'.tr,
           ),
+          // PASSWORD
           Obx(() {
             return Input(
               controller: _createUserController.passwordInputController,
@@ -63,6 +66,7 @@ class CreateUserBody extends StatelessWidget {
                   !_createUserController.passwordInputController.isVisible,
             );
           }),
+          // REPEAT PASSWORD
           Obx(() {
             return Input(
               controller: _createUserController.repeatPasswordController,
@@ -91,6 +95,8 @@ class CreateUserBody extends StatelessWidget {
                   !_createUserController.repeatPasswordController.isVisible,
             );
           }),
+          // IS ADMIN
+          Checkbox(value: false, onChanged: (value) {})
         ],
       ),
     );

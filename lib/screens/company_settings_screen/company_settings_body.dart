@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/company_settings_screen/company_settings_controller.dart';
-import 'package:padel/util/input_validations/number_input_controller.dart';
 
 class CompanySettingsBody extends StatelessWidget {
   CompanySettingsBody({Key? key}) : super(key: key);
