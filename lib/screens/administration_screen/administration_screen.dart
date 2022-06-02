@@ -14,6 +14,7 @@ class AdministrationScreen extends StatelessWidget {
   void _handleMenuSelection(item) {
     switch (item) {
       case Menu.createUser:
+        Get.toNamed('/home/administration/createUser');
         break;
       case Menu.updateUser:
         Get.toNamed('/home/administration/updateUser');

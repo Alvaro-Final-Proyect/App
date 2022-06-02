@@ -3,6 +3,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:padel/screens/administration_screen/administration_screen.dart';
 import 'package:padel/screens/challenge_screen/challenge_screen.dart';
 import 'package:padel/screens/company_settings_screen/company_settings_screen.dart';
+import 'package:padel/screens/create_user_screen/create_user_screen.dart';
 import 'package:padel/screens/friend_screen/friend_page.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/invitations_screen/invitations_screen.dart';
@@ -86,5 +87,9 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/home/administration/updateUser',
     page: () => UpdateUserScreen(),
+  ),
+  GetPage(
+    name: '/home/administration/createUser',
+    page: () => CreateUserScreen(),
   ),
 ];
