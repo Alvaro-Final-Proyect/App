@@ -32,17 +32,17 @@ class AdministrationScreen extends StatelessWidget {
             onSelected: _handleMenuSelection,
             itemBuilder: (context) {
               return [
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: Menu.createUser,
-                  child: Text('Create User'),
+                  child: Text('textCreateUser'.tr),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: Menu.updateUser,
-                  child: Text('Update User'),
+                  child: Text('textUpdateUser'.tr),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: Menu.companyConfiguration,
-                  child: Text('Configuración Empresa'),
+                  child: Text('textCompanySettings'.tr),
                 ),
               ];
             },

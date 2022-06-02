@@ -8,7 +8,7 @@ import 'package:padel/res/themes.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
 import 'package:padel/screens/splash_screen/splash_screen.dart';
-import 'package:padel/util/localizations.dart';
+import 'package:padel/util/internationalization/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

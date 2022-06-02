@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -17,11 +15,8 @@ class AdministrationBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final matchesGrouped =
-        groupBy(_administrationController.lastWeekMatches, (MatchModel match) {
-      log(match.date.getDate());
-      return match.date.getDate();
-    });
+    final matchesGrouped = groupBy(_administrationController.lastWeekMatches,
+        (MatchModel match) => match.date.getDate());
 
     final data = <Map<String, dynamic>>[];
 
@@ -37,22 +32,22 @@ class AdministrationBody extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: CupertinoFormSection(
               backgroundColor: lightGray,
-              header: const Text('Volumen de partidas (última semana)'),
+              header: Text('textWeeklyMatchesVolume'.tr),
               children: [
                 SizedBox(
                   height: 250,
                   child: Obx(
                     () {
                       return _administrationController.lastWeekMatches.isEmpty
-                          ? const Center(
+                          ? Center(
                               child: Text(
-                                'No se ha encontrado ninguna partida',
+                                'textNoMatchesFound'.tr,
                               ),
                             )
                           : Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: buildLastWeekMatches(data),
-                          );
+                              padding: const EdgeInsets.only(top: 10),
+                              child: buildLastWeekMatches(data),
+                            );
                     },
                   ),
                 ),

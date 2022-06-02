@@ -30,7 +30,6 @@ class AdministrationController extends GetxController {
     isLoading = true;
     try{
       lastWeekMatches = await getLastWeekMatchesUseCase();
-      log('Matches: $lastWeekMatches');
       error = '';
     }catch(e){
       log('Error: ${e.toString()}');
