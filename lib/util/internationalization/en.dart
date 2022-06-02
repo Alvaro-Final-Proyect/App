@@ -66,4 +66,7 @@ Map<String, String> get en => {
   'textCreateUser': 'Create User',
   'textUpdateUser': 'Update User',
   'textCompanySettings': 'Company Settings',
+  'textWeeklySellsVolume': 'Weekly sells volume',
+  'textRefreshStatistics': 'Refresh Statistics',
+  'textOptions': 'Options',
 };

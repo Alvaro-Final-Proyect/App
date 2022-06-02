@@ -29,10 +29,6 @@ class MatchPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('homeTitle'.tr),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Get.offAndToNamed('home/matches'),
-          icon: const Icon(Icons.arrow_back),
-        ),
         actions: [
           if(matchController.match.value.date.millisecondsSinceEpoch > DateTime.now().millisecondsSinceEpoch)
             PopupMenuButton<String>(

@@ -65,4 +65,7 @@ Map<String, String> get es => {
   'textCreateUser': 'Crear Usuario',
   'textUpdateUser': 'Actualizar Usuario',
   'textCompanySettings': 'Ajustes de la empresa',
+  'textWeeklySellsVolume': 'Volumen de ventas semanal',
+  'textRefreshStatistics': 'Refrescar estadísticas',
+  'textOptions': 'Opciones',
 };

@@ -12,7 +12,7 @@ class AdministrationScreen extends StatelessWidget {
   final _administrationController = Get.put(AdministrationController());
 
   void _handleMenuSelection(item) {
-    switch(item){
+    switch (item) {
       case Menu.createUser:
         break;
       case Menu.updateUser:
@@ -28,8 +28,14 @@ class AdministrationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('textAdministration'.tr),
         actions: [
+          IconButton(
+            onPressed: _administrationController.loadLastWeekMatches,
+            icon: const Icon(Icons.refresh,),
+            tooltip: 'textRefreshStatistics'.tr,
+          ),
           PopupMenuButton<Menu>(
             onSelected: _handleMenuSelection,
+            tooltip: 'textOptions'.tr,
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
@@ -50,11 +56,11 @@ class AdministrationScreen extends StatelessWidget {
         ],
       ),
       body: Obx(
-        () {
+            () {
           return _administrationController.isLoading
               ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+            child: CircularProgressIndicator(),
+          )
               : AdministrationBody();
         },
       ),
