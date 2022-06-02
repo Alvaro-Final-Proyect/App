@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphic/graphic.dart';
 import 'package:padel/data/models/match_model.dart';
-import 'package:padel/res/colors.dart';
 import 'package:padel/util/date_time_extensions.dart';
 
 import 'administration_controller.dart';
@@ -31,7 +31,7 @@ class AdministrationBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: CupertinoFormSection(
-              backgroundColor: lightGray,
+              backgroundColor: Get.theme.colorScheme.onSurface,
               header: Text('textWeeklyMatchesVolume'.tr),
               children: [
                 SizedBox(
@@ -44,8 +44,11 @@ class AdministrationBody extends StatelessWidget {
                                 'textNoMatchesFound'.tr,
                               ),
                             )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: Get.theme.colorScheme.onSurface,
+                              ),
+                              padding: const EdgeInsets.only(top: 10, bottom: 10),
                               child: buildLastWeekMatches(data),
                             );
                     },
@@ -76,6 +79,12 @@ class AdministrationBody extends StatelessWidget {
           label: LabelAttr(
             encoder: (tuple) => Label(
               tuple['matches'].toString(),
+              LabelStyle(
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Get.theme.colorScheme.onPrimaryContainer,
+                ),
+              ),
             ),
           ),
           elevation: ElevationAttr(value: 0, updaters: {
@@ -90,8 +99,30 @@ class AdministrationBody extends StatelessWidget {
         )
       ],
       axes: [
-        Defaults.horizontalAxis,
-        Defaults.verticalAxis,
+        AxisGuide(
+          line: StrokeStyle(
+            color: const Color(0xffe8e8e8),
+          ),
+          label: LabelStyle(
+            style: TextStyle(
+              color: Get.theme.colorScheme.onPrimaryContainer,
+              fontSize: 11
+            ),
+            offset: const Offset(0, 7.5),
+          ),
+        ),
+        AxisGuide(
+          label: LabelStyle(
+            style: TextStyle(
+                color: Get.theme.colorScheme.onPrimaryContainer,
+                fontSize: 12
+            ),
+            offset: const Offset(-7.5, 0),
+          ),
+          grid: StrokeStyle(
+            color: const Color(0xffe8e8e8),
+          ),
+        ),
       ],
       selections: {
         'hover': PointSelection(

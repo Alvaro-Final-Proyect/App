@@ -30,8 +30,8 @@ class SplashScreen extends StatelessWidget {
     return EasySplashScreen(
       logo: Image.asset('assets/raqueta-de-padel.png'),
       futureNavigator: loadFirstScreen(),
-      backgroundColor: Get.theme.colorScheme.onSurface,
-      showLoader: false,
+      backgroundColor: Get.theme.colorScheme.onPrimary,
+      showLoader: true,
       title: const Text('Padel IT'),
     );
   }
