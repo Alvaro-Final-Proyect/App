@@ -14,6 +14,7 @@ import 'package:padel/screens/ranking_screen/ranking_screen.dart';
 import 'package:padel/screens/register-screen/register_page.dart';
 import 'package:padel/screens/settings_screen/settings_screen.dart';
 import 'package:padel/screens/tournaments_screen/tournaments_screen.dart';
+import 'package:padel/screens/update_user_screen/update_user_screen.dart';
 
 List<GetPage<dynamic>> pages = [
   GetPage(
@@ -81,5 +82,9 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/home/administration/companySettings',
     page: () => CompanySettingsScreen(),
+  ),
+  GetPage(
+    name: '/home/administration/updateUser',
+    page: () => UpdateUserScreen(),
   ),
 ];

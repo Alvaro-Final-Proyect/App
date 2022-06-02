@@ -16,6 +16,7 @@ class AdministrationScreen extends StatelessWidget {
       case Menu.createUser:
         break;
       case Menu.updateUser:
+        Get.toNamed('/home/administration/updateUser');
         break;
       case Menu.companyConfiguration:
         Get.toNamed('/home/administration/companySettings');
