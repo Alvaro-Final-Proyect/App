@@ -30,7 +30,7 @@ class MatchPage extends StatelessWidget {
         title: Text('homeTitle'.tr),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Get.offAndToNamed('home/matches'),
           icon: const Icon(Icons.arrow_back),
         ),
         actions: [

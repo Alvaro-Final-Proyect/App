@@ -59,7 +59,7 @@ class MatchItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(10),
       child: InkWell(
-        onTap: () => Get.toNamed('home/matches/match', arguments: match),
+        onTap: () => Get.offAndToNamed('home/matches/match', arguments: match),
         child: SizedBox(
           height: 150,
           child: Row(
