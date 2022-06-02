@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:padel/domain/company_use_case/get_company_settings_use_case.dart';
 import 'package:padel/domain/user_use_case/get_user_from_token_use_case.dart';
 import 'package:padel/screens/home_screen/home_page.dart';
 import 'package:padel/screens/login_screen/login_page.dart';
@@ -38,16 +39,27 @@ class SplashScreen extends StatelessWidget {
 
 class SplashController extends GetxController {
   final getUserFromTokenUseCase = GetUserFromTokenUseCase();
+  final getCompanySettingsUseCase = GetCompanySettingsUseCase();
 
   Future<bool> checkToken(String token) async {
     RetrofitHelper.setToken(token);
     try{
       final user = await getUserFromTokenUseCase();
       RetrofitHelper.user = user;
+      await loadCompany();
       return true;
     }catch(e){
       log('error: $e');
       return false;
+    }
+  }
+
+  Future<void> loadCompany() async {
+    try{
+      final companySettings = await getCompanySettingsUseCase();
+      RetrofitHelper.companySettings = companySettings;
+    }catch(e){
+      log('error: $e');
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:padel/data/models/company_settings_model.dart';
 import 'package:padel/data/network/api_client.dart';
 import 'package:dio/dio.dart';
 import '../data/models/user_response.dart';
@@ -7,6 +8,7 @@ class RetrofitHelper {
   static ApiClient? _apiClient;
   static String _token = '';
   static UserModel? user;
+  static late CompanySettingsModel companySettings;
 
   static ApiClient _initializeApiClient(){
     _dio.options.contentType = 'application/json';
