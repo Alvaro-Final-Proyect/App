@@ -69,4 +69,11 @@ Map<String, String> get en => {
   'textWeeklySellsVolume': 'Weekly sells volume',
   'textRefreshStatistics': 'Refresh Statistics',
   'textOptions': 'Options',
+  'textMatchPrice': 'Match Price',
+  'textCheckFields': 'Error, check the fields',
+  'textCompanyUpdated': 'Settings updated correctly',
+  'textContinue': 'Continue',
+  'textCancel': 'Cancel',
+  'textSaveSettings': 'Save settings',
+  'textAreYouSureSaveSettings': 'Do you want to save the settings?',
 };

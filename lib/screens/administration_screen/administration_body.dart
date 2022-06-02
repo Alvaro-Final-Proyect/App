@@ -25,7 +25,11 @@ class AdministrationBody extends StatelessWidget {
     for (final key in matchesGrouped.keys) {
       final numberOfMatches = matchesGrouped[key]!.length;
       data.add({'day': key, 'matches': numberOfMatches});
-      sellsData.add({'day': key, 'amount': numberOfMatches * RetrofitHelper.companySettings.matchPrice});
+      sellsData.add({
+        'day': key,
+        'amount':
+            numberOfMatches * RetrofitHelper.companySettings.matchPrice * 4
+      });
     }
 
     return SingleChildScrollView(
@@ -51,7 +55,8 @@ class AdministrationBody extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Get.theme.colorScheme.onSurface,
                               ),
-                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 10),
                               child: buildWeeklyMatchesVolume(data),
                             );
                     },
@@ -69,20 +74,21 @@ class AdministrationBody extends StatelessWidget {
                 SizedBox(
                   height: 250,
                   child: Obx(
-                        () {
+                    () {
                       return _administrationController.lastWeekMatches.isEmpty
                           ? Center(
-                        child: Text(
-                          'textNoMatchesFound'.tr,
-                        ),
-                      )
+                              child: Text(
+                                'textNoMatchesFound'.tr,
+                              ),
+                            )
                           : Container(
-                        decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.onSurface,
-                        ),
-                        padding: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: buildWeeklySellsVolume(sellsData),
-                      );
+                              decoration: BoxDecoration(
+                                color: Get.theme.colorScheme.onSurface,
+                              ),
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 10),
+                              child: buildWeeklySellsVolume(sellsData),
+                            );
                     },
                   ),
                 ),
@@ -137,18 +143,14 @@ class AdministrationBody extends StatelessWidget {
           ),
           label: LabelStyle(
             style: TextStyle(
-              color: Get.theme.colorScheme.onPrimaryContainer,
-              fontSize: 11
-            ),
+                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 11),
             offset: const Offset(0, 7.5),
           ),
         ),
         AxisGuide(
           label: LabelStyle(
             style: TextStyle(
-                color: Get.theme.colorScheme.onPrimaryContainer,
-                fontSize: 12
-            ),
+                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 12),
             offset: const Offset(-7.5, 0),
           ),
           grid: StrokeStyle(
@@ -211,18 +213,14 @@ class AdministrationBody extends StatelessWidget {
           ),
           label: LabelStyle(
             style: TextStyle(
-              color: Get.theme.colorScheme.onPrimaryContainer,
-              fontSize: 11
-            ),
+                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 11),
             offset: const Offset(0, 7.5),
           ),
         ),
         AxisGuide(
           label: LabelStyle(
             style: TextStyle(
-                color: Get.theme.colorScheme.onPrimaryContainer,
-                fontSize: 12
-            ),
+                color: Get.theme.colorScheme.onPrimaryContainer, fontSize: 12),
             offset: const Offset(-7.5, 0),
           ),
           grid: StrokeStyle(

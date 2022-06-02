@@ -68,4 +68,12 @@ Map<String, String> get es => {
   'textWeeklySellsVolume': 'Volumen de ventas semanal',
   'textRefreshStatistics': 'Refrescar estadísticas',
   'textOptions': 'Opciones',
+  'textMatchPrice': 'Precio de partida',
+  'textCheckFields': 'Error, comprueba los campos',
+  'textCompanyUpdated': 'Ajustes actualizados correctamente',
+  'textContinue': 'Continuar',
+  'textCancel': 'Cancelar',
+  'textAreYouSure': '¿Estás seguro?',
+  'textSaveSettings': 'Guardar ajustes',
+  'textAreYouSureSaveSettings': '¿Deseas guardar los ajustes?',
 };

@@ -68,4 +68,7 @@ abstract class ApiClient{
 
   @GET('/api/companySettings/')
   Future<CompanySettingsModel> getCompanySettings();
+
+  @PATCH('/api/companySettings/')
+  Future<CompanySettingsModel> updateCompanySettings(@Body() CompanySettingsModel companySettingsModel);
 }

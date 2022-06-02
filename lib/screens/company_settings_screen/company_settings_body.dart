@@ -24,10 +24,10 @@ class CompanySettingsBody extends StatelessWidget {
                     _companySettingsController.matchPriceInputController.validate({});
                   },
                   decoration: InputDecoration(
-                    labelText: 'Match Price',
+                    labelText: 'textMatchPrice'.tr,
                     border: const OutlineInputBorder(),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)
                     ),
                     prefixIcon: const Icon(Icons.price_change),
                     errorText: _companySettingsController.matchPriceInputController.error,

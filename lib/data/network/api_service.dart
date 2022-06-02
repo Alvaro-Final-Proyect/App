@@ -111,4 +111,8 @@ class ApiService {
   Future<CompanySettingsModel> getCompanySettings() async {
     return await RetrofitHelper.getApiClient().getCompanySettings();
   }
+
+  Future<CompanySettingsModel> updateCompanySettings(CompanySettingsModel companySettingsModel) async {
+    return await RetrofitHelper.getApiClient().updateCompanySettings(companySettingsModel);
+  }
 }
