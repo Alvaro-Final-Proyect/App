@@ -24,6 +24,16 @@ class CreateUserBody extends StatelessWidget {
             },
             label: 'textUsername'.tr,
           ),
+          Input(
+            controller: _createUserController.emailInputController,
+            prefixIcon: const Icon(Icons.email),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            onChanged: (value) {
+              _createUserController.emailInputController.onChanged(value);
+              _createUserController.emailInputController.validate();
+            },
+            label: 'textEmail'.tr,
+          ),
           Obx(() {
             return Input(
               controller: _createUserController.passwordInputController,
