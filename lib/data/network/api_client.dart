@@ -71,4 +71,7 @@ abstract class ApiClient{
 
   @PATCH('/api/companySettings/')
   Future<CompanySettingsModel> updateCompanySettings(@Body() CompanySettingsModel companySettingsModel);
+
+  @GET('/getAllUsernames')
+  Future<List<String>> getAllUsernames();
 }

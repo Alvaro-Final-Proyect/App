@@ -115,4 +115,8 @@ class ApiService {
   Future<CompanySettingsModel> updateCompanySettings(CompanySettingsModel companySettingsModel) async {
     return await RetrofitHelper.getApiClient().updateCompanySettings(companySettingsModel);
   }
+
+  Future<List<String>> getAllUsernames() async {
+    return await RetrofitHelper.getApiClient().getAllUsernames();
+  }
 }
