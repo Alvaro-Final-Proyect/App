@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/create_user_screen/create_user_controller.dart';
 import 'package:padel/util/input_controllers/text_input_controller.dart';
+import 'package:padel/widgets/custom_checkbox.dart';
+import 'package:padel/widgets/expanded_button.dart';
 
 class CreateUserBody extends StatelessWidget {
   CreateUserBody({Key? key}) : super(key: key);
@@ -45,10 +47,10 @@ class CreateUserBody extends StatelessWidget {
               onChanged: (value) {
                 _createUserController.passwordInputController.onChanged(value);
                 _createUserController.passwordInputController.validate();
-                _createUserController.repeatPasswordController.validate(
+                _createUserController.repeatPasswordInputController.validate(
                   values: {
                     'password':
-                    _createUserController.passwordInputController.text,
+                        _createUserController.passwordInputController.text,
                   },
                 );
               },
@@ -69,12 +71,13 @@ class CreateUserBody extends StatelessWidget {
           // REPEAT PASSWORD
           Obx(() {
             return Input(
-              controller: _createUserController.repeatPasswordController,
+              controller: _createUserController.repeatPasswordInputController,
               prefixIcon: const Icon(Icons.password),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
               onChanged: (value) {
-                _createUserController.repeatPasswordController.onChanged(value);
-                _createUserController.repeatPasswordController.validate(
+                _createUserController.repeatPasswordInputController
+                    .onChanged(value);
+                _createUserController.repeatPasswordInputController.validate(
                   values: {
                     'password':
                         _createUserController.passwordInputController.text,
@@ -84,19 +87,53 @@ class CreateUserBody extends StatelessWidget {
               label: 'textRepeatPassword'.tr,
               suffixIcon: IconButton(
                 onPressed: _createUserController
-                    .repeatPasswordController.toggleVisibility,
+                    .repeatPasswordInputController.toggleVisibility,
                 icon: Icon(
-                  _createUserController.repeatPasswordController.isVisible
+                  _createUserController.repeatPasswordInputController.isVisible
                       ? Icons.visibility
                       : Icons.visibility_off,
                 ),
               ),
-              obscureText:
-                  !_createUserController.repeatPasswordController.isVisible,
+              obscureText: !_createUserController
+                  .repeatPasswordInputController.isVisible,
             );
           }),
+          // NAME
+          Input(
+            controller: _createUserController.nameInputController,
+            prefixIcon: const Icon(Icons.person),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            onChanged: (value) {
+              _createUserController.nameInputController.onChanged(value);
+              _createUserController.nameInputController.validate();
+            },
+            label: 'textName'.tr,
+          ),
+          // SURNAME
+          Input(
+            controller: _createUserController.surnamePasswordController,
+            prefixIcon: const Icon(Icons.person),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            onChanged: (value) {
+              _createUserController.surnamePasswordController.onChanged(value);
+              _createUserController.surnamePasswordController.validate();
+            },
+            label: 'textSurname'.tr,
+          ),
           // IS ADMIN
-          Checkbox(value: false, onChanged: (value) {})
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: CustomCheckbox(
+              checkboxController: _createUserController.checkboxController,
+              title: 'Is admin?',
+            ),
+          ),
+          ExpandedButton(
+            text: 'textCreateUser'.tr,
+            onPressed: () {},
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5),
+            padding: const EdgeInsets.all(20),
+          )
         ],
       ),
     );

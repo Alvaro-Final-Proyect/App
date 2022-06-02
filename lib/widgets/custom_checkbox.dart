@@ -20,6 +20,13 @@ class CustomCheckbox extends StatelessWidget {
     return Obx(
       () {
         return CheckboxListTile(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.onSurface,
+              width: 3.0,
+            ),
+            borderRadius: BorderRadius.circular(5)
+          ),
           title: Text(title.tr),
           value: checkboxController.isChecked.value,
           onChanged: (value) => checkboxController.toggleCheck(value ?? false),

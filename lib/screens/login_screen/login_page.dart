@@ -126,9 +126,12 @@ class LoginBody extends StatelessWidget {
                   ),
                   username,
                   password,
-                  CustomCheckbox(
-                    checkboxController: checkboxController,
-                    title: 'textKeepMeLogged',
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                    child: CustomCheckbox(
+                      checkboxController: checkboxController,
+                      title: 'textKeepMeLogged',
+                    ),
                   ),
                 ],
               ),
