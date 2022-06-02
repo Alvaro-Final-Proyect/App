@@ -2,7 +2,7 @@ import 'package:padel/util/input_validations/text_input_controller.dart';
 
 class UsernameInputController extends TextInputController {
   @override
-  bool validate({Map<String, String>? values}) {
+  bool validate({Map<String, dynamic>? values}) {
     if(text.isEmpty){
       error = 'Can\'t be empty';
       return false;
