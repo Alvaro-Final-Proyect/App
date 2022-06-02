@@ -76,4 +76,5 @@ Map<String, String> get es => {
   'textAreYouSure': '¿Estás seguro?',
   'textSaveSettings': 'Guardar ajustes',
   'textAreYouSureSaveSettings': '¿Deseas guardar los ajustes?',
+  'textIsAdmin': '¿Administrador?',
 };

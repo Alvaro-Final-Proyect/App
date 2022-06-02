@@ -4,7 +4,6 @@ import 'package:padel/res/colors.dart';
 
 class CheckboxController extends GetxController {
   var isChecked = false.obs;
-
   void toggleCheck(bool value) => isChecked.value = value;
 }
 

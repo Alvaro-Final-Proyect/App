@@ -22,7 +22,7 @@ class DropdownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return DropdownButtonFormField(
-        decoration:  InputDecoration(
+        decoration: InputDecoration(
           border: const OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 3.0)

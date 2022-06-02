@@ -18,7 +18,7 @@ class UserModel {
   List<String> matchesInvitations;
   bool isAdmin;
 
-  UserModel({required this.matchesInvitations, this.id, this.username, this.email, this.name, this.surname, this.password, this.gender, this.level, this.friends, this.friendsRequests, this.position, this.image, this.isAdmin = false});
+  UserModel({this.matchesInvitations = const [], this.id, this.username, this.email, this.name, this.surname, this.password, this.gender, this.level, this.friends, this.friendsRequests, this.position, this.image, this.isAdmin = false});
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 

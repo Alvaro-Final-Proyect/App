@@ -7,9 +7,10 @@ part of 'user_response.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      matchesInvitations: (json['matchesInvitations'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      matchesInvitations: (json['matchesInvitations'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       id: json['_id'] as String?,
       username: json['username'] as String?,
       email: json['email'] as String?,

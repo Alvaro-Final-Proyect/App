@@ -122,4 +122,8 @@ class ApiService {
   Future<WrapMap> getAllUsernames() async {
     return await RetrofitHelper.getApiClient().getAllUsernamesAndEmails();
   }
+
+  Future<UserModel> createUser(UserModel userModel) async {
+    return await RetrofitHelper.getApiClient().createUser(userModel);
+  }
 }

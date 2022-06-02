@@ -77,4 +77,7 @@ abstract class ApiClient{
 
   @GET('/getAllUsernamesAndEmails')
   Future<WrapMap> getAllUsernamesAndEmails();
+
+  @POST('/api/users')
+  Future<UserModel> createUser(@Body() UserModel userModel);
 }

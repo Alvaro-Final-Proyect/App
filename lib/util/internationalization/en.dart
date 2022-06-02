@@ -76,4 +76,5 @@ Map<String, String> get en => {
   'textCancel': 'Cancel',
   'textSaveSettings': 'Save settings',
   'textAreYouSureSaveSettings': 'Do you want to save the settings?',
+  'textIsAdmin': 'Is Admin?',
 };
