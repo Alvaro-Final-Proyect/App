@@ -15,7 +15,12 @@ class CompanySettingsScreen extends StatelessWidget {
         title: Text('textCompanySettings'.tr),
       ),
       body: CompanySettingsBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO SHOW ARE U SURE?
+        },
+        child: const Icon(Icons.save),
+      ),
     );
   }
-
 }
