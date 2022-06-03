@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/screens/update_user_screen/update_user_controller.dart';
 import 'package:padel/util/image_extensions.dart';
 import 'package:padel/widgets/custom_checkbox.dart';
@@ -27,7 +28,7 @@ class UpdateUserBody extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                       child: SearchField(
                         hasOverlay: false,
-                        suggestions: _updateUserController.users.map(
+                        suggestions: _updateUserController.users.where((usr) => usr.id != RetrofitHelper.user!.id).map(
                           (e) {
                             return SearchFieldListItem(
                               e.username!,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/data/models/user_response.dart';
 import 'package:padel/domain/user_use_case/get_all_users_use_case.dart';
 import 'package:padel/domain/user_use_case/save_user_use_case.dart';
@@ -95,6 +96,18 @@ class UpdateUserController extends GetxController {
       await saveUserUseCase(
         selectedUser!,
       );
+      final currentUser = RetrofitHelper.user!;
+      if(selectedUser?.id == currentUser.id){
+        currentUser.username = selectedUser!.username;
+        currentUser.email = selectedUser!.email;
+        currentUser.level = selectedUser!.level;
+        currentUser.name = selectedUser!.name;
+        currentUser.surname = selectedUser!.surname;
+        currentUser.position = selectedUser!.position;
+        currentUser.gender = selectedUser!.gender;
+        currentUser.isAdmin = selectedUser!.isAdmin;
+      }
+
       return true;
     }catch(e){
       log('error: e');
