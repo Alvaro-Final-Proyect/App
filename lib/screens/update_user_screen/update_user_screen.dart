@@ -11,8 +11,26 @@ class UpdateUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: UpdateUserBody(),
+      appBar: AppBar(
+        title: Text('textUpdateUser'.tr),
+        actions: [
+          IconButton(
+            onPressed: _updateUserController.toggleSearch,
+            icon: Obx(() {
+              return Icon(
+                _updateUserController.isSearching ? Icons.search_off : Icons.search
+              );
+            }),
+          ),
+        ],
+      ),
+      body: Obx(
+        () {
+          return _updateUserController.isLoading
+              ? const Center(child: CircularProgressIndicator(),)
+              : UpdateUserBody();
+        },
+      ),
     );
   }
 }

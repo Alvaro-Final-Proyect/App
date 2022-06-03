@@ -11,7 +11,9 @@ class CreateUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('textCreateUser'.tr),
+      ),
       body: CreateUserBody(),
     );
   }

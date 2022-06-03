@@ -41,7 +41,7 @@ class Input extends StatelessWidget {
             ),
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
-            errorText: controller?.error,
+            errorText: controller?.error ?? null.obs.value,
           ),
         ),
       );
