@@ -19,6 +19,7 @@ MatchModel _$MatchModelFromJson(Map<String, dynamic> json) => MatchModel(
       result: (json['result'] as List<dynamic>?)
           ?.map((e) => (e as List<dynamic>).map((e) => e as int).toList())
           .toList(),
+      isTournament: json['isTournament'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$MatchModelToJson(MatchModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$MatchModelToJson(MatchModel instance) =>
       'date': instance.date.toIso8601String(),
       'winner': instance.winner,
       'result': instance.result,
+      'isTournament': instance.isTournament,
     };
