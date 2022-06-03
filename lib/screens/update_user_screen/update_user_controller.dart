@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/user_response.dart';
 import 'package:padel/domain/user_use_case/get_all_users_use_case.dart';
+import 'package:padel/domain/user_use_case/save_user_use_case.dart';
 import 'package:padel/util/input_controllers/email_input_controller.dart';
 import 'package:padel/util/input_controllers/empty_input_controller.dart';
 import 'package:padel/util/input_controllers/level_input_controller.dart';
@@ -56,7 +57,6 @@ class UpdateUserController extends GetxController {
   final positionController = DropdownMenuController<Position>();
   final genderController = DropdownMenuController<Gender>();
 
-
   final _users = <UserModel>[].obs;
   List<UserModel> get users => _users;
   set users(value) => _users.value = value;
@@ -65,7 +65,7 @@ class UpdateUserController extends GetxController {
   final emails = <String>[];
 
   final getAllUsersUseCase = GetAllUsersUseCase();
-
+  final saveUserUseCase = SaveUserUseCase();
 
   @override
   void onInit() {
@@ -88,5 +88,17 @@ class UpdateUserController extends GetxController {
       log('error: $e');
     }
     isLoading = false;
+  }
+
+  Future<bool> saveUser() async {
+    try{
+      await saveUserUseCase(
+        selectedUser!,
+      );
+      return true;
+    }catch(e){
+      log('error: e');
+      return false;
+    }
   }
 }

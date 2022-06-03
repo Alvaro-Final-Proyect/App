@@ -79,6 +79,19 @@ class UpdateUserBody extends StatelessWidget {
                                           20, 20, 20, 10),
                                       controller: _updateUserController
                                           .usernameController,
+                                      onChanged: (value) {
+                                        _updateUserController.usernameController
+                                            .onChanged(value);
+                                        _updateUserController.usernameController
+                                            .validate(values: {
+                                          'usernames': _updateUserController
+                                              .usernames
+                                              .where((element) =>
+                                                  element !=
+                                                  _updateUserController
+                                                      .selectedUser!.username).toList()
+                                        });
+                                      },
                                     ),
                                     Input(
                                       initialValue: _updateUserController
@@ -88,6 +101,19 @@ class UpdateUserBody extends StatelessWidget {
                                           horizontal: 20, vertical: 10),
                                       controller:
                                           _updateUserController.emailController,
+                                      onChanged: (value) {
+                                        _updateUserController.emailController
+                                            .onChanged(value);
+                                        _updateUserController.emailController
+                                            .validate(values: {
+                                          'emails': _updateUserController
+                                              .emails
+                                              .where((element) =>
+                                          element !=
+                                              _updateUserController
+                                                  .selectedUser!.email).toList()
+                                        });
+                                      },
                                     ),
                                     Input(
                                       initialValue: _updateUserController
@@ -97,6 +123,12 @@ class UpdateUserBody extends StatelessWidget {
                                           horizontal: 20, vertical: 10),
                                       controller:
                                           _updateUserController.nameController,
+                                      onChanged: (value) {
+                                        _updateUserController.nameController
+                                            .onChanged(value);
+                                        _updateUserController.nameController
+                                            .validate();
+                                      },
                                     ),
                                     Input(
                                       initialValue: _updateUserController
@@ -106,6 +138,12 @@ class UpdateUserBody extends StatelessWidget {
                                           horizontal: 20, vertical: 10),
                                       controller: _updateUserController
                                           .surnameController,
+                                      onChanged: (value) {
+                                        _updateUserController.surnameController
+                                            .onChanged(value);
+                                        _updateUserController.surnameController
+                                            .validate();
+                                      },
                                     ),
                                     Input(
                                       initialValue: _updateUserController
@@ -115,6 +153,12 @@ class UpdateUserBody extends StatelessWidget {
                                           horizontal: 20, vertical: 10),
                                       controller:
                                           _updateUserController.levelController,
+                                      onChanged: (value) {
+                                        _updateUserController.levelController
+                                            .onChanged(value);
+                                        _updateUserController.levelController
+                                            .validate();
+                                      },
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
@@ -145,7 +189,8 @@ class UpdateUserBody extends StatelessWidget {
                                             );
                                           },
                                         ).toList(),
-                                        onChanged: (value) {},
+                                        onChanged: _updateUserController
+                                            .positionController.onChanged,
                                         hint: Text('textSelectYourPosition'.tr),
                                         decoration: InputDecoration(
                                           border: const OutlineInputBorder(),
@@ -179,7 +224,8 @@ class UpdateUserBody extends StatelessWidget {
                                             );
                                           },
                                         ).toList(),
-                                        onChanged: (value) {},
+                                        onChanged: _updateUserController
+                                            .genderController.onChanged,
                                         hint: Text('textSelectYourGender'.tr),
                                         decoration: InputDecoration(
                                           border: const OutlineInputBorder(),

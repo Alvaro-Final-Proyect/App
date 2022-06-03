@@ -234,8 +234,6 @@ class CreateUserBody extends StatelessWidget {
       _createUserController.genderController.selected != null
     ];
 
-    log('validations: $validations, contains false: ${validations.contains(false)}');
-
     if (!validations.contains(false)) {
       final username = _createUserController.usernameController.text;
       final email = _createUserController.emailController.text;
@@ -277,7 +275,13 @@ class CreateUserBody extends StatelessWidget {
         }
       });
     } else {
-      log('Check fields!');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Error, Check the fields!',
+          ),
+        ),
+      );
     }
   }
 }
