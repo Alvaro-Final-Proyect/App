@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,6 @@ import 'package:padel/widgets/input.dart';
 import 'package:padel/widgets/loading_popup.dart';
 
 enum Position { right, backhand, indifferent }
-
 enum Gender { male, female }
 
 class CreateUserBody extends StatelessWidget {

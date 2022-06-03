@@ -1,9 +1,15 @@
 import 'dart:developer';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/user_response.dart';
 import 'package:padel/domain/user_use_case/get_all_users_use_case.dart';
-import 'package:padel/util/input_controllers/text_input_controller.dart';
+import 'package:padel/util/input_controllers/email_input_controller.dart';
+import 'package:padel/util/input_controllers/empty_input_controller.dart';
+import 'package:padel/util/input_controllers/level_input_controller.dart';
+import 'package:padel/widgets/custom_checkbox.dart';
+import '../../util/input_controllers/drop_down_menu_controller.dart';
+import '../../util/input_controllers/username_input_controller.dart';
+import '../create_user_screen/create_user_body.dart';
 
 class UpdateUserController extends GetxController {
   final _isLoading = false.obs;
@@ -12,7 +18,27 @@ class UpdateUserController extends GetxController {
 
   final _selectedUser = Rx<UserModel?>(null);
   UserModel? get selectedUser => _selectedUser.value;
-  set selectedUser(value) => _selectedUser.value = value;
+  set selectedUser(value) {
+    usernameController.text = value?.username ?? '';
+    emailController.text = value?.email ?? '';
+    nameController.text = value?.name ?? '';
+    surnameController.text = value?.surname ?? '';
+    levelController.text = value?.level.toString() ?? '';
+    isAdminController.isChecked.value = value?.isAdmin ?? false;
+    positionController.selected = Position.values.firstWhereOrNull(
+          (element) {
+        return element.name ==
+            value!.position!;
+      },
+    );
+    genderController.selected = Gender.values.firstWhereOrNull(
+          (element) {
+        return element.name ==
+            value!.gender!;
+      },
+    );
+    _selectedUser.value = value;
+  }
 
   final _isSearching = false.obs;
   bool get isSearching => _isSearching.value;
@@ -20,9 +46,21 @@ class UpdateUserController extends GetxController {
 
   void toggleSearch() => isSearching = !isSearching;
 
-  final searchInputController = TextInputController();
+  final searchInputController = TextEditingController();
+  final usernameController = UsernameInputController();
+  final emailController = EmailInputController();
+  final nameController = EmptyInputController();
+  final surnameController = EmptyInputController();
+  final levelController = LevelInputController();
+  final isAdminController = CheckboxController();
+  final positionController = DropdownMenuController<Position>();
+  final genderController = DropdownMenuController<Gender>();
 
-  final users = <UserModel>[].obs;
+
+  final _users = <UserModel>[].obs;
+  List<UserModel> get users => _users;
+  set users(value) => _users.value = value;
+
   final usernames = <String>[];
   final emails = <String>[];
 
@@ -38,7 +76,7 @@ class UpdateUserController extends GetxController {
   void loadUsers() async {
     isLoading = true;
     try{
-      users.value = await getAllUsersUseCase();
+      users = await getAllUsersUseCase();
       usernames.clear();
       emails.clear();
       for (var user in users) {

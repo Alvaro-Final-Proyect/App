@@ -3,7 +3,11 @@ import 'package:get/get.dart';
 import 'package:padel/res/colors.dart';
 
 class CheckboxController extends GetxController {
-  var isChecked = false.obs;
+  CheckboxController({bool initial = false}){
+    isChecked = initial.obs;
+  }
+
+  late Rx<bool> isChecked;
   void toggleCheck(bool value) => isChecked.value = value;
 }
 

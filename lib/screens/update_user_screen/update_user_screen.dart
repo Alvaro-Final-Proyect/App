@@ -15,11 +15,14 @@ class UpdateUserScreen extends StatelessWidget {
         title: Text('textUpdateUser'.tr),
         actions: [
           IconButton(
-            onPressed: _updateUserController.toggleSearch,
+            onPressed: () {
+              FocusScope.of(context).unfocus;
+              _updateUserController.toggleSearch();
+            },
             icon: Obx(() {
-              return Icon(
-                _updateUserController.isSearching ? Icons.search_off : Icons.search
-              );
+              return Icon(_updateUserController.isSearching
+                  ? Icons.search_off
+                  : Icons.search);
             }),
           ),
         ],
@@ -27,10 +30,20 @@ class UpdateUserScreen extends StatelessWidget {
       body: Obx(
         () {
           return _updateUserController.isLoading
-              ? const Center(child: CircularProgressIndicator(),)
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
               : UpdateUserBody();
         },
       ),
+      floatingActionButton: Obx(() {
+        return _updateUserController.selectedUser == null
+            ? Container()
+            : FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(Icons.save),
+              );
+      }),
     );
   }
 }

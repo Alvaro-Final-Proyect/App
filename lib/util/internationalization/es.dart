@@ -77,4 +77,5 @@ Map<String, String> get es => {
   'textSaveSettings': 'Guardar ajustes',
   'textAreYouSureSaveSettings': '¿Deseas guardar los ajustes?',
   'textIsAdmin': '¿Administrador?',
+  'textSearchAnUser': 'Busca un usuario',
 };

@@ -12,6 +12,7 @@ class Input extends StatelessWidget {
     this.suffixIcon,
     this.padding,
     this.obscureText = false,
+    this.initialValue,
   }) : super(key: key);
 
   final TextInputController? controller;
@@ -21,30 +22,35 @@ class Input extends StatelessWidget {
   final Widget? suffixIcon;
   final EdgeInsets? padding;
   final bool obscureText;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Padding(
-        padding: padding ?? EdgeInsets.zero,
-        child: TextFormField(
-          onChanged: onChanged,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            labelText: label,
-            border: const OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface,
-                width: 3.0,
+    return GetX<TextInputController>(
+      init: controller ?? TextInputController(),
+      builder: (controller) {
+        return Padding(
+          padding: padding ?? EdgeInsets.zero,
+          child: TextFormField(
+            initialValue: initialValue,
+            onChanged: onChanged,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              labelText: label,
+              border: const OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  width: 3.0,
+                ),
               ),
+              suffixIcon: suffixIcon,
+              prefixIcon: prefixIcon,
+              errorText: controller.error,
             ),
-            suffixIcon: suffixIcon,
-            prefixIcon: prefixIcon,
-            errorText: controller?.error ?? null.obs.value,
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

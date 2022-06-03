@@ -5,6 +5,7 @@ class DropdownMenuController<T> extends GetxController {
 
   late final Rx<T?> _selected;
   T? get selected => _selected.value;
+  set selected(value) => _selected.value = value;
 
   void onChanged(T? value) => _selected.value = value;
 }

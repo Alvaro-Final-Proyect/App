@@ -52,6 +52,7 @@ dependencies:
   scrollable_positioned_list: ^0.3.2
   graphic: ^0.10.4
   easy_splash_screen: ^1.0.3
+  searchfield: ^0.6.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
