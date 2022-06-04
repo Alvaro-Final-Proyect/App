@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/match_model.dart';
@@ -19,11 +21,14 @@ class JoinablePlayerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: player != null ||
-              _tournamentController.tournamentPlayers
-                  .contains(_tournamentController.currentUser.id)
+      onTap: player != null || _tournamentController.tournamentPlayers
+          .contains(_tournamentController.currentUser.id)
           ? null
           : () {
+              log('TournamentPlayers = ${_tournamentController.tournamentPlayers}\n'
+                  'Player ID = ${_tournamentController.currentUser.id}\n'
+                  'Is in: ${_tournamentController.tournamentPlayers.contains(_tournamentController.currentUser.id)}\n');
+
               LoadingPopup.show(context: context);
               _tournamentController.joinToMatch(match, index).then((value) {
                 Get.back();

@@ -83,4 +83,5 @@ Map<String, String> get es => {
   'textCreateTournament': 'Crear torneo',
   'textTournament': 'Torneo',
   'textSaveResult': 'Guardar resultado',
+  'textSave': 'Guardar',
 };

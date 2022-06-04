@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/tournament_model.dart';
 import 'package:padel/domain/matches_use_case/join_to_match_use_case.dart';
+import 'package:padel/domain/matches_use_case/leave_match_use_case.dart';
+import 'package:padel/domain/matches_use_case/set_match_result_use_case.dart';
 import '../../core/retrofit_helper.dart';
 import '../../data/models/user_response.dart';
 
@@ -33,6 +35,8 @@ class TournamentController extends GetxController {
   late List<String?> tournamentPlayers;
 
   final joinToMatchUseCase = JoinToMatchUseCase();
+  final leaveMatchUseCase = LeaveMatchUseCase();
+  final setMatchResultUseCase = SetMatchResultUseCase();
 
   Future<bool> joinToMatch(MatchModel match, int index) async {
     bool error = false;
@@ -40,9 +44,43 @@ class TournamentController extends GetxController {
     try {
       final matchUpdated = await joinToMatchUseCase(match.id, index);
       match.players = matchUpdated.players;
-      tournamentPlayers.add(match.id);
+      log('players: $tournamentPlayers');
+      tournamentPlayers.add(currentUser.id);
+      log('players: $tournamentPlayers');
       _tournament.refresh();
     } catch (e) {
+      log('error: $e');
+      error = true;
+    }
+
+    return error;
+  }
+
+  Future<bool> leaveMatch(MatchModel match,) async {
+    bool error = false;
+
+    try {
+      final matchUpdated = await leaveMatchUseCase(match.id,);
+      match.players = matchUpdated.players;
+      tournamentPlayers.remove(currentUser.id);
+      _tournament.refresh();
+    } catch (e) {
+      log('error: $e');
+      error = true;
+    }
+
+    return error;
+  }
+
+  Future<bool> setMatchResult(MatchModel match, int winner, List<List<int>> result) async {
+    bool error = false;
+
+    try{
+      await setMatchResultUseCase(match.id, winner, {'result': result});
+      match.winner = winner;
+      match.result = result;
+      _tournament.refresh();
+    }catch(e){
       log('error: $e');
       error = true;
     }

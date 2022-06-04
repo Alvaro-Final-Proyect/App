@@ -14,6 +14,8 @@ class Input extends StatelessWidget {
     this.obscureText = false,
     this.initialValue,
     this.enabled = true,
+    this.maxLength,
+    this.counterText,
   }) : super(key: key);
 
   final TextInputController? controller;
@@ -25,6 +27,8 @@ class Input extends StatelessWidget {
   final bool obscureText;
   final String? initialValue;
   final bool enabled;
+  final int? maxLength;
+  final String? counterText;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +40,7 @@ class Input extends StatelessWidget {
             initialValue: initialValue,
             onChanged: onChanged,
             obscureText: obscureText,
+            maxLength: maxLength,
             decoration: InputDecoration(
               labelText: label,
               border: const OutlineInputBorder(),
@@ -55,6 +60,7 @@ class Input extends StatelessWidget {
               prefixIcon: prefixIcon,
               errorText: controller?.error ?? null.obs.value,
               enabled: enabled,
+              counterText: counterText,
             ),
           ),
         );
