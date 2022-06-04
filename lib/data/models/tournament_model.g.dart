@@ -12,7 +12,7 @@ TournamentModel _$TournamentModelFromJson(Map<String, dynamic> json) =>
       roundOfSixteen: (json['roundOfSixteen'] as List<dynamic>)
           .map((e) => MatchModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      quarterFinals: (json['quarterFinals'] as List<dynamic>)
+      quarterFinals: (json['quarterFinal'] as List<dynamic>)
           .map((e) => MatchModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       semifinals: (json['semifinals'] as List<dynamic>)
@@ -25,7 +25,7 @@ Map<String, dynamic> _$TournamentModelToJson(TournamentModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'roundOfSixteen': instance.roundOfSixteen,
-      'quarterFinals': instance.quarterFinals,
+      'quarterFinal': instance.quarterFinals,
       'semifinals': instance.semifinals,
       'final': instance.finalMatch,
     };

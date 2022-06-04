@@ -10,6 +10,7 @@ class TournamentModel {
   @JsonKey(name: '_id')
   String id;
   List<MatchModel> roundOfSixteen;
+  @JsonKey(name: 'quarterFinal')
   List<MatchModel> quarterFinals;
   List<MatchModel> semifinals;
   @JsonKey(name: 'final')

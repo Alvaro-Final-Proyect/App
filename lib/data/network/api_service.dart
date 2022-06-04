@@ -131,4 +131,8 @@ class ApiService {
   Future<List<TournamentModel>> getAllTournaments() async {
     return await RetrofitHelper.getApiClient().getAllTournaments();
   }
+
+  Future<TournamentModel> createTournament(Map<String, dynamic> body) async {
+    return await RetrofitHelper.getApiClient().createTournamentModel(body);
+  }
 }

@@ -38,7 +38,6 @@ class MatchesPage extends StatelessWidget {
               context: context,
               builder: (context) => CreateMatchDialog(),
             );
-            log('finished');
           },
           label: Text('textCreate'.tr),
           icon: const Icon(Icons.add),

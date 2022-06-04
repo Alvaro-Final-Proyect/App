@@ -84,4 +84,7 @@ abstract class ApiClient{
 
   @GET('/api/tournaments')
   Future<List<TournamentModel>> getAllTournaments();
+
+  @POST('/api/tournaments')
+  Future<TournamentModel> createTournamentModel(@Body() Map<String, dynamic> body);
 }

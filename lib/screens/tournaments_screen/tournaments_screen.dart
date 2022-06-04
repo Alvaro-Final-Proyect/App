@@ -26,7 +26,7 @@ class TournamentsScreen extends StatelessWidget {
       floatingActionButton: _tournamentsController.currentUser.isAdmin
           ? FloatingActionButton.extended(
               onPressed: () {
-                CreateTournamentPopup.show(context);
+                showDialog(context: context, builder: (context) => CreateTournamentPopup());
               },
               icon: const Icon(Icons.create),
               label: Text('textCreate'.tr),

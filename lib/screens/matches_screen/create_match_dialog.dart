@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/match_model.dart';
-import 'package:padel/res/colors.dart';
 import 'package:padel/screens/matches_screen/matches_controller.dart';
 import 'package:padel/util/date_time_extensions.dart';
 import 'package:padel/util/time_of_day_extensions.dart';
@@ -34,11 +33,9 @@ class CreateMatchDialog extends StatelessWidget {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: Get.isDarkMode ? darkGray : lightGray,
-              // header background color
-              onPrimary: Get.isDarkMode ? white : black,
-              // header text color
-              onSurface: Get.isDarkMode ? white : black, // body text color
+              primary: Get.theme.colorScheme.onSurface,
+              onPrimary: Get.theme.colorScheme.onPrimaryContainer,
+              onSurface: Get.theme.colorScheme.onPrimaryContainer, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
