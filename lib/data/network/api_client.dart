@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/token_response.dart';
+import 'package:padel/data/models/tournament_model.dart';
 import 'package:padel/data/models/user_response.dart';
 import 'package:padel/util/wrap_map.dart';
 import 'package:retrofit/retrofit.dart';
@@ -80,4 +81,7 @@ abstract class ApiClient{
 
   @POST('/api/users')
   Future<UserModel> createUser(@Body() UserModel userModel);
+
+  @GET('/api/tournaments')
+  Future<List<TournamentModel>> getAllTournaments();
 }

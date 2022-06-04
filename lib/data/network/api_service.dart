@@ -5,6 +5,7 @@ import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/data/models/company_settings_model.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/data/models/token_response.dart';
+import 'package:padel/data/models/tournament_model.dart';
 import 'package:padel/data/models/user_response.dart';
 
 import '../../util/wrap_map.dart';
@@ -125,5 +126,9 @@ class ApiService {
 
   Future<UserModel> createUser(UserModel userModel) async {
     return await RetrofitHelper.getApiClient().createUser(userModel);
+  }
+
+  Future<List<TournamentModel>> getAllTournaments() async {
+    return await RetrofitHelper.getApiClient().getAllTournaments();
   }
 }

@@ -6,7 +6,7 @@ import 'package:padel/screens/tournaments_screen/tournaments_controller.dart';
 class TournamentsScreen extends StatelessWidget {
   TournamentsScreen({Key? key}) : super(key: key);
 
-  final _tournamentController = Get.put(TournamentsController());
+  final _tournamentsController = Get.put(TournamentsController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,17 @@ class TournamentsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('textTournaments'.tr),
       ),
-      body: TournamentsBody(),
+      body: Obx(() {
+        return _tournamentsController.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : TournamentsBody();
+      }),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          // TODO CREATE TOURNAMENT
+        },
         icon: const Icon(Icons.create),
         label: Text('textCreate'.tr),
       ),

@@ -9,11 +9,18 @@ class TournamentsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 0,
-      itemBuilder: (BuildContext context, index) {
-        return Container();
-      },
-    );
+    return Obx(() {
+      return _tournamentsController.tournaments.isEmpty
+          ? const Center(
+              child: Text('No tournaments found'),
+            )
+          : ListView.builder(
+              itemCount: _tournamentsController.tournaments.length,
+              itemBuilder: (BuildContext context, index) {
+                final tournament = _tournamentsController.tournaments[index];
+                return Text(tournament.id);
+              },
+            );
+    });
   }
 }
