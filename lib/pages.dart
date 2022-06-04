@@ -55,7 +55,7 @@ List<GetPage<dynamic>> pages = [
   ),
   GetPage(
     name: '/home/tournaments',
-    page: () => TournamentsPage(),
+    page: () => TournamentsScreen(),
     transition: Transition.leftToRightWithFade,
   ),
   GetPage(

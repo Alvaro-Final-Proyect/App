@@ -19,9 +19,6 @@ TournamentModel _$TournamentModelFromJson(Map<String, dynamic> json) =>
           .map((e) => MatchModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       finalMatch: MatchModel.fromJson(json['final'] as Map<String, dynamic>),
-      winners: (json['winners'] as List<dynamic>?)
-          ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$TournamentModelToJson(TournamentModel instance) =>
@@ -31,5 +28,4 @@ Map<String, dynamic> _$TournamentModelToJson(TournamentModel instance) =>
       'quarterFinals': instance.quarterFinals,
       'semifinals': instance.semifinals,
       'final': instance.finalMatch,
-      'winners': instance.winners,
     };

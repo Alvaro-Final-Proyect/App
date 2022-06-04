@@ -14,7 +14,6 @@ class TournamentModel {
   List<MatchModel> semifinals;
   @JsonKey(name: 'final')
   MatchModel finalMatch;
-  List<UserModel>? winners;
 
   TournamentModel({
     this.id = '',
@@ -22,7 +21,6 @@ class TournamentModel {
     required this.quarterFinals,
     required this.semifinals,
     required this.finalMatch,
-    this.winners,
   });
 
   factory TournamentModel.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +30,6 @@ class TournamentModel {
 
   @override
   String toString() {
-    return 'TournamentModel{id: $id, roundOfSixteen: $roundOfSixteen, quarterFinals: $quarterFinals, semifinals: $semifinals, finalMatch: $finalMatch, winners: $winners}';
+    return 'TournamentModel{id: $id, roundOfSixteen: $roundOfSixteen, quarterFinals: $quarterFinals, semifinals: $semifinals, finalMatch: $finalMatch,}';
   }
 }
