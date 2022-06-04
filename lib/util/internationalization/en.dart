@@ -82,4 +82,5 @@ Map<String, String> get en => {
   'textMaxLevel': 'Max level',
   'textCreateTournament': 'Create tournament',
   'textTournament': 'Tournament',
+  'textSaveResult': 'Save result',
 };

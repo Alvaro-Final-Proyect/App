@@ -82,4 +82,5 @@ Map<String, String> get es => {
   'textMaxLevel': 'Nivel máximo',
   'textCreateTournament': 'Crear torneo',
   'textTournament': 'Torneo',
+  'textSaveResult': 'Guardar resultado',
 };
