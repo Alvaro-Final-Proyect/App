@@ -14,6 +14,7 @@ import 'package:padel/screens/profile_screen/profile_page.dart';
 import 'package:padel/screens/ranking_screen/ranking_screen.dart';
 import 'package:padel/screens/register-screen/register_page.dart';
 import 'package:padel/screens/settings_screen/settings_screen.dart';
+import 'package:padel/screens/tournament_screen/tournament_screen.dart';
 import 'package:padel/screens/tournaments_screen/tournaments_screen.dart';
 import 'package:padel/screens/update_user_screen/update_user_screen.dart';
 
@@ -56,6 +57,11 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/home/tournaments',
     page: () => TournamentsScreen(),
+    transition: Transition.leftToRightWithFade,
+  ),
+  GetPage(
+    name: '/home/tournaments/tournament',
+    page: () => TournamentScreen(),
     transition: Transition.leftToRightWithFade,
   ),
   GetPage(

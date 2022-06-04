@@ -37,7 +37,6 @@ class TournamentsController extends GetxController {
   }
 
   Future<bool> createTournament(Map<String, dynamic> body) async {
-    isLoading = true;
     bool error = false;
 
     try{
@@ -48,7 +47,6 @@ class TournamentsController extends GetxController {
       error = true;
     }
 
-    isLoading = false;
     return error;
   }
 
