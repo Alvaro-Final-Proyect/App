@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:get/get.dart';
+import 'package:padel/core/retrofit_helper.dart';
 import 'package:padel/data/models/tournament_model.dart';
 import 'package:padel/domain/tournaments_use_case/get_all_tournaments_use_case.dart';
 
@@ -15,6 +16,7 @@ class TournamentsController extends GetxController {
   set tournaments(value) => _tournaments.value = value;
 
   final getAllTournamentsUseCase = GetAllTournamentsUseCase();
+  final currentUser = RetrofitHelper.user!;
 
   Future<bool> loadTournaments() async {
     isLoading = true;

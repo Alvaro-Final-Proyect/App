@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:padel/screens/tournaments_screen/tournaments_body.dart';
 import 'package:padel/screens/tournaments_screen/tournaments_controller.dart';
 
+import 'create_tournament_popup.dart';
+
 class TournamentsScreen extends StatelessWidget {
   TournamentsScreen({Key? key}) : super(key: key);
 
@@ -21,13 +23,15 @@ class TournamentsScreen extends StatelessWidget {
               )
             : TournamentsBody();
       }),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO CREATE TOURNAMENT
-        },
-        icon: const Icon(Icons.create),
-        label: Text('textCreate'.tr),
-      ),
+      floatingActionButton: _tournamentsController.currentUser.isAdmin
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                CreateTournamentPopup.show(context);
+              },
+              icon: const Icon(Icons.create),
+              label: Text('textCreate'.tr),
+            )
+          : null,
     );
   }
 }

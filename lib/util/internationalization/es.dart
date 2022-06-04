@@ -78,4 +78,7 @@ Map<String, String> get es => {
   'textAreYouSureSaveSettings': '¿Deseas guardar los ajustes?',
   'textIsAdmin': '¿Administrador?',
   'textSearchAnUser': 'Busca un usuario',
+  'textMinLevel': 'Nivel mínimo',
+  'textMaxLevel': 'Nivel máximo',
+  'textCreateTournament': 'Crear torneo',
 };

@@ -13,6 +13,7 @@ class Input extends StatelessWidget {
     this.padding,
     this.obscureText = false,
     this.initialValue,
+    this.enabled = true,
   }) : super(key: key);
 
   final TextInputController? controller;
@@ -23,32 +24,41 @@ class Input extends StatelessWidget {
   final EdgeInsets? padding;
   final bool obscureText;
   final String? initialValue;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Padding(
-        padding: padding ?? EdgeInsets.zero,
-        child: TextFormField(
-          initialValue: initialValue,
-          onChanged: onChanged,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            labelText: label,
-            border: const OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface,
-                width: 3.0,
+    return Obx(
+      () {
+        return Padding(
+          padding: padding ?? EdgeInsets.zero,
+          child: TextFormField(
+            initialValue: initialValue,
+            onChanged: onChanged,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              labelText: label,
+              border: const OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  width: 3.0,
+                ),
               ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  width: 3.0,
+                ),
+              ),
+              suffixIcon: suffixIcon,
+              prefixIcon: prefixIcon,
+              errorText: controller?.error ?? null.obs.value,
+              enabled: enabled,
             ),
-            suffixIcon: suffixIcon,
-            prefixIcon: prefixIcon,
-            errorText: controller?.error ?? null.obs.value,
           ),
-        ),
-      );
-    }
+        );
+      },
     );
   }
 }
