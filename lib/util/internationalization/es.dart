@@ -85,5 +85,5 @@ Map<String, String> get es => {
   'textSaveResult': 'Guardar resultado',
   'textSave': 'Guardar',
   'textWinner': 'Ganador',
-
+  'textTournamentFinished': 'Torneo Finalizado',
 };

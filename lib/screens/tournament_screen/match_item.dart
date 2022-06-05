@@ -6,6 +6,7 @@ import 'package:padel/screens/tournament_screen/match_result_dialog.dart';
 import 'package:padel/screens/tournament_screen/tournament_body.dart';
 import 'package:padel/screens/tournament_screen/tournament_controller.dart';
 import 'package:padel/widgets/loading_popup.dart';
+
 import 'joinable_player_item.dart';
 import 'not_joinable_player_item.dart';
 
@@ -37,7 +38,7 @@ class MatchItem extends StatelessWidget {
             children: [
               ...match.players.mapIndexed(
                 (index, player) {
-                  return round == Rounds.roundOfSixteen
+                  final playerItem = round == Rounds.roundOfSixteen
                       ? JoinablePlayerItem(
                           player: player,
                           index: index,
@@ -47,28 +48,37 @@ class MatchItem extends StatelessWidget {
                           player: player,
                           index: index,
                         );
+
+                  return player != null
+                      ? Tooltip(
+                          message: player.fullName,
+                          child: playerItem,
+                        )
+                      : playerItem;
                 },
               ).toList(),
               Expanded(child: Container()),
               if (match.players.firstWhereOrNull(
                       (el) => el?.id == _tournamentController.currentUser.id) !=
-                  null)
+                  null && match.winner != null)
                 IconButton(
                   onPressed: () {
                     LoadingPopup.show(context: context);
-                    _tournamentController.leaveMatch(match).then((value) {
-                      Get.back();
+                    _tournamentController.leaveMatch(match).then(
+                      (value) {
+                        Get.back();
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            value
-                                ? 'No se ha podido realizar la operación'
-                                : 'Has salido del torneo',
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              value
+                                  ? 'No se ha podido realizar la operación'
+                                  : 'Has salido del torneo',
+                            ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      },
+                    );
                   },
                   icon: const Icon(
                     Icons.exit_to_app,
@@ -82,7 +92,13 @@ class MatchItem extends StatelessWidget {
               _tournamentController.currentUser.isAdmin == true)
             TextButton(
               onPressed: () {
-                showDialog(context: context, builder: (context) => MatchResultDialog(match: match, round: round,));
+                showDialog(
+                  context: context,
+                  builder: (context) => MatchResultDialog(
+                    match: match,
+                    round: round,
+                  ),
+                );
               },
               child: Text('textSaveResult'.tr),
             ),

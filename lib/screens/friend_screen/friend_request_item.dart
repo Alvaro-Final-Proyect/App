@@ -34,7 +34,6 @@ class FriendRequestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('reload req');
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ExpansionTile(

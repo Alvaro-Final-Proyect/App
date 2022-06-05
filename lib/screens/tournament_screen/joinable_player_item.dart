@@ -25,10 +25,6 @@ class JoinablePlayerItem extends StatelessWidget {
           .contains(_tournamentController.currentUser.id)
           ? null
           : () {
-              log('TournamentPlayers = ${_tournamentController.tournamentPlayers}\n'
-                  'Player ID = ${_tournamentController.currentUser.id}\n'
-                  'Is in: ${_tournamentController.tournamentPlayers.contains(_tournamentController.currentUser.id)}\n');
-
               LoadingPopup.show(context: context);
               _tournamentController.joinToMatch(match, index).then((value) {
                 Get.back();

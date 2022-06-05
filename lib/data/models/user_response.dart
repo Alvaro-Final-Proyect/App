@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user_response.g.dart';
 @JsonSerializable()
@@ -24,4 +25,6 @@ class UserModel {
 
   @override
   String toString() => 'UserResponse{id: $id, username: $username, email: $email, level: $level, friends: $friends, position: $position}';
+
+  String get fullName => '${name?.capitalize} ${surname?.capitalize}';
 }

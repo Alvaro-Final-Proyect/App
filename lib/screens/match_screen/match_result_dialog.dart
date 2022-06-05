@@ -188,7 +188,6 @@ class MatchResultDialog extends StatelessWidget {
                 team2Set3Value.isEmpty ? 0 : int.parse(team2Set3Value),
               ];
 
-              log('RESULT: $set1 - $set2 - $set3');
               final winner = findWinner([set1, set2, set3]);
 
               if (winner == -1) {

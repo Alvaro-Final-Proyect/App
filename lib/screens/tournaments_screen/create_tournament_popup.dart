@@ -77,7 +77,6 @@ class CreateTournamentPopup extends StatelessWidget {
                       selectedDate = picked;
                       dateController.text = selectedDate!.getDate();
                     }
-                    log('date: $selectedDate');
                   },
                   child: TextFormField(
                     controller: dateController,
@@ -108,7 +107,6 @@ class CreateTournamentPopup extends StatelessWidget {
                       selectedTime = picked;
                       timeController.text = selectedTime!.formatted;
                     }
-                    log('time: $selectedTime');
                   },
                   child: TextFormField(
                     controller: timeController,

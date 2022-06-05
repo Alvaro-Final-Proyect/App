@@ -84,7 +84,6 @@ class UpdateUserController extends GetxController {
         usernames.add(user.username!);
         emails.add(user.email!);
       }
-      log('Users: $users, Emails: $emails, Usernames: $usernames');
     }catch(e){
       log('error: $e');
     }

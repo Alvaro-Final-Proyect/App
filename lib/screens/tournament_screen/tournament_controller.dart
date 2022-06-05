@@ -46,9 +46,7 @@ class TournamentController extends GetxController {
     try {
       final matchUpdated = await joinToMatchUseCase(match.id, index);
       match.players = matchUpdated.players;
-      log('players: $tournamentPlayers');
       tournamentPlayers.add(currentUser.id);
-      log('players: $tournamentPlayers');
       _tournament.refresh();
     } catch (e) {
       log('error: $e');
@@ -81,7 +79,6 @@ class TournamentController extends GetxController {
       await setMatchResultUseCase(match.id, winner, {'result': result});
       match.winner = winner;
       match.result = result;
-      log('Winner: $winner');
       var winners = match.players.getRange(winner == 0 ? 0 : 2, winner == 0 ? 2 : 4).toList();
 
       if(round != Rounds.finalRound){
@@ -123,29 +120,10 @@ class TournamentController extends GetxController {
 
       final startIndex = index % 2 == 0 ? 0 : 2;
 
-      log('Users: ${winners.map((e) => e!.username!)}');
-      log('Indexes: $startIndex - ${startIndex + 1}');
-      log('ToJoin: ${matchToJoin.id}');
-
       await joinToMatchWithIdUseCase(matchToJoin.id, startIndex, winners[0]!.id!);
       final matchUpdated = await joinToMatchWithIdUseCase(matchToJoin.id, startIndex + 1, winners[1]!.id!);
       matchToJoin.players = matchUpdated.players;
-      /* OCTAVOS
-      * 0 / 2 --> CUARTOS 0
-      * 1 / 2 --> .5 -> floor --> CUARTOS 0
-      * 2 / 2 --> CUARTOS 1
-      * 3 / 2 --> 1.5 -> floor -> CUARTOS 1
-      * 4 / 2 --> CUARTOS 2
-      * 5 / 2 --> 2.5 -> floor -> CUARTOS 2
-      * 6 / 2 --> CUARTOS 3
-      * 7 / 2 --> 3.5 -> floor -> CUARTOS 3
-      * */
-      /* CUARTOS
-      * 0 / 2 --> SEMI 0
-      * 1 / 2 --> .5 -> floor --> SEMI 0
-      * 2 / 2 --> SEMI 1
-      * 3 / 2 --> 1.5 -> floor -> SEMI 1
-      * */
+
       _tournament.refresh();
     }catch(e){
       log('error: $e');

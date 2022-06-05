@@ -85,4 +85,5 @@ Map<String, String> get en => {
   'textSaveResult': 'Save result',
   'textSave': 'Save',
   'textWinner': 'Winner',
+  'textTournamentFinished': 'Tournament Finished',
 };
