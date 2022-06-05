@@ -20,11 +20,28 @@ class JoinablePlayerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isUserInMatch = _tournamentController.tournamentPlayers
+        .contains(_tournamentController.currentUser.id);
+
     return InkWell(
-      onTap: player != null || _tournamentController.tournamentPlayers
-          .contains(_tournamentController.currentUser.id)
+      onTap: player != null || isUserInMatch
           ? null
           : () {
+
+              final levelClamp = _tournamentController.currentUser.level?.clamp(match.minLevel, match.maxLevel);
+
+              if(levelClamp != _tournamentController.currentUser.level){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'No tienes nivel suficiente para unirte!',
+                    ),
+                  ),
+                );
+
+                return;
+              }
+
               LoadingPopup.show(context: context);
               _tournamentController.joinToMatch(match, index).then((value) {
                 Get.back();

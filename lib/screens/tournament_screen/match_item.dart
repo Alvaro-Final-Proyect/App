@@ -6,7 +6,6 @@ import 'package:padel/screens/tournament_screen/match_result_dialog.dart';
 import 'package:padel/screens/tournament_screen/tournament_body.dart';
 import 'package:padel/screens/tournament_screen/tournament_controller.dart';
 import 'package:padel/widgets/loading_popup.dart';
-
 import 'joinable_player_item.dart';
 import 'not_joinable_player_item.dart';
 
@@ -25,6 +24,11 @@ class MatchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPlayed = DateTime.now().millisecondsSinceEpoch >
+        match.date.millisecondsSinceEpoch;
+    bool isUserInMatch = match.players
+        .any((matchPlayer) => matchPlayer?.id == _tournamentController.currentUser.id);
+
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(5),
@@ -58,9 +62,7 @@ class MatchItem extends StatelessWidget {
                 },
               ).toList(),
               Expanded(child: Container()),
-              if (match.players.firstWhereOrNull(
-                      (el) => el?.id == _tournamentController.currentUser.id) !=
-                  null && match.winner != null)
+              if (isUserInMatch && !isPlayed)
                 IconButton(
                   onPressed: () {
                     LoadingPopup.show(context: context);
@@ -88,8 +90,9 @@ class MatchItem extends StatelessWidget {
           ),
           if (match.winner != null)
             Text('${'textWinner'.tr}: ${'textTeam'.tr} ${match.winner! + 1}')
-          else if (!match.players.any((element) => element == null) &&
-              _tournamentController.currentUser.isAdmin == true)
+          else if (!match.isEmpty &&
+              _tournamentController.currentUser.isAdmin == true &&
+              isPlayed)
             TextButton(
               onPressed: () {
                 showDialog(
