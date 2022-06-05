@@ -87,4 +87,7 @@ abstract class ApiClient{
 
   @POST('/api/tournaments')
   Future<TournamentModel> createTournamentModel(@Body() Map<String, dynamic> body);
+
+  @PATCH('/api/matches/joinToMatchWithId/{id}&{index}&{userId}')
+  Future<MatchModel> joinToMatchWithId(@Path() String id, @Path() int index, @Path() String userId);
 }

@@ -135,4 +135,9 @@ class ApiService {
   Future<TournamentModel> createTournament(Map<String, dynamic> body) async {
     return await RetrofitHelper.getApiClient().createTournamentModel(body);
   }
+
+  Future<MatchModel> joinToMatchWithId(String matchId, int index, String userId) async{
+    final updatedMatch = await RetrofitHelper.getApiClient().joinToMatchWithId(matchId, index, userId);
+    return updatedMatch;
+  }
 }

@@ -77,12 +77,12 @@ class MatchItem extends StatelessWidget {
             ],
           ),
           if (match.winner != null)
-            Text('Winner: ${'textTeam'.tr} ${match.winner! + 1}')
+            Text('${'textWinner'.tr}: ${'textTeam'.tr} ${match.winner! + 1}')
           else if (!match.players.any((element) => element == null) &&
               _tournamentController.currentUser.isAdmin == true)
             TextButton(
               onPressed: () {
-                showDialog(context: context, builder: (context) => MatchResultDialog(match: match,));
+                showDialog(context: context, builder: (context) => MatchResultDialog(match: match, round: round,));
               },
               child: Text('textSaveResult'.tr),
             ),

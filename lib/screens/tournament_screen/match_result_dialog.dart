@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/match_model.dart';
+import 'package:padel/screens/tournament_screen/tournament_body.dart';
 import 'package:padel/screens/tournament_screen/tournament_controller.dart';
 import 'package:padel/util/string_extensions.dart';
 import 'package:padel/widgets/expanded_button.dart';
@@ -9,10 +9,11 @@ import 'package:padel/widgets/expanded_button.dart';
 import '../../widgets/loading_popup.dart';
 
 class MatchResultDialog extends StatelessWidget {
-  MatchResultDialog({Key? key, required this.match}) : super(key: key);
+  MatchResultDialog({Key? key, required this.match, required this.round}) : super(key: key);
 
   final tournamentController = Get.find<TournamentController>();
   final MatchModel match;
+  final Rounds round;
   final team1Set1Controller = TextEditingController();
   final team1Set2Controller = TextEditingController();
   final team1Set3Controller = TextEditingController();
@@ -205,7 +206,7 @@ class MatchResultDialog extends StatelessWidget {
 
               LoadingPopup.show(context: context);
 
-              tournamentController.setMatchResult(match, winner, [set1, set2, set3]).then((value) {
+              tournamentController.setMatchResult(match, winner, [set1, set2, set3], round).then((value) {
                 Get.back();
 
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -218,7 +219,7 @@ class MatchResultDialog extends StatelessWidget {
                   ),
                 );
 
-                if(value){
+                if(!value){
                   Get.back();
                 }
               });
