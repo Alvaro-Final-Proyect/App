@@ -67,7 +67,7 @@ class UserItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Level: ${_user.level}'),
+                    Text('Level: ${_user.roundedLevel}'),
                     Text('Position: ${_user.position}'),
                   ],
                 ),

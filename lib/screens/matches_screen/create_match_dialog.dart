@@ -35,7 +35,8 @@ class CreateMatchDialog extends StatelessWidget {
             colorScheme: ColorScheme.light(
               primary: Get.theme.colorScheme.onSurface,
               onPrimary: Get.theme.colorScheme.onPrimaryContainer,
-              onSurface: Get.theme.colorScheme.onPrimaryContainer, // body text color
+              onSurface:
+                  Get.theme.colorScheme.onPrimaryContainer, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
@@ -141,7 +142,6 @@ class CreateMatchDialog extends StatelessWidget {
           ExpandedButton(
             text: 'textCreate'.tr,
             onPressed: () async {
-
               final chosenDate = createMatchDialogController.selectedDate;
               final chosenTime = createMatchDialogController.selectedTime;
 
@@ -160,20 +160,21 @@ class CreateMatchDialog extends StatelessWidget {
               final userLevel = matchesController.user.level;
 
               final match = MatchModel(
-                  id: '',
-                  players: [
-                    matchesController.user,
-                    null,
-                    null,
-                    null,
-                  ],
-                  minLevel: userLevel == null
-                      ? 0.0
-                      : (userLevel - .75).clamp(0.0, 10.0),
-                  date: selectedDate,
-                  maxLevel: userLevel == null
-                      ? 10.0
-                      : (userLevel + .75).clamp(0.0, 10.0));
+                id: '',
+                players: [
+                  matchesController.user,
+                  null,
+                  null,
+                  null,
+                ],
+                minLevel: userLevel == null
+                    ? 0.0
+                    : (userLevel - .75).clamp(0.0, 10.0).toPrecision(2),
+                date: selectedDate,
+                maxLevel: userLevel == null
+                    ? 10.0
+                    : (userLevel + .75).clamp(0.0, 10.0).toPrecision(2),
+              );
 
               LoadingPopup.show(context: context);
 
@@ -189,15 +190,13 @@ class CreateMatchDialog extends StatelessWidget {
                   ),
                 );
 
-                if(matchesController.loadError().isEmpty){
+                if (matchesController.loadError().isEmpty) {
                   Get.back();
                 }
               }).catchError((err) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text(
-                      'Ha ocurrido un error inesperado'
-                    ),
+                    content: Text('Ha ocurrido un error inesperado'),
                   ),
                 );
               });

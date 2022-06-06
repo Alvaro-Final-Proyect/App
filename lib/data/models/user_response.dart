@@ -27,4 +27,5 @@ class UserModel {
   String toString() => 'UserResponse{id: $id, username: $username, email: $email, level: $level, friends: $friends, position: $position}';
 
   String get fullName => '${name?.capitalize} ${surname?.capitalize}';
+  String get roundedLevel => '${level?.toPrecision(2) ?? 0}';
 }

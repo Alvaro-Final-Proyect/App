@@ -63,7 +63,7 @@ class ChallengeBody extends StatelessWidget {
                     child: ListTile(
                       title: Text('${user.name} ${user.surname}'),
                       subtitle:
-                          Text('${user.level} - ${user.position?.capitalize}'),
+                          Text('${user.roundedLevel} - ${user.position?.capitalize}'),
                       trailing: IconButton(
                         onPressed: () async {
                           LoadingPopup.show(context: context);

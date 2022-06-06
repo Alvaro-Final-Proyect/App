@@ -64,7 +64,7 @@ class RankingItem extends StatelessWidget {
               const Icon(Icons.person)
           ],
         ),
-        trailing: Text('${user.level ?? 0}'),
+        trailing: Text('${user.roundedLevel}'),
       ),
     );
   }
