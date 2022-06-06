@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:get/get.dart';
+
 extension DateFormatting on DateTime {
   String format(){
     final today = DateTime.now();
@@ -11,6 +15,13 @@ extension DateFormatting on DateTime {
     }
   }
 
-  String getHour() => '${hour < 10 ? '0$hour' : hour}:${minute < 10 ? '0$minute' : minute}';
-  String getDate() => '${day < 10 ? '0$day' : day}/${month < 10 ? '0$month' : month}/$year';
+  String getHour() {
+    final time = toLocal();
+    return '${time.hour < 10 ? '0$time.hour' : time.hour}:${time.minute < 10 ? '0$time.minute' : time.minute}';
+  }
+
+  String getDate() {
+    final time = toLocal();
+    return '${time.day < 10 ? '0${time.day}' : time.day}/${time.month < 10 ? '0${time.month}' : time.month}/${time.month}';
+  }
 }

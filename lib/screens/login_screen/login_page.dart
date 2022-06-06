@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/login_screen/login_controller.dart';
@@ -80,28 +78,29 @@ class LoginBody extends StatelessWidget {
       return;
     }
 
+    LoadingPopup.show(context: context, loadingText: 'Loading...');
+
     await _loginController
         .login(
-          username.textEditingController.text,
-          password.textEditingController.text,
-          checkboxController.isChecked.value,
-        )
+            username.textEditingController.text,
+            password.textEditingController.text,
+            checkboxController.isChecked.value)
         .then(
-          (value) => {
-            if (_loginController.loadError() == '')
-              {Get.offAllNamed('/home')}
-            else
-              {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      _loginController.loadError(),
-                    ),
-                  ),
-                )
-              }
-          },
-        );
+      (value) {
+          Get.back();
+          if (_loginController.loadError() == '') {
+            Get.offAllNamed('/home');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  _loginController.loadError(),
+                ),
+              ),
+            );
+          }
+      },
+    );
   }
 
   @override
@@ -148,10 +147,8 @@ class LoginBody extends StatelessWidget {
                     height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () async {
-                        LoadingPopup.show(context: context, loadingText: 'Loading...');
-                        await _login(context);
-                        Get.back();
+                      onPressed: () {
+                        _login(context);
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

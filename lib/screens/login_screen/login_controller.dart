@@ -36,7 +36,7 @@ class LoginController extends GetxController {
         RetrofitHelper.user = await getUserFromTokenUseCase();
         RetrofitHelper.companySettings = await getCompanySettingsUseCase();
       }
-    } on Exception catch (_) {
+    } catch(e) {
       _loadError.value = 'User or password invalid';
     }
     _isLoading.value = false;
