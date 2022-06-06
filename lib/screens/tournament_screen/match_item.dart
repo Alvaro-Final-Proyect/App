@@ -62,7 +62,7 @@ class MatchItem extends StatelessWidget {
                 },
               ).toList(),
               Expanded(child: Container()),
-              if (isUserInMatch && !isPlayed)
+              if (isUserInMatch && !isPlayed && round == Rounds.roundOfSixteen)
                 IconButton(
                   onPressed: () {
                     LoadingPopup.show(context: context);
