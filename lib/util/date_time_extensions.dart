@@ -22,6 +22,6 @@ extension DateFormatting on DateTime {
 
   String getDate() {
     final time = toLocal();
-    return '${time.day < 10 ? '0${time.day}' : time.day}/${time.month < 10 ? '0${time.month}' : time.month}/${time.month}';
+    return '${time.day < 10 ? '0${time.day}' : time.day}/${time.month < 10 ? '0${time.month}' : time.month}/${time.year}';
   }
 }
