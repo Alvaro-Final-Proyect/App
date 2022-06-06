@@ -48,19 +48,29 @@ class FriendRequestItem extends StatelessWidget {
           ).image,
         ),
         children: <Widget>[
-          ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Container(
+            decoration: BoxDecoration(
+                color: Get.theme.colorScheme.onSurface
+            ),
+            padding: const EdgeInsets.all(10),
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
               children: [
-                Text('Level: ${_user.level}'),
-                Text('Position: ${_user.position}'),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Level: ${_user.level}'),
+                    Text('Position: ${_user.position}'),
+                  ],
+                ),
                 ElevatedButton(
-                  onPressed: () => _acceptRequest(context),
-                  child: const Text('Accept Friend')
-                )
+                    onPressed: () => _acceptRequest(context),
+                    child: const Text('Accept Friend')
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
