@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,9 +11,13 @@ import '../../widgets/pay_poup.dart';
 import 'matches_controller.dart';
 
 class MatchItem extends StatelessWidget {
-  MatchItem(this._match, {Key? key,}) : super(key: key);
+  MatchItem(
+    this._match, {
+    Key? key,
+  }) : super(key: key);
 
   final Rx<MatchModel> _match;
+
   MatchModel get match => _match.value;
   final matchesController = Get.find<MatchesController>();
 
@@ -37,14 +40,10 @@ class MatchItem extends StatelessWidget {
 
     final playerLevel = matchesController.user.level ?? 0;
 
-    if (playerLevel.clamp(match.minLevel,
-        match.maxLevel) !=
-        playerLevel) {
+    if (playerLevel.clamp(match.minLevel, match.maxLevel) != playerLevel) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-              'Tu nivel no te permite unirte'
-          ),
+          content: Text('Tu nivel no te permite unirte'),
         ),
       );
 
@@ -57,9 +56,10 @@ class MatchItem extends StatelessWidget {
       Get.back();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(matchesController.loadError().isEmpty
-              ? 'textJoined'.tr
-              : matchesController.loadError(),
+          content: Text(
+            matchesController.loadError().isEmpty
+                ? 'textJoined'.tr
+                : matchesController.loadError(),
           ),
         ),
       );
@@ -90,10 +90,12 @@ class MatchItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: Text(
+                        child: AutoSizeText(
                           match.date.getHour(),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          minFontSize: 5,
                         ),
                       ),
                       Expanded(
@@ -117,39 +119,36 @@ class MatchItem extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
-                      Expanded(
-                        child: Row(
+                      SizedBox(
+                        width: double.infinity,
+                        child: Wrap(
+                          alignment: WrapAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              child: Row(
-                                children:
-                                    match.players.getRange(0, 2).mapIndexed(
-                                  (index, player) {
-                                    return PlayerItem(
-                                      index: index,
-                                      joinToMatch: _joinToMatch,
-                                      player: player.obs,
-                                    );
-                                  },
-                                ).toList(),
-                              ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: match.players.getRange(0, 2).mapIndexed(
+                                    (index, player) {
+                                  return PlayerItem(
+                                    index: index,
+                                    joinToMatch: _joinToMatch,
+                                    player: player.obs,
+                                  );
+                                },
+                              ).toList(),
                             ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children:
-                                    match.players.getRange(2, 4).mapIndexed(
-                                  (index, player) {
-                                    index = index + 2;
-                                    return PlayerItem(
-                                      player: player.obs,
-                                      index: index,
-                                      joinToMatch: _joinToMatch,
-                                    );
-                                  },
-                                ).toList(),
-                              ),
-                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: match.players.getRange(2, 4).mapIndexed(
+                                    (index, player) {
+                                  index = index + 2;
+                                  return PlayerItem(
+                                    player: player.obs,
+                                    index: index,
+                                    joinToMatch: _joinToMatch,
+                                  );
+                                },
+                              ).toList(),
+                            )
                           ],
                         ),
                       ),
