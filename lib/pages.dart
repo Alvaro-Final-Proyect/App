@@ -12,7 +12,7 @@ import 'package:padel/screens/match_screen/match_page.dart';
 import 'package:padel/screens/matches_screen/matches_page.dart';
 import 'package:padel/screens/profile_screen/profile_page.dart';
 import 'package:padel/screens/ranking_screen/ranking_screen.dart';
-import 'package:padel/screens/register-screen/register_page.dart';
+import 'package:padel/screens/register_screen/register_page.dart';
 import 'package:padel/screens/settings_screen/settings_screen.dart';
 import 'package:padel/screens/tournament_screen/tournament_screen.dart';
 import 'package:padel/screens/tournaments_screen/tournaments_screen.dart';
