@@ -3,6 +3,7 @@ import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/register_screen/register_controller.dart';
+import 'package:padel/widgets/input.dart';
 import 'package:padel/widgets/loading_popup.dart';
 
 import '../../widgets/custom_password_field.dart';
@@ -18,34 +19,19 @@ class RegisterBody extends StatelessWidget {
   RegisterBody({Key? key}) : super(key: key);
 
   bool validateFields() {
-    bool usernameValidation = username.validator(
-        username.customTextFieldController, username.textEditingController);
-    bool emailValidation = email.validator(
-        email.customTextFieldController, email.textEditingController);
-    bool passwordValidation = password.validator(
-        password.customPasswordFieldController,
-        password.textEditingController,
-        null);
-    bool repeatPasswordValidation = repeatPassword.validator(
-        repeatPassword.customPasswordFieldController,
-        repeatPassword.textEditingController,
-        password.textEditingController.text);
-    bool nameValidation = name.validator(
-        name.customTextFieldController, name.textEditingController);
-    bool surnameValidation = surname.validator(
-        surname.customTextFieldController, surname.textEditingController);
-    bool levelValidation = level.validator(level.dropDownMenuController);
-    bool positionValidation =
-        position.validator(position.dropDownMenuController);
 
-    return usernameValidation &&
-        emailValidation &&
-        passwordValidation &&
-        repeatPasswordValidation &&
-        nameValidation &&
-        surnameValidation &&
-        levelValidation &&
-        positionValidation;
+    final validations = [
+      _registerController.usernameController.validate(values: {'usernames': _registerController.usernames}),
+      _registerController.emailController.validate(values: {'emails': _registerController.emails}),
+      _registerController.passwordController.validate(),
+      _registerController.repeatPasswordController.validate(values: {'password': _registerController.passwordController.text}),
+      _registerController.nameController.validate(),
+      _registerController.surnameController.validate(),
+      level.validator(level.dropDownMenuController),
+      position.validator(position.dropDownMenuController),
+    ];
+
+    return !validations.contains(false);
   }
 
   void _register(BuildContext context) async {
@@ -54,11 +40,11 @@ class RegisterBody extends StatelessWidget {
 
       _registerController
           .register(
-        username: username.textEditingController.text,
-        email: email.textEditingController.text,
-        password: password.textEditingController.text,
-        name: name.textEditingController.text,
-        surname: surname.textEditingController.text,
+        username: _registerController.usernameController.text,
+        email: _registerController.emailController.text,
+        password: _registerController.passwordController.text,
+        name: _registerController.nameController.text,
+        surname: _registerController.surnameController.text,
         level: level.dropDownMenuController.selected.value,
         position: position.dropDownMenuController.selectedValue,
         gender: genderController.gender,
@@ -93,116 +79,6 @@ class RegisterBody extends StatelessWidget {
 
   final RegisterController _registerController = Get.find();
   final GenderController genderController = GenderController();
-  final username = CustomTextField(
-    validator: (customTextFieldController, textEditingController) {
-      final String text = textEditingController.text;
-      bool result = false;
-
-      if (text.isBlank ?? true) {
-        customTextFieldController.textError.value = 'Username cant be blank';
-      } else {
-        customTextFieldController.textError.value = '';
-        result = true;
-      }
-      return result;
-    },
-    labelText: 'textUsername',
-    icon: Icons.person,
-    margin: const EdgeInsets.all(10),
-  );
-  final email = CustomTextField(
-      labelText: 'textEmail',
-      icon: Icons.email,
-      margin: const EdgeInsets.all(10),
-      validator: (customTextFieldController, textEditingController) {
-        final String text = textEditingController.text;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          customTextFieldController.textError.value = 'Email cant be blank';
-        } else if (!text.isEmail) {
-          customTextFieldController.textError.value =
-              'Email format error: example@example.es';
-        } else {
-          customTextFieldController.textError.value = '';
-          result = true;
-        }
-
-        return result;
-      });
-  final password = CustomPasswordField(
-      labelText: 'textPassword',
-      margin: const EdgeInsets.all(10),
-      validator: (customPasswordFieldController, textEditingController, _) {
-        final String text = textEditingController.text;
-        final RxString textError = customPasswordFieldController.textError;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          textError.value = 'Password cant be empty';
-        } else if (text.length < 5) {
-          textError.value = 'Password length must be 5 or more';
-        } else {
-          textError.value = '';
-          result = true;
-        }
-        return result;
-      });
-  final repeatPassword = CustomPasswordField(
-      labelText: 'textRepeatPassword',
-      margin: const EdgeInsets.all(10),
-      validator: (customPasswordFieldController, textEditingController,
-          otherPassword) {
-        final String text = textEditingController.text;
-        final RxString textError = customPasswordFieldController.textError;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          textError.value = 'Password cant be empty';
-        } else if (text.length < 5) {
-          textError.value = 'Password length must be 5 or more';
-        } else if (text != otherPassword) {
-          textError.value = 'Both passwords must be equals';
-        } else {
-          textError.value = '';
-          result = true;
-        }
-        return result;
-      });
-  final name = CustomTextField(
-      labelText: 'textName',
-      icon: null,
-      margin: const EdgeInsets.all(10),
-      validator: (customTextFieldController, textEditingController) {
-        final String text = textEditingController.text;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          customTextFieldController.textError.value = 'Username cant be blank';
-        } else {
-          customTextFieldController.textError.value = '';
-          result = true;
-        }
-
-        return result;
-      });
-  final surname = CustomTextField(
-      labelText: 'textSurname',
-      icon: null,
-      margin: const EdgeInsets.all(10),
-      validator: (customTextFieldController, textEditingController) {
-        final String text = textEditingController.text;
-        bool result = false;
-
-        if (text.isBlank ?? true) {
-          customTextFieldController.textError.value = 'Username cant be blank';
-        } else {
-          customTextFieldController.textError.value = '';
-          result = true;
-        }
-
-        return result;
-      });
   final level = DropdownMenu(
     items: const <String>['1.50', '2.00', '2.50', '3.00', '3.50', '4.00'],
     hint: 'textSelectYourLevel',
@@ -246,17 +122,114 @@ class RegisterBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usernameController = _registerController.usernameController;
+    final emailController = _registerController.emailController;
+    final passwordController = _registerController.passwordController;
+    final repeatPasswordController = _registerController.repeatPasswordController;
+    final nameController = _registerController.nameController;
+    final surnameController = _registerController.surnameController;
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            username,
-            email,
-            password,
-            repeatPassword,
-            name,
-            surname,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Input(
+                label: 'textUsername'.tr,
+                prefixIcon: const Icon(Icons.person),
+                controller: usernameController,
+                onChanged: (value) {
+                  usernameController.onChanged(value);
+                  usernameController.validate(values: {'usernames' : _registerController.usernames});
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Input(
+                label: 'textEmail'.tr,
+                prefixIcon: const Icon(Icons.email),
+                controller: emailController,
+                onChanged: (value) {
+                  emailController.onChanged(value);
+                  emailController.validate(values: {'emails' : _registerController.emails});
+                },
+              ),
+            ),
+            Obx(() {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Input(
+                  label: 'textPassword'.tr,
+                  prefixIcon: const Icon(Icons.password),
+                  controller: passwordController,
+                  onChanged: (value) {
+                    passwordController.onChanged(value);
+                    passwordController.validate();
+                  },
+                  suffixIcon: IconButton(
+                    onPressed:
+                    passwordController.toggleVisibility,
+                    icon: Icon(
+                      passwordController.isVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  ),
+                  obscureText: !passwordController.isVisible,
+                ),
+              );
+            }),
+            Obx(() {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Input(
+                  label: 'textPassword'.tr,
+                  prefixIcon: const Icon(Icons.password),
+                  controller: repeatPasswordController,
+                  onChanged: (value) {
+                    repeatPasswordController.onChanged(value);
+                    repeatPasswordController.validate(values: {'password': passwordController.text});
+                  },
+                  suffixIcon: IconButton(
+                    onPressed:
+                    repeatPasswordController.toggleVisibility,
+                    icon: Icon(
+                      repeatPasswordController.isVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  ),
+                  obscureText: !repeatPasswordController.isVisible,
+                ),
+              );
+            }),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Input(
+                label: 'textName'.tr,
+                prefixIcon: const Icon(Icons.edit),
+                controller: nameController,
+                onChanged: (value) {
+                  nameController.onChanged(value);
+                  nameController.validate();
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Input(
+                label: 'textSurname'.tr,
+                prefixIcon: const Icon(Icons.edit),
+                controller: surnameController,
+                onChanged: (value) {
+                  surnameController.onChanged(value);
+                  surnameController.validate();
+                },
+              ),
+            ),
             Card(
               shape: OutlineInputBorder(
                 borderSide: BorderSide(
