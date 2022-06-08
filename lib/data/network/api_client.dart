@@ -12,7 +12,7 @@ import '../models/company_settings_model.dart';
 
 part 'api_client.g.dart';
 
-@RestApi(baseUrl: "http://192.168.1.128:8080")
+@RestApi(baseUrl: "https://padel-it.herokuapp.com/")
 abstract class ApiClient{
   factory ApiClient(Dio dio) = _ApiClient;
 

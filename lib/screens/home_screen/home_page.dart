@@ -46,41 +46,41 @@ class HomeBody extends StatelessWidget {
         SliverList(
             delegate: SliverChildListDelegate(
           [
-            SizedBox(
-              height: 200,
-              child: Card(
-                margin: const EdgeInsets.all(20),
-                color: Theme.of(context).colorScheme.onSurface,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Expanded(
-                        child: Image.asset(
-                          'assets/raqueta-de-padel.png',
-                        ),
-                      ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              color: Theme.of(context).colorScheme.onSurface,
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    height: 200,
+                    child: Image.asset(
+                      'assets/raqueta-de-padel.png',
+                      fit: BoxFit.fill,
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AutoSizeText(
-                              'textAppName'.tr,
-                              style: GoogleFonts.bebasNeue(fontSize: 52),
-                            ),
-                            AutoSizeText(
-                              'textSportManagement'.tr,
-                              style: GoogleFonts.bebasNeue(fontSize: 18),
-                            ),
-                          ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        AutoSizeText(
+                          'textAppName'.tr,
+                          style: GoogleFonts.bebasNeue(fontSize: 52),
+                          maxLines: 1,
+                          minFontSize: 5,
                         ),
-                      ),
+                        AutoSizeText(
+                          'textSportManagement'.tr,
+                          style: GoogleFonts.bebasNeue(fontSize: 18),
+                          maxLines: 1,
+                          minFontSize: 5,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

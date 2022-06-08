@@ -36,7 +36,7 @@ class RegisterBody extends StatelessWidget {
         surname.customTextFieldController, surname.textEditingController);
     bool levelValidation = level.validator(level.dropDownMenuController);
     bool positionValidation =
-    position.validator(position.dropDownMenuController);
+        position.validator(position.dropDownMenuController);
 
     return usernameValidation &&
         emailValidation &&
@@ -49,12 +49,11 @@ class RegisterBody extends StatelessWidget {
   }
 
   void _register(BuildContext context) async {
-
     if (validateFields()) {
-
       LoadingPopup.show(context: context);
 
-      _registerController.register(
+      _registerController
+          .register(
         username: username.textEditingController.text,
         email: email.textEditingController.text,
         password: password.textEditingController.text,
@@ -63,7 +62,8 @@ class RegisterBody extends StatelessWidget {
         level: level.dropDownMenuController.selected.value,
         position: position.dropDownMenuController.selectedValue,
         gender: genderController.gender,
-      ).then(
+      )
+          .then(
         (value) {
           Get.back();
 
@@ -248,77 +248,74 @@ class RegisterBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              username,
-              email,
-              password,
-              repeatPassword,
-              name,
-              surname,
-              Card(
-                shape: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      width: 3.0),
-                ),
-                color: Theme.of(context).colorScheme.onPrimary,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'textSelectYourGender'.tr,
-                          style: Get.isDarkMode
-                              ? const TextStyle(color: Color(0xFF969ba4))
-                              : const TextStyle(color: Color(0xFF5e5e5e)),
-                        )),
-                    GenderPickerWithImage(
-                      unSelectedGenderTextStyle: Get.isDarkMode
-                          ? const TextStyle(
-                              color: Color(0xFF969ba4),
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600,
-                            )
-                          : const TextStyle(
-                              color: Color(0xFF5e5e5e),
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      selectedGender: Gender.Male,
-                      onChanged: (Gender? gender) {
-                        if (gender == Gender.Female) {
-                          genderController.gender = 'female';
-                        } else {
-                          genderController.gender = 'male';
-                        }
-                      },
-                      maleText: 'textMale'.tr,
-                      femaleText: 'textFemale'.tr,
-                    )
-                  ],
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            username,
+            email,
+            password,
+            repeatPassword,
+            name,
+            surname,
+            Card(
+              shape: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.onSurface, width: 3.0),
               ),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: level),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                  child: position),
-              ExpandedButton(
-                text: 'registerTitle'.tr,
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(20),
-                onPressed: () => _register(context),
+              color: Theme.of(context).colorScheme.onPrimary,
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'textSelectYourGender'.tr,
+                        style: Get.isDarkMode
+                            ? const TextStyle(color: Color(0xFF969ba4))
+                            : const TextStyle(color: Color(0xFF5e5e5e)),
+                      )),
+                  GenderPickerWithImage(
+                    unSelectedGenderTextStyle: Get.isDarkMode
+                        ? const TextStyle(
+                            color: Color(0xFF969ba4),
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                          )
+                        : const TextStyle(
+                            color: Color(0xFF5e5e5e),
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    selectedGender: Gender.Male,
+                    onChanged: (Gender? gender) {
+                      if (gender == Gender.Female) {
+                        genderController.gender = 'female';
+                      } else {
+                        genderController.gender = 'male';
+                      }
+                    },
+                    maleText: 'textMale'.tr,
+                    femaleText: 'textFemale'.tr,
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: level),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                child: position),
+            ExpandedButton(
+              text: 'registerTitle'.tr,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(20),
+              onPressed: () => _register(context),
+            ),
+          ],
         ),
       ),
     );

@@ -10,7 +10,7 @@ part of 'api_client.dart';
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.1.128:8080';
+    baseUrl ??= 'https://padel-it.herokuapp.com/';
   }
 
   final Dio _dio;

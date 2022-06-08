@@ -1,10 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alvaro.padel.padel">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="padel"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
+            android:usesCleartextTraffic="true"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
