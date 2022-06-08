@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/tournament_screen/match_item.dart';
 import 'package:padel/screens/tournament_screen/tournament_controller.dart';
+import 'package:padel/util/date_time_extensions.dart';
 import 'package:padel/util/image_extensions.dart';
 
 enum Rounds { roundOfSixteen, quarterFinals, semifinals, finalRound }
@@ -31,7 +32,7 @@ class TournamentBody extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'roundOfSixteen'.tr,
+                            '${'roundOfSixteen'.tr} - ${_tournamentController.tournament.roundOfSixteen.first.date.getDate()}',
                           ),
                         ),
                         ..._tournamentController.tournament.roundOfSixteen
@@ -58,7 +59,7 @@ class TournamentBody extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'quarterFinals'.tr,
+                            '${'quarterFinals'.tr} - ${_tournamentController.tournament.quarterFinals.first.date.getDate()}'
                           ),
                         ),
                         ..._tournamentController.tournament.quarterFinals
@@ -85,7 +86,7 @@ class TournamentBody extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'semiFinals'.tr,
+                            '${'semiFinals'.tr} - ${_tournamentController.tournament.semifinals.first.date.getDate()}'
                           ),
                         ),
                         ..._tournamentController.tournament.semifinals
@@ -112,7 +113,7 @@ class TournamentBody extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'final'.tr,
+                            '${'final'.tr} - ${_tournamentController.tournament.finalMatch.date.getDate()}',
                           ),
                         ),
                         MatchItem(

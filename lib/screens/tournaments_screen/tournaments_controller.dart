@@ -27,6 +27,7 @@ class TournamentsController extends GetxController {
 
     try{
       tournaments = await getAllTournamentsUseCase();
+      tournaments.sort((a, b) => b.roundOfSixteen.first.compareTo(a.roundOfSixteen.first));
     }catch(e){
       log('error: $e');
       error = true;
@@ -42,6 +43,7 @@ class TournamentsController extends GetxController {
     try{
       final tournamentCreated = await createTournamentUseCase(body);
       tournaments.add(tournamentCreated);
+      tournaments.sort((a, b) => b.roundOfSixteen.first.compareTo(a.roundOfSixteen.first));
     }catch(e){
       log('error: $e');
       error = true;
