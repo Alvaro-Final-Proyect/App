@@ -165,6 +165,17 @@ class CreateMatchDialog extends StatelessWidget {
                   chosenTime.minute
               );
 
+              if(selectedDate.isBefore(DateTime.now())){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                        'La fecha debe ser en el futuro'
+                    ),
+                  ),
+                );
+                return;
+              }
+
               final offset = selectedDate.timeZoneOffset.inHours;
               log('$offset - ${selectedDate.hour} - ${selectedDate.minute}');
               selectedDate = selectedDate.subtract(Duration(hours: offset));
