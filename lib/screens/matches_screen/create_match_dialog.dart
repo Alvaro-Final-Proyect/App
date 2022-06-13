@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:padel/data/models/match_model.dart';
 import 'package:padel/screens/matches_screen/matches_controller.dart';
@@ -58,7 +59,7 @@ class CreateMatchDialog extends StatelessWidget {
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: TimeOfDay.fromDateTime(DateTime.now().add(const Duration(minutes: 30))),
     );
     if (picked != null) {
       // check hour
@@ -146,16 +147,28 @@ class CreateMatchDialog extends StatelessWidget {
               final chosenTime = createMatchDialogController.selectedTime;
 
               if (chosenDate == null || chosenTime == null) {
-                Fluttertoast.showToast(msg: 'Choose a date and an hour');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Elige fecha y hora'
+                    ),
+                  ),
+                );
                 return;
               }
 
-              final DateTime selectedDate = DateTime(
+              DateTime selectedDate = DateTime(
                   chosenDate.year,
                   chosenDate.month,
                   chosenDate.day,
                   chosenTime.hour,
-                  chosenTime.minute);
+                  chosenTime.minute
+              );
+
+              final offset = selectedDate.timeZoneOffset.inHours;
+              log('$offset - ${selectedDate.hour} - ${selectedDate.minute}');
+              selectedDate = selectedDate.subtract(Duration(hours: offset));
+              log('$offset - ${selectedDate.hour} - ${selectedDate.minute}');
 
               final userLevel = matchesController.user.level;
 
