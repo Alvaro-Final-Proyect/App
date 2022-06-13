@@ -17,7 +17,8 @@ extension DateFormatting on DateTime {
 
   String getHour() {
     final time = toLocal();
-    return '${time.hour < 10 ? '0$time.hour' : time.hour}:${time.minute < 10 ? '0$time.minute' : time.minute}';
+    final value = '${time.hour < 10 ? '0${time.hour}' : time.hour}:${time.minute < 10 ? '0${time.minute}' : time.minute}';
+    return value;
   }
 
   String getDate() {

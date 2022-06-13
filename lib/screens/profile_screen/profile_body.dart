@@ -5,8 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:padel/screens/profile_screen/profile_controller.dart';
+import 'package:padel/util/image_extensions.dart';
 
-import '../../res/constants.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/drop_down_menu.dart';
 
@@ -104,15 +104,12 @@ class ProfileBody extends StatelessWidget {
                 },
                 child: Obx(() {
                   return CircleAvatar(
-                    backgroundImage: profileController.currentUser?.image == null
-                      ? Image.network(userImageUrl).image
-                      : Image.memory(
-                          profileController.pickedImage.isEmpty ? base64Decode(
-                            profileController.currentUser!.image!,
-                          ) : base64Decode(
-                            profileController.pickedImage.value,
-                          )
-                        ).image,
+                    backgroundImage: profileController.pickedImage.isEmpty
+                        ? ImageExtensions.fromUser(
+                            profileController.currentUser!)
+                        : Image.memory(base64Decode(
+                                profileController.pickedImage.value))
+                            .image,
                   );
                 }),
               ),

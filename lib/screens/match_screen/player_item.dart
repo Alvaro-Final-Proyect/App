@@ -44,8 +44,8 @@ class PlayerItem extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Text(player != null ? '${player?.name} (${player?.position})' : 'Empty'),
-              Text(player != null ? 'Level: ${player?.level}' : '')
+              Text(player != null ? '${player?.name} (${'text${player!.position!.capitalize}Position'.tr})' : 'Empty'),
+              Text(player != null ? 'Level: ${player?.roundedLevel}' : '')
             ],
           ),
         )
